@@ -40,7 +40,7 @@ const jsonLd = {
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#f2f1ec" />
+    <meta name="theme-color" content="#0d120f" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="mitis" />
@@ -81,10 +81,38 @@ const jsonLd = {
   <body>
     <a
       href="#contenuto"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-carta focus:px-4 focus:py-2 focus:font-mono focus:text-label"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-quadro focus:px-4 focus:py-2 focus:font-mono focus:text-label focus:text-carta"
     >
       Vai al contenuto
     </a>
     <slot />
+    <noscript>
+      <style>
+        [data-rivela],
+        [data-rivela-serie] > * {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style>
+    </noscript>
+    <script>
+      const osservati = document.querySelectorAll('[data-rivela], [data-rivela-serie]');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (voci) => {
+            for (const v of voci) {
+              if (v.isIntersecting) {
+                v.target.classList.add('in');
+                io.unobserve(v.target);
+              }
+            }
+          },
+          { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
+        );
+        osservati.forEach((el) => io.observe(el));
+      } else {
+        osservati.forEach((el) => el.classList.add('in'));
+      }
+    </script>
   </body>
 </html>

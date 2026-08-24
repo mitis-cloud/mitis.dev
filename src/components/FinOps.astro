@@ -15,21 +15,41 @@ const leve = [
 ---
 
 <Section id="finops" eyebrow="finops" class="py-14 md:py-20">
-  <h2 class="max-w-[24ch] font-display text-h2 font-bold">Meno spesa, stesse prestazioni.</h2>
-  <p class="mt-5 max-w-[62ch] text-body text-inchiostro/80">
+  <h2 class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>
+    Meno spesa, stesse prestazioni.
+  </h2>
+  <p class="mt-5 max-w-[62ch] text-body text-carta/75" data-rivela>
     La bolletta cloud non scende chiedendo uno sconto: scende con l’ingegneria. Right-sizing,
     spot, consolidamento, storage, traffico. Lavoro poco appariscente, molto misurabile.
   </p>
 
-  <div class="mt-10 grid gap-6 lg:grid-cols-[1fr_1fr]">
-    <div class="rounded-lg border border-inchiostro/12 p-6 md:p-8">
+  <div class="mt-10 grid gap-6 lg:grid-cols-[1fr_1fr]" data-rivela-serie>
+    <div class="rapporto rounded-lg bg-carta p-6 text-inchiostro shadow-[0_20px_60px_rgba(0,0,0,0.4)] md:p-8">
       <p class="font-mono text-label text-inchiostro/65">caso reale, anonimizzato</p>
-      <p class="mt-4 font-display text-[clamp(3rem,2.2rem+3vw,4.5rem)] leading-none font-extrabold text-felce">
-        fino al −70%
+      <p
+        class="mt-4 font-display text-[clamp(3rem,2.2rem+3vw,4.5rem)] leading-none font-extrabold text-felce"
+        data-conta
+        aria-label="fino al meno settanta per cento"
+      >
+        fino al <span data-conta-numero>−70%</span>
       </p>
       <p class="mt-3 max-w-[44ch] text-body text-inchiostro/85">
         di spesa cloud su una piattaforma multi-tenant enterprise, a parità di carico servito.
       </p>
+      <div class="mt-6 space-y-2" aria-hidden="true">
+        <div class="flex items-center gap-3 font-mono text-label text-inchiostro/65">
+          <span class="w-12 shrink-0">prima</span>
+          <div class="h-3 flex-1 overflow-hidden rounded-xs bg-inchiostro/10">
+            <div class="barra h-full w-full origin-left rounded-xs bg-inchiostro/55"></div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 font-mono text-label text-inchiostro/65">
+          <span class="w-12 shrink-0">dopo</span>
+          <div class="h-3 flex-1 overflow-hidden rounded-xs bg-inchiostro/10">
+            <div class="barra barra-dopo h-full w-[30%] origin-left rounded-xs bg-felce"></div>
+          </div>
+        </div>
+      </div>
       <dl class="mt-6 grid gap-x-6 gap-y-2 font-mono text-s sm:grid-cols-[auto_1fr]">
         <dt class="text-inchiostro/65">settore</dt>
         <dd class="[overflow-wrap:anywhere] max-sm:mb-2">{segnaposto.settoreCliente}</dd>
@@ -46,8 +66,8 @@ const leve = [
         <ul class="mt-4 grid gap-x-8 gap-y-2 sm:grid-cols-1">
           {
             leve.map((l) => (
-              <li class="flex gap-3 text-s text-inchiostro/85">
-                <span class="mt-0.5 shrink-0 font-mono font-bold text-felce" aria-hidden="true">
+              <li class="flex gap-3 text-s text-carta/80">
+                <span class="mt-0.5 shrink-0 font-mono font-bold text-lichene" aria-hidden="true">
                   +
                 </span>
                 {l}
@@ -59,16 +79,57 @@ const leve = [
     </div>
   </div>
 
-  <div class="mt-8 rounded-lg border-l-4 border-felce bg-felce/8 px-6 py-5 md:px-8">
-    <p class="max-w-[70ch] text-l text-inchiostro">
+  <div class="mt-8 rounded-lg border-l-4 border-lichene bg-felce/12 px-6 py-5 md:px-8" data-rivela>
+    <p class="max-w-[70ch] text-l text-carta">
       Non promettiamo il 70% a tutti. Promettiamo di dirti in due settimane quanto puoi
       realisticamente recuperare, e cosa costa ottenerlo.
     </p>
-    <p class="mt-2 text-s text-inchiostro/70">
+    <p class="mt-2 text-s text-carta/70">
       È il lavoro dell’<a
         href="#offerte"
-        class="text-felce underline underline-offset-4 hover:no-underline">assessment FinOps</a
+        class="text-lichene underline underline-offset-4 hover:no-underline">assessment FinOps</a
       >: prezzo fisso, durata fissa, utile anche se poi non ci scegli.
     </p>
   </div>
 </Section>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .barra {
+      transform: scaleX(0);
+      transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.45s;
+    }
+    .barra-dopo {
+      transition-delay: 0.75s;
+    }
+    :global([data-rivela-serie].in) .barra {
+      transform: scaleX(1);
+    }
+  }
+</style>
+
+<script>
+  const blocco = document.querySelector('[data-conta]');
+  const numero = document.querySelector<HTMLElement>('[data-conta-numero]');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (blocco && numero && !reduced && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (voci) => {
+        if (!voci.some((v) => v.isIntersecting)) return;
+        io.disconnect();
+        const durata = 1400;
+        const inizio = performance.now();
+        const passo = (t: number) => {
+          const x = Math.min((t - inizio) / durata, 1);
+          const ease = 1 - Math.pow(1 - x, 3);
+          numero.textContent = `−${Math.round(70 * ease)}%`;
+          if (x < 1) requestAnimationFrame(passo);
+        };
+        requestAnimationFrame(passo);
+      },
+      { threshold: 0.5 },
+    );
+    io.observe(blocco);
+  }
+</script>

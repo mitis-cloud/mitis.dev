@@ -5,18 +5,19 @@ import { contatti } from '../dati';
 const links = [
   { href: '#finops', label: 'FinOps' },
   { href: '#kubernetes', label: 'Kubernetes' },
+  { href: '#devops', label: 'DevOps' },
   { href: '#offerte', label: 'Offerte' },
   { href: '#faq', label: 'FAQ' },
 ];
 ---
 
-<header class="px-5 sm:px-8">
+<header class="sticky top-0 z-40 border-b border-carta/10 bg-sfondo/85 px-5 backdrop-blur-md sm:px-8">
   <nav
-    class="mx-auto flex w-full max-w-6xl items-center justify-between gap-6 py-6"
+    class="mx-auto flex w-full max-w-6xl items-center justify-between gap-6 py-4"
     aria-label="Principale"
   >
-    <a href="/" class="text-[1.35rem] leading-none" aria-label="mitis — home">
-      <Wordmark />
+    <a href="/" class="text-[1.35rem] leading-none text-carta" aria-label="mitis — home">
+      <Wordmark cursor="bg-lichene" />
     </a>
     <div class="flex items-center gap-7">
       <ul class="hidden items-center gap-7 md:flex">
@@ -25,7 +26,7 @@ const links = [
             <li>
               <a
                 href={l.href}
-                class="font-mono text-label text-inchiostro/70 transition-colors hover:text-inchiostro"
+                class="font-mono text-label text-carta/60 transition-colors hover:text-carta"
               >
                 {l.label}
               </a>
@@ -35,7 +36,7 @@ const links = [
       </ul>
       <a
         href={`mailto:${contatti.email}`}
-        class="rounded-md bg-felce px-4 py-2 font-mono text-label text-carta transition-colors hover:bg-felce/90"
+        class="rounded-md bg-lichene px-4 py-2 font-mono text-label font-medium text-sfondo transition-all hover:bg-lichene/90 hover:shadow-[0_0_20px_rgba(83,194,135,0.35)]"
       >
         Scrivici
       </a>

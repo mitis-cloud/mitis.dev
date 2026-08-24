@@ -22,25 +22,43 @@ const scene = [
 ---
 
 <Section eyebrow="il problema" class="py-14 md:py-20">
-  <h2 class="max-w-[24ch] font-display text-h2 font-bold">Com’è adesso, come diventa.</h2>
-  <div class="mt-10 grid gap-5 md:grid-cols-2">
+  <h2 class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>
+    Com’è adesso, come diventa.
+  </h2>
+  <div class="mt-10 grid gap-5 md:grid-cols-2" data-rivela-serie>
     {
       scene.map((s) => (
-        <div class="overflow-hidden rounded-lg border border-inchiostro/12">
-          <div class="flex gap-3 bg-ruggine/8 px-5 py-4">
-            <span class="mt-0.5 shrink-0 font-mono text-s font-bold text-ruggine" aria-hidden="true">
+        <div class="scena overflow-hidden rounded-lg border border-carta/10 bg-quadro">
+          <div class="flex gap-3 bg-ruggine/15 px-5 py-4">
+            <span class="mt-0.5 shrink-0 font-mono text-s font-bold text-salmone" aria-hidden="true">
               −
             </span>
-            <p class="text-s text-inchiostro/85">{s.prima}</p>
+            <p class="text-s text-carta/80">{s.prima}</p>
           </div>
-          <div class="flex gap-3 bg-felce/8 px-5 py-4">
-            <span class="mt-0.5 shrink-0 font-mono text-s font-bold text-felce" aria-hidden="true">
+          <div class="dopo flex gap-3 bg-felce/15 px-5 py-4">
+            <span class="mt-0.5 shrink-0 font-mono text-s font-bold text-lichene" aria-hidden="true">
               +
             </span>
-            <p class="text-s text-inchiostro/85">{s.dopo}</p>
+            <p class="text-s text-carta/90">{s.dopo}</p>
           </div>
         </div>
       ))
     }
   </div>
 </Section>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    :global([data-rivela-serie].in) .dopo {
+      animation: applica 1s ease-out 500ms backwards;
+    }
+  }
+  @keyframes applica {
+    0% {
+      background-color: color-mix(in srgb, var(--color-felce) 45%, transparent);
+    }
+    100% {
+      background-color: color-mix(in srgb, var(--color-felce) 15%, transparent);
+    }
+  }
+</style>

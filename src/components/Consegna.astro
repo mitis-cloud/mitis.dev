@@ -1,0 +1,321 @@
+---
+import Section from './Section.astro';
+
+const fasi = [
+  'pr aperta',
+  'ci: test + plan',
+  'review',
+  'merge',
+  'apply + deploy',
+  'in produzione',
+];
+
+const pratiche = [
+  {
+    titolo: 'Anteprima per ogni PR',
+    testo: 'si discute su un ambiente vivo, non su uno screenshot',
+  },
+  {
+    titolo: 'Promozione via Git',
+    testo: 'dev, staging e produzione si somigliano davvero',
+  },
+  {
+    titolo: 'Rollback = revert',
+    testo: 'nessuna manovra eroica alle sei di sera',
+  },
+  {
+    titolo: 'Un solo flusso',
+    testo: 'applicazioni e infrastruttura viaggiano sulla stessa pipeline',
+  },
+];
+---
+
+<Section id="devops" eyebrow="devops" class="py-14 md:py-20">
+  <h2 class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>
+    Il deploy più noioso della settimana.
+  </h2>
+  <p class="mt-5 max-w-[64ch] text-body text-carta/75" data-rivela>
+    La piattaforma non è solo infrastruttura: è il modo in cui il codice arriva in produzione.
+    Pipeline su GitHub Actions, un ambiente di anteprima per ogni pull request, rilasci GitOps,
+    e la stessa strada per applicazioni e infrastruttura: il plan si legge nel CI, l’apply
+    parte al merge.
+  </p>
+
+  <figure
+    class="mt-10 overflow-hidden rounded-[10px] border border-carta/14 bg-schermo shadow-[0_0_50px_rgba(83,194,135,0.07),0_12px_40px_rgba(0,0,0,0.35)]"
+    data-pipeline
+  >
+    <figcaption class="flex items-center gap-2.5 border-b border-carta/10 px-4 py-2.5">
+      <span class="h-2 w-2 shrink-0 bg-lichene" aria-hidden="true"></span>
+      <span class="font-mono text-[0.72rem] tracking-[0.05em] text-carta/55"
+        >github actions · deploy.yml</span
+      >
+    </figcaption>
+    <div
+      class="px-6 py-8 md:px-10 md:py-10"
+      role="img"
+      aria-label="Percorso di una pull request: aperta, test e plan nel CI, review, merge, apply e deploy, in produzione. Rollback disponibile con git revert."
+    >
+      <div class="relative">
+        <div class="binario"><div class="progresso"></div></div>
+        <ol class="fasi">
+          {
+            fasi.map((f, i) => (
+              <li
+                class:list={['fase', i === fasi.length - 1 && 'finale']}
+                style={`--d: ${0.3 + i * 0.98}s`}
+              >
+                <span class="pallino" />
+                <span class="nome">{f}</span>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+      <p class="esito">
+        <span class="text-lichene">✓</span> in produzione — rollback disponibile:
+        <span class="font-bold">git revert</span>
+      </p>
+    </div>
+  </figure>
+
+  <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" data-rivela-serie>
+    {
+      pratiche.map((p) => (
+        <div class="rounded-lg border border-carta/10 bg-quadro p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-carta/25">
+          <h3 class="font-mono text-label font-bold text-carta">{p.titolo.toLowerCase()}</h3>
+          <p class="mt-2 text-s text-carta/70">{p.testo}</p>
+        </div>
+      ))
+    }
+  </div>
+  <p class="mt-8 max-w-[60ch] text-s text-carta/60" data-rivela>
+    Il venerdì pomeriggio si rilascia come il martedì mattina. È questo, il lusso.
+  </p>
+</Section>
+
+<style>
+  .fasi {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+  }
+
+  .binario {
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: color-mix(in srgb, var(--color-carta) 12%, transparent);
+    overflow: hidden;
+  }
+
+  .progresso {
+    width: 100%;
+    height: 100%;
+    background: var(--color-lichene);
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  .fase {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+
+  .pallino {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid color-mix(in srgb, var(--color-carta) 28%, transparent);
+    background: var(--color-schermo);
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  .nome {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.05em;
+    color: color-mix(in srgb, var(--color-carta) 55%, transparent);
+    white-space: nowrap;
+  }
+
+  .esito {
+    margin-top: 1.6rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    color: color-mix(in srgb, var(--color-carta) 75%, transparent);
+    opacity: 0;
+  }
+
+  @media (min-width: 768px) {
+    .fasi {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 0;
+    }
+    .binario {
+      left: 8px;
+      right: 8px;
+      top: 5px;
+      bottom: auto;
+      width: auto;
+      height: 2px;
+    }
+    .progresso {
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+    .fase {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.7rem;
+    }
+    .fase.finale {
+      align-items: flex-end;
+    }
+    .fase.finale .nome {
+      text-align: right;
+    }
+  }
+
+  [data-pipeline].play .progresso {
+    animation: avanza 5.4s linear forwards;
+  }
+  [data-pipeline].play .pallino {
+    animation: accendi 0.35s ease-out var(--d) forwards;
+  }
+  [data-pipeline].play .nome {
+    animation: sveglia 0.35s ease-out var(--d) forwards;
+  }
+  [data-pipeline].play .finale .pallino {
+    animation:
+      accendi 0.35s ease-out var(--d) forwards,
+      battito 1s ease-out calc(var(--d) + 0.3s);
+  }
+  [data-pipeline].play .esito {
+    animation: emerge 0.45s ease-out 5.7s forwards;
+  }
+
+  @keyframes avanza {
+    to {
+      transform: scale(1);
+    }
+  }
+  @keyframes accendi {
+    to {
+      background: var(--color-lichene);
+      border-color: var(--color-lichene);
+      box-shadow: 0 0 14px color-mix(in srgb, var(--color-lichene) 55%, transparent);
+    }
+  }
+  @keyframes sveglia {
+    to {
+      color: color-mix(in srgb, var(--color-carta) 92%, transparent);
+    }
+  }
+  @keyframes battito {
+    0% {
+      outline: 0 solid color-mix(in srgb, var(--color-lichene) 45%, transparent);
+    }
+    70% {
+      outline: 9px solid transparent;
+    }
+    100% {
+      outline: 0 solid transparent;
+    }
+  }
+  @keyframes emerge {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progresso,
+    [data-pipeline].play .progresso {
+      animation: none;
+      transform: scale(1);
+    }
+    .pallino,
+    [data-pipeline].play .pallino {
+      animation: none;
+      background: var(--color-lichene);
+      border-color: var(--color-lichene);
+    }
+    .nome,
+    [data-pipeline].play .nome {
+      animation: none;
+      color: color-mix(in srgb, var(--color-carta) 92%, transparent);
+    }
+    .esito,
+    [data-pipeline].play .esito {
+      animation: none;
+      opacity: 1;
+    }
+  }
+</style>
+
+<noscript>
+  <style>
+    [data-pipeline] .progresso {
+      animation: none;
+      transform: scale(1);
+    }
+    [data-pipeline] .pallino {
+      background: #53c287;
+      border-color: #53c287;
+    }
+    [data-pipeline] .esito {
+      opacity: 1;
+    }
+  </style>
+</noscript>
+
+<script>
+  const pipeline = document.querySelector<HTMLElement>('[data-pipeline]');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (pipeline) {
+    if (reduced || !('IntersectionObserver' in window)) {
+      pipeline.classList.add('play');
+    } else {
+      let visibile = false;
+      let timer: ReturnType<typeof setInterval> | undefined;
+
+      const gira = () => {
+        pipeline.classList.remove('play');
+        void pipeline.offsetWidth;
+        pipeline.classList.add('play');
+      };
+
+      const io = new IntersectionObserver(
+        (voci) => {
+          visibile = voci.some((v) => v.isIntersecting);
+          if (visibile && !timer) {
+            gira();
+            timer = setInterval(() => {
+              if (visibile) gira();
+            }, 8600);
+          }
+          if (!visibile && timer) {
+            clearInterval(timer);
+            timer = undefined;
+          }
+        },
+        { threshold: 0.35 },
+      );
+      io.observe(pipeline);
+    }
+  }
+</script>

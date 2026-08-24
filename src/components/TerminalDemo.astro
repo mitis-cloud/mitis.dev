@@ -26,22 +26,24 @@ const ariaLabel =
   </div>
 </figure>
 
-<p class="mt-4 max-w-[56ch] text-s text-inchiostro/70">
+<p class="mt-4 max-w-[56ch] text-s text-carta/65">
   Non è un'animazione di fantasia: su un'interruzione spot reale il probe ha misurato{' '}
-  <strong class="font-semibold text-inchiostro">1 richiesta fallita su 764</strong>. Un rolling
+  <strong class="font-semibold text-carta">1 richiesta fallita su 764</strong>. Un rolling
   update di routine ne perde 2 su 38.{' '}
-  <a href="#kubernetes" class="text-felce underline underline-offset-4 hover:no-underline"
+  <a href="#kubernetes" class="text-lichene underline underline-offset-4 hover:no-underline"
     >I numeri, più sotto</a
   >.
 </p>
 
 <style>
   .terminal {
-    background-color: var(--color-terminale);
-    border: 1px solid color-mix(in srgb, var(--color-carta) 12%, transparent);
+    background-color: var(--color-schermo);
+    border: 1px solid color-mix(in srgb, var(--color-carta) 14%, transparent);
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 1px 0 color-mix(in srgb, var(--color-inchiostro) 8%, transparent);
+    box-shadow:
+      0 0 60px color-mix(in srgb, var(--color-lichene) 9%, transparent),
+      0 12px 40px rgba(0, 0, 0, 0.35);
   }
 
   .bar {
@@ -109,7 +111,7 @@ const ariaLabel =
     color: var(--color-lichene);
   }
   .warn {
-    color: color-mix(in srgb, var(--color-ruggine) 45%, white);
+    color: var(--color-salmone);
   }
   .probe {
     margin-top: 0.9em;

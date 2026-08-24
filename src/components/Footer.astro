@@ -3,43 +3,41 @@ import Wordmark from './Wordmark.astro';
 import { contatti, segnaposto } from '../dati';
 ---
 
-<footer class="px-5 pb-10 sm:px-8">
-  <div class="mx-auto w-full max-w-6xl rounded-b-xl bg-terminale px-6 pt-2 pb-10 sm:px-10 md:px-14">
-    <div class="border-t border-carta/10 pt-8">
-      <div class="flex flex-wrap items-baseline justify-between gap-6">
-        <p class="text-l text-carta">
-          <Wordmark cursor="bg-lichene" />
-        </p>
-        <ul class="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-label">
-          <li>
-            <a href={contatti.github} class="text-carta/70 transition-colors hover:text-carta"
-              >GitHub</a
-            >
-          </li>
-          <li>
-            <a
-              href={contatti.understudy}
-              class="text-carta/70 transition-colors hover:text-carta">Understudy</a
-            >
-          </li>
-          <li>
-            <a
-              href={segnaposto.urlPrivacy}
-              class="text-carta/70 transition-colors hover:text-carta">Privacy policy</a
-            >
-          </li>
-          <li>
-            <a
-              href={segnaposto.urlCookie}
-              class="text-carta/70 transition-colors hover:text-carta">Cookie policy</a
-            >
-          </li>
-        </ul>
-      </div>
-      <div class="mt-8 flex flex-wrap items-center justify-between gap-4 font-mono text-label text-carta/55">
-        <p>© 2026 mitis · P.IVA {segnaposto.pIva} · {contatti.email}</p>
-        <p>questo sito non usa cookie né script di tracciamento</p>
-      </div>
+<footer class="border-t border-carta/10 px-5 pt-10 pb-12 sm:px-8">
+  <div class="mx-auto w-full max-w-6xl">
+    <div class="flex flex-wrap items-baseline justify-between gap-6">
+      <p class="text-l text-carta">
+        <Wordmark cursor="bg-lichene" />
+      </p>
+      <ul class="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-label">
+        <li>
+          <a href={contatti.github} class="text-carta/70 transition-colors hover:text-carta"
+            >GitHub</a
+          >
+        </li>
+        <li>
+          <a
+            href={contatti.understudy}
+            class="text-carta/70 transition-colors hover:text-carta">Understudy</a
+          >
+        </li>
+        <li>
+          <a
+            href={segnaposto.urlPrivacy}
+            class="text-carta/70 transition-colors hover:text-carta">Privacy policy</a
+          >
+        </li>
+        <li>
+          <a
+            href={segnaposto.urlCookie}
+            class="text-carta/70 transition-colors hover:text-carta">Cookie policy</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="mt-8 flex flex-wrap items-center justify-between gap-4 font-mono text-label text-carta/55">
+      <p>© 2026 mitis · P.IVA {segnaposto.pIva} · {contatti.email}</p>
+      <p>questo sito non usa cookie né script di tracciamento</p>
     </div>
   </div>
 </footer>

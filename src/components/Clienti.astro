@@ -1,0 +1,21 @@
+---
+const clienti = ['Wolters Kluwer', 'Conio', 'DBridge', 'Otherside Technology'];
+---
+
+<section class="px-5 sm:px-8" aria-label="Aziende con cui abbiamo lavorato">
+  <div
+    class="mx-auto flex w-full max-w-6xl flex-wrap items-baseline gap-x-10 gap-y-4 border-y border-carta/10 py-7"
+    data-rivela
+  >
+    <p class="font-mono text-label text-carta/55">abbiamo lavorato con</p>
+    <ul class="flex flex-wrap items-baseline gap-x-10 gap-y-3">
+      {
+        clienti.map((c) => (
+          <li class="font-display text-l font-bold tracking-tight text-carta/55 transition-colors hover:text-carta/90">
+            {c}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

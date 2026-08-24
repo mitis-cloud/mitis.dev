@@ -3,6 +3,14 @@ import Section from './Section.astro';
 
 const faq = [
   {
+    q: 'È l’ennesima piattaforma da adottare?',
+    a: 'No: è la tua. Usiamo strumenti standard — Terraform, Kubernetes, GitHub Actions — nei tuoi account e nei tuoi repository. Non installiamo agenti né pannelli nostri: non c’è niente da adottare, e niente da disinstallare quando finisce.',
+  },
+  {
+    q: 'Abbiamo già dell’infrastruttura in piedi: si butta via tutto?',
+    a: 'No. Si parte da quello che c’è: quello che è sano si integra, quello che nessuno osa più toccare si sostituisce con moduli standard, un pezzo alla volta e in ordine di rischio, senza fermare le release.',
+  },
+  {
     q: 'Perché prezzo fisso e non a giornata?',
     a: 'Perché allinea gli incentivi. A giornata, ogni imprevisto allunga il progetto e la fattura; a prezzo fisso, l’imprevisto è un problema nostro. L’ambito si definisce per iscritto prima di iniziare, e se l’esito concordato non arriva c’è una clausola di rimborso.',
   },
@@ -23,8 +31,12 @@ const faq = [
     a: 'L’architettura che tiene insieme i pezzi, la sua implementazione nei tuoi account, e la garanzia sull’esito. I moduli sono pubblici e restano pubblici: paghi il sistema che ne esce, non il permesso di usarli.',
   },
   {
-    q: 'Costruite su Cloud Posse: cosa aggiungete voi?',
-    a: 'La selezione e la semplificazione: la loro architettura di riferimento nasce per enterprise americane, noi ne consegniamo una versione ridotta, operabile da un team piccolo. Poi GCP accanto ad AWS, il FinOps come pratica e non come slide, e il contesto: lingua, fuso orario, GDPR, NIS2, ACN.',
+    q: 'Chi deve esserci alla prima chiamata?',
+    a: 'Chi conosce la bolletta e chi conosce il codice: tipicamente CTO o VP Engineering, più chi mette le mani sull’infrastruttura ogni giorno. Niente slide da preparare: bastano le domande che ti tieni da mesi.',
+  },
+  {
+    q: 'E se poi non lavoriamo insieme, cosa ci portiamo a casa?',
+    a: 'Un parere onesto, come minimo: dalla prima chiamata esci con una lettura del tuo contesto e dei margini realistici. E se hai fatto l’assessment, il report con le stime è tuo comunque: puoi usarlo con il tuo team, o con un altro fornitore.',
   },
   {
     q: 'Lavorate anche su Azure?',
@@ -38,23 +50,41 @@ const faq = [
 ---
 
 <Section id="faq" eyebrow="faq" class="py-14 md:py-20">
-  <h2 class="max-w-[24ch] font-display text-h2 font-bold">Le obiezioni vere.</h2>
-  <div class="mt-8 max-w-3xl">
+  <h2 class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>Le obiezioni vere.</h2>
+  <div class="mt-8 max-w-3xl" data-rivela-serie>
     {
       faq.map((f) => (
-        <details class="group border-b border-inchiostro/12">
-          <summary class="flex cursor-pointer list-none items-baseline justify-between gap-6 py-5 font-display text-l font-bold [&::-webkit-details-marker]:hidden">
+        <details class="group border-b border-carta/10">
+          <summary class="flex cursor-pointer list-none items-baseline justify-between gap-6 py-5 font-display text-l font-bold transition-colors hover:text-lichene [&::-webkit-details-marker]:hidden">
             {f.q}
             <span
-              class="shrink-0 font-mono text-l font-normal text-felce transition-transform group-open:rotate-45"
+              class="shrink-0 font-mono text-l font-normal text-lichene transition-transform duration-300 group-open:rotate-45"
               aria-hidden="true"
             >
               +
             </span>
           </summary>
-          <p class="max-w-[66ch] pb-6 text-s text-inchiostro/80">{f.a}</p>
+          <p class="max-w-[66ch] pb-6 text-s text-carta/70">{f.a}</p>
         </details>
       ))
     }
   </div>
 </Section>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    details::details-content {
+      opacity: 0;
+      block-size: 0;
+      overflow: clip;
+      transition:
+        content-visibility 0.4s allow-discrete,
+        opacity 0.4s,
+        block-size 0.4s;
+    }
+    details[open]::details-content {
+      opacity: 1;
+      block-size: auto;
+    }
+  }
+</style>

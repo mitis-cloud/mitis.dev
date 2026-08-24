@@ -32,12 +32,18 @@ Settings → Pages → Source: GitHub Actions, più il DNS di `mitis.dev`
 
 ## Design system
 
-Palette (in `src/styles/global.css`, blocco `@theme`): `carta #f2f1ec`,
-`inchiostro #1b1a17`, `terminale #101613`, `felce #166b4a`, `lichene #53c287`,
-`ruggine #a63b2a` — il rosso è solo semantico (diff `-`, spreco), il verde è
-apply/risparmio. Font self-hosted in `public/fonts/` (tutti OFL): Schibsted
-Grotesk (display), Instrument Sans (testo), JetBrains Mono (terminale, etichette,
-dati).
+Tema scuro. Palette (in `src/styles/global.css`, blocco `@theme`): `sfondo
+#0d120f` (pagina), `quadro #141b16` (card), `schermo #090d0b` (terminali),
+`carta #f2f1ec` (testo), `felce #166b4a`, `lichene #53c287`, `ruggine #a63b2a`
++ `salmone #d29284` — il rosso è solo semantico (diff `-`, spreco), il verde è
+apply/risparmio. La card FinOps è l'unica superficie chiara (un "referto"
+stampato, `inchiostro` su `carta`). Font self-hosted in `public/fonts/` (tutti
+OFL): Schibsted Grotesk (display), Instrument Sans (testo), JetBrains Mono
+(terminale, etichette, dati).
+
+Animazioni: sequenza Understudy nel terminale hero, pipeline CI/CD nella sezione
+DevOps (loop mentre è visibile), contatore e barre del −70%, reveal allo scroll.
+Tutte con fallback statico per `prefers-reduced-motion` e senza JS esterni.
 
 I numeri in pagina (benchmark di Understudy, caso −70%) sono gli unici claim
 quantitativi ammessi e vanno tenuti identici alle fonti: il benchmark viene dal

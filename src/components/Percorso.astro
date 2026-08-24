@@ -24,21 +24,23 @@ const passi = [
 ---
 
 <Section eyebrow="percorso" class="py-14 md:py-20">
-  <h2 class="max-w-[24ch] font-display text-h2 font-bold">Tre passi, con i ruoli scritti.</h2>
-  <ol class="mt-10 grid gap-5 lg:grid-cols-3">
+  <h2 class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>
+    Tre passi, con i ruoli scritti.
+  </h2>
+  <ol class="mt-10 grid gap-5 lg:grid-cols-3" data-rivela-serie>
     {
       passi.map((p) => (
-        <li class="rounded-lg border border-inchiostro/12 p-6 md:p-7">
-          <p class="font-mono text-label text-inchiostro/65">{p.n}.</p>
+        <li class="rounded-lg border border-carta/10 bg-quadro p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-carta/25 md:p-7">
+          <p class="font-mono text-label text-carta/55">{p.n}.</p>
           <h3 class="mt-1 font-display text-l font-bold">{p.titolo}</h3>
           <dl class="mt-4 space-y-3 text-s">
             <div class="flex gap-3">
-              <dt class="w-8 shrink-0 font-mono text-label text-inchiostro/65">tu</dt>
-              <dd class="text-inchiostro/80">{p.tu}</dd>
+              <dt class="w-8 shrink-0 font-mono text-label text-carta/60">tu</dt>
+              <dd class="text-carta/75">{p.tu}</dd>
             </div>
             <div class="flex gap-3">
-              <dt class="w-8 shrink-0 font-mono text-label font-bold text-felce">noi</dt>
-              <dd class="text-inchiostro/80">{p.noi}</dd>
+              <dt class="w-8 shrink-0 font-mono text-label font-bold text-lichene">noi</dt>
+              <dd class="text-carta/75">{p.noi}</dd>
             </div>
           </dl>
         </li>
