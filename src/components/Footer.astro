@@ -1,6 +1,6 @@
 ---
 import Wordmark from './Wordmark.astro';
-import { contatti, segnaposto } from '../dati';
+import { contatti, azienda } from '../dati';
 ---
 
 <footer class="border-t border-carta/10 px-5 pt-10 pb-12 sm:px-8">
@@ -23,20 +23,20 @@ import { contatti, segnaposto } from '../dati';
         </li>
         <li>
           <a
-            href={segnaposto.urlPrivacy}
+            href={azienda.urlPrivacy}
             class="text-carta/70 transition-colors hover:text-carta">Privacy policy</a
           >
         </li>
         <li>
           <a
-            href={segnaposto.urlCookie}
+            href={azienda.urlCookie}
             class="text-carta/70 transition-colors hover:text-carta">Cookie policy</a
           >
         </li>
       </ul>
     </div>
     <div class="mt-8 flex flex-wrap items-center justify-between gap-4 font-mono text-label text-carta/55">
-      <p>© 2026 mitis · P.IVA {segnaposto.pIva} · {contatti.email}</p>
+      <p>© 2026 mitis · P.IVA {azienda.pIva} · {contatti.email}</p>
       <p>questo sito non usa cookie né script di tracciamento</p>
     </div>
   </div>

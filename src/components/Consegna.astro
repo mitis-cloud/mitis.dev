@@ -1,5 +1,6 @@
 ---
 import Section from './Section.astro';
+import Icona from './Icona.astro';
 
 const fasi = [
   'pr aperta',
@@ -12,18 +13,22 @@ const fasi = [
 
 const pratiche = [
   {
+    icona: 'occhio',
     titolo: 'Anteprima per ogni PR',
     testo: 'si discute su un ambiente vivo, non su uno screenshot',
   },
   {
+    icona: 'promozione',
     titolo: 'Promozioni con Kargo',
     testo: 'dev, staging e produzione avanzano con regole scritte, non a mano',
   },
   {
+    icona: 'ritorno',
     titolo: 'Rollback = revert',
     testo: 'nessuna manovra eroica alle sei di sera',
   },
   {
+    icona: 'ramo',
     titolo: 'Un solo flusso',
     testo: 'applicazioni e infrastruttura viaggiano nello stesso flusso Git',
   },
@@ -84,6 +89,7 @@ const pratiche = [
     {
       pratiche.map((p) => (
         <div class="rounded-lg border border-carta/10 bg-quadro p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-carta/25">
+          <Icona nome={p.icona} class="mb-3 h-[22px] w-[22px] text-lichene" />
           <h3 class="font-mono text-label font-bold text-carta">{p.titolo.toLowerCase()}</h3>
           <p class="mt-2 text-s text-carta/70">{p.testo}</p>
         </div>

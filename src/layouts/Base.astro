@@ -1,8 +1,15 @@
 ---
 import '../styles/global.css';
 
-const title = 'mitis — Consulenza Cloud e DevOps a prezzo fisso · FinOps e Kubernetes';
+interface Props {
+  titolo?: string;
+  descrizione?: string;
+}
+
+const title =
+  Astro.props.titolo ?? 'mitis — Consulenza Cloud e DevOps a prezzo fisso · FinOps e Kubernetes';
 const description =
+  Astro.props.descrizione ??
   'Consulenza Cloud e DevOps per scaleup e PMI. Kubernetes, Terraform e FinOps a prezzo fisso: infrastruttura prevedibile, spesa sotto controllo, codice tuo.';
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL('/og.png', Astro.site).href;
@@ -22,6 +29,7 @@ const jsonLd = {
     'FinOps',
     'AWS',
     'Google Cloud',
+    'Microsoft Azure',
     'Atmos',
     'GitOps',
     'Piattaforme interne',

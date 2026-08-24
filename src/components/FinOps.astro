@@ -1,6 +1,6 @@
 ---
 import Section from './Section.astro';
-import { segnaposto } from '../dati';
+import { azienda } from '../dati';
 
 const leve = [
   'right-sizing sistematico di compute e database',
@@ -52,11 +52,11 @@ const leve = [
       </div>
       <dl class="mt-6 grid gap-x-6 gap-y-2 font-mono text-s sm:grid-cols-[auto_1fr]">
         <dt class="text-carta/60">settore</dt>
-        <dd class="[overflow-wrap:anywhere] max-sm:mb-2">{segnaposto.settoreCliente}</dd>
+        <dd class="[overflow-wrap:anywhere] max-sm:mb-2">{azienda.settoreCliente}</dd>
         <dt class="text-carta/60">spesa iniziale</dt>
-        <dd class="[overflow-wrap:anywhere] max-sm:mb-2">{segnaposto.ordineSpesa}</dd>
+        <dd class="[overflow-wrap:anywhere] max-sm:mb-2">{azienda.ordineSpesa}</dd>
         <dt class="text-carta/60">periodo</dt>
-        <dd class="[overflow-wrap:anywhere]">{segnaposto.periodoIntervento}</dd>
+        <dd class="[overflow-wrap:anywhere]">{azienda.periodoIntervento}</dd>
       </dl>
     </div>
 
@@ -85,10 +85,10 @@ const leve = [
       realisticamente recuperare, e cosa costa ottenerlo.
     </p>
     <p class="mt-2 text-s text-carta/70">
-      È il lavoro dell’<a
+      Il primo passo è l’<a
         href="#offerte"
-        class="text-lichene underline underline-offset-4 hover:no-underline">assessment FinOps</a
-      >: prezzo fisso, durata fissa, utile anche se poi non ci scegli.
+        class="text-lichene underline underline-offset-4 hover:no-underline">assessment gratuito</a
+      >: una chiamata tecnica e una prima lettura di spesa e architettura, senza impegno.
     </p>
   </div>
 </Section>

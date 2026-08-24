@@ -1,21 +1,17 @@
 export const contatti = {
-  email: '{{EMAIL_CONTATTO}}',
-  calendario: '{{URL_CALENDARIO}}',
+  email: 'francesco.lauritano1@protonmail.com',
+  chiamata:
+    'mailto:francesco.lauritano1@protonmail.com?subject=' +
+    encodeURIComponent('Prenota una chiamata tecnica'),
   github: 'https://github.com/kylan11',
   understudy: 'https://github.com/kylan11/understudy',
 };
 
-export const segnaposto = {
+export const azienda = {
   settoreCliente: 'bancario',
   ordineSpesa: '30k € / anno',
   periodoIntervento: '3 settimane',
-  prezzoAssessment: '{{PREZZO_ASSESSMENT}}',
-  durataAssessment: '{{DURATA_ASSESSMENT}}',
-  prezzoAccelerator: '{{PREZZO_ACCELERATOR}}',
-  durataSettimane: '{{DURATA_SETTIMANE}}',
-  prezzoSupporto: '{{PREZZO_SUPPORTO}}',
-  slaRisposta: '{{SLA_RISPOSTA}}',
   pIva: '10611521211',
-  urlPrivacy: '{{URL_PRIVACY}}',
-  urlCookie: '{{URL_COOKIE}}',
+  urlPrivacy: '/privacy',
+  urlCookie: '/cookie',
 };

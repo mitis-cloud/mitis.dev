@@ -1,40 +1,51 @@
 ---
 import Section from './Section.astro';
+import Icona from './Icona.astro';
 
 const voci = [
   {
+    icona: 'zona',
     nome: 'landing zone',
-    testo: 'multi-account su AWS, multi-project su GCP: confini chiari tra ambienti e workload',
+    testo:
+      'multi-account su AWS, multi-project su GCP, multi-subscription su Azure: confini chiari',
   },
   {
+    icona: 'strati',
     nome: 'terraform + atmos',
     testo: 'tutta l’infrastruttura come codice, organizzata per essere letta',
   },
   {
+    icona: 'esagono',
     nome: 'kubernetes + argocd',
-    testo: 'EKS o GKE, deploy dichiarativi: gli ambienti restano allineati a Git',
+    testo: 'EKS, GKE o AKS, deploy dichiarativi: gli ambienti restano allineati a Git',
   },
   {
+    icona: 'indicatore',
     nome: 'karpenter',
     testo: 'i nodi giusti, della taglia giusta, solo quando servono',
   },
   {
+    icona: 'promozione',
     nome: 'promozioni con kargo',
     testo: 'da dev a produzione con regole scritte; il CI resta quello che usi già',
   },
   {
+    icona: 'battito',
     nome: 'osservabilità',
     testo: 'metriche, log e allarmi che suonano solo quando serve',
   },
   {
+    icona: 'chiave',
     nome: 'iam e sso',
     testo: 'least privilege di default, accessi centralizzati e revocabili',
   },
   {
+    icona: 'discesa',
     nome: 'costi sotto controllo',
     testo: 'allocazione per team e servizio, budget e alert',
   },
   {
+    icona: 'libro',
     nome: 'documentazione e runbook',
     testo: 'scritti per il tuo team, non per noi',
   },
@@ -54,10 +65,11 @@ const voci = [
     {
       voci.map((v) => (
         <div class="group border-t border-carta/15 pt-4 transition-colors hover:border-lichene/60">
-          <dt class="font-mono text-label text-carta transition-colors group-hover:text-lichene">
+          <dt class="flex items-center gap-2.5 font-mono text-label text-carta transition-colors group-hover:text-lichene">
+            <Icona nome={v.icona} class="h-[18px] w-[18px] text-lichene" />
             {v.nome}
           </dt>
-        <dd class="mt-1.5 text-s text-carta/65">{v.testo}</dd>
+          <dd class="mt-1.5 text-s text-carta/65">{v.testo}</dd>
         </div>
       ))
     }
