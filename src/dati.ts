@@ -6,16 +6,16 @@ export const contatti = {
 };
 
 export const segnaposto = {
-  settoreCliente: '{{SETTORE_CLIENTE}}',
-  ordineSpesa: '{{ORDINE_DI_GRANDEZZA_SPESA}}',
-  periodoIntervento: '{{PERIODO_INTERVENTO}}',
+  settoreCliente: 'bancario',
+  ordineSpesa: '30k € / anno',
+  periodoIntervento: '3 settimane',
   prezzoAssessment: '{{PREZZO_ASSESSMENT}}',
   durataAssessment: '{{DURATA_ASSESSMENT}}',
   prezzoAccelerator: '{{PREZZO_ACCELERATOR}}',
   durataSettimane: '{{DURATA_SETTIMANE}}',
   prezzoSupporto: '{{PREZZO_SUPPORTO}}',
   slaRisposta: '{{SLA_RISPOSTA}}',
-  pIva: '{{P_IVA}}',
+  pIva: '10611521211',
   urlPrivacy: '{{URL_PRIVACY}}',
   urlCookie: '{{URL_COOKIE}}',
 };

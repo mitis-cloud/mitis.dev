@@ -1,0 +1,32 @@
+---
+import Section from './Section.astro';
+
+const cardini = ['stack collaudato a mano', 'ai per l’adattamento', 'review umana su tutto'];
+---
+
+<Section eyebrow="velocità" class="py-14 md:py-20">
+  <h2 class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>
+    In produzione in settimane, non mesi.
+  </h2>
+  <div class="mt-5 max-w-[66ch] space-y-4 text-body text-carta/75" data-rivela>
+    <p>
+      Non perché corriamo: perché non partiamo da zero. Lo stack è collaudato a mano — moduli e
+      architetture che giravano in produzione ben prima di arrivare da te — e usiamo l’AI per
+      adattarlo al tuo contesto: account, ambienti, vincoli, convenzioni, policy.
+    </p>
+    <p>
+      Il lavoro ripetitivo lo fa la macchina; le decisioni le prende chi ne risponde. Ogni riga
+      passa da una review umana ed è scritta per essere letta fra tre anni. L’AI accelera il
+      mestiere, non lo sostituisce: niente slop in produzione.
+    </p>
+  </div>
+  <ul class="mt-7 flex flex-wrap gap-3" data-rivela-serie>
+    {
+      cardini.map((c) => (
+        <li class="rounded-full border border-lichene/40 bg-felce/10 px-4 py-1.5 font-mono text-label text-carta/85">
+          {c}
+        </li>
+      ))
+    }
+  </ul>
+</Section>

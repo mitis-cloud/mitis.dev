@@ -28,14 +28,14 @@ const scene = [
   <div class="mt-10 grid gap-5 md:grid-cols-2" data-rivela-serie>
     {
       scene.map((s) => (
-        <div class="scena overflow-hidden rounded-lg border border-carta/10 bg-quadro">
+        <div class="scena flex flex-col overflow-hidden rounded-lg border border-carta/10 bg-quadro">
           <div class="flex gap-3 bg-ruggine/15 px-5 py-4">
             <span class="mt-0.5 shrink-0 font-mono text-s font-bold text-salmone" aria-hidden="true">
               −
             </span>
             <p class="text-s text-carta/80">{s.prima}</p>
           </div>
-          <div class="dopo flex gap-3 bg-felce/15 px-5 py-4">
+          <div class="dopo flex grow gap-3 bg-felce/15 px-5 py-4">
             <span class="mt-0.5 shrink-0 font-mono text-s font-bold text-lichene" aria-hidden="true">
               +
             </span>
