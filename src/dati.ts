@@ -3,7 +3,7 @@ export const contatti = {
   chiamata:
     'mailto:francesco.lauritano1@protonmail.com?subject=' +
     encodeURIComponent('Prenota una chiamata tecnica'),
-  github: 'https://github.com/kylan11',
+  github: 'https://github.com/mitis-cloud',
   understudy: 'https://github.com/kylan11/understudy',
 };
 
