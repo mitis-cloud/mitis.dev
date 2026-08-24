@@ -1,6 +1,6 @@
 ---
 const ariaLabel =
-  "Simulazione da terminale: un nodo spot riceve l'avviso di interruzione, Understudy trattiene l'eviction, avvia un pod sostituto, aspetta che sia pronto e solo allora lascia uscire l'originale. Il probe registra 764 richieste, 1 fallita.";
+  "Simulazione da terminale: il pod in produzione riceve l'avviso di interruzione spot, Understudy trattiene l'eviction e avvia un pod sostituto che passa da Pending a Running; solo allora l'originale termina e sparisce. Il probe registra 764 richieste, 1 fallita.";
 ---
 
 <figure class="terminal" data-terminal>
@@ -12,16 +12,12 @@ const ariaLabel =
 
   <div class="body" role="img" aria-label={ariaLabel}>
     <div aria-hidden="true">
-      <p class="tl cmd" style="--d: 0.15s"><span class="typed">$ kubectl get pods -w -l app=tenant-worker</span></p>
-      <p class="tl dim" style="--d: 1.5s">NAME                         READY  STATUS</p>
-      <p class="tl" style="--d: 1.7s">tenant-worker-6d8f7c-x2k4q   1/1    <span class="ok">Running</span></p>
-      <p class="tl warn" style="--d: 3.1s">! spot interruption: node spot-arm64-a7f3 (2m)</p>
-      <p class="tl op" style="--d: 3.9s">understudy: holding eviction, starting stand-in</p>
-      <p class="tl" style="--d: 4.7s">tenant-worker-6d8f7c-p9d2m   0/1    <span class="dim">Pending</span></p>
-      <p class="tl" style="--d: 6.6s">tenant-worker-6d8f7c-p9d2m   1/1    <span class="ok">Running</span></p>
-      <p class="tl op" style="--d: 7.4s">understudy: stand-in ready, releasing original</p>
-      <p class="tl bye" style="--d: 8.2s">tenant-worker-6d8f7c-x2k4q   1/1    <span class="warn">Terminating</span></p>
-      <p class="tl probe" style="--d: 9.6s">probe: <strong>764 requests, 1 failed</strong></p>
+      <p class="tl cmd"><span class="typed">$ kubectl get pods -w -l app=tenant-worker</span></p>
+      <p class="tl intesta">NAME                         READY  STATUS</p>
+      <p class="tl pod pod-a"><span class="np">tenant-worker-6d8f7c-x2k4q</span>   <span class="cella ready-a">1/1</span>    <span class="cella stati-a"><span class="s sa-run ok">Running</span><span class="s sa-term warn">Terminating</span></span></p>
+      <p class="tl pod pod-b"><span class="np">tenant-worker-6d8f7c-p9d2m</span>   <span class="cella ready-b"><span class="s rb-0 dim">0/1</span><span class="s rb-1">1/1</span></span>    <span class="cella stati-b"><span class="s sb-pen dim">Pending</span><span class="s sb-cc dim">ContainerCreating</span><span class="s sb-run ok">Running</span></span></p>
+      <p class="tl evento"><span class="s ev-1 warn">! spot interruption: node spot-arm64-a7f3 (2m)</span><span class="s ev-2 op">understudy: holding eviction, starting stand-in</span><span class="s ev-3 op">understudy: stand-in ready, releasing original</span><span class="s ev-4 dim">understudy: standing down</span></p>
+      <p class="tl probe">probe: <strong>764 requests, 1 failed</strong></p>
     </div>
   </div>
 </figure>
@@ -30,8 +26,8 @@ const ariaLabel =
   Non è un'animazione di fantasia: su un'interruzione spot reale il probe ha misurato{' '}
   <strong class="font-semibold text-carta">1 richiesta fallita su 764</strong>. Un rolling
   update di routine ne perde 2 su 38.{' '}
-  <a href="#kubernetes" class="text-lichene underline underline-offset-4 hover:no-underline"
-    >I numeri, più sotto</a
+  <a href="/kubernetes" class="text-lichene underline underline-offset-4 hover:no-underline"
+    >Il contesto, su Kubernetes</a
   >.
 </p>
 
@@ -87,6 +83,11 @@ const ariaLabel =
     padding: 1rem 1.25rem 1.25rem;
     overflow-x: auto;
   }
+  @media (max-width: 400px) {
+    .body {
+      padding: 0.875rem 0.75rem 1rem;
+    }
+  }
 
   .tl {
     font-family: var(--font-mono);
@@ -97,8 +98,31 @@ const ariaLabel =
     opacity: 0;
   }
 
-  .terminal.play .tl {
-    animation: reveal 220ms ease-out var(--d) both;
+  .cella {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .stati-a,
+  .stati-b {
+    width: 17ch;
+  }
+  .ready-b {
+    width: 3ch;
+  }
+  .s {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+  .stati-a .sa-run,
+  .ready-b .rb-0,
+  .stati-b .sb-pen,
+  .evento .ev-1 {
+    position: static;
+    display: inline-block;
+    opacity: 1;
   }
 
   .dim {
@@ -122,10 +146,14 @@ const ariaLabel =
     font-weight: 700;
   }
 
-  .terminal.play .bye {
-    animation:
-      reveal 220ms ease-out var(--d) both,
-      dimout 500ms ease-out 9.1s forwards;
+  .pod-b {
+    max-height: 0;
+    overflow: hidden;
+  }
+  .evento {
+    position: relative;
+    min-height: 1.85em;
+    margin-top: 0.9em;
   }
 
   .cmd .typed {
@@ -135,10 +163,73 @@ const ariaLabel =
     max-width: 42ch;
     border-right: 0.45em solid var(--color-lichene);
   }
+
+  /* ── coreografia ─────────────────────────────────────────────── */
+  .terminal.play .cmd {
+    opacity: 1;
+  }
   .terminal.play .cmd .typed {
     animation:
       typing 1.1s steps(42) 0.15s backwards,
       caret 0.9s step-end 0.15s 3;
+  }
+  .terminal.play .intesta {
+    animation: reveal 220ms ease-out 1.25s both;
+  }
+  .terminal.play .pod-a {
+    animation:
+      reveal 220ms ease-out 1.45s both,
+      collassa 600ms ease-in 10.5s forwards;
+  }
+  .terminal.play .pod-b {
+    animation: espandi 450ms ease-out 4.2s both;
+  }
+  .terminal.play .evento {
+    animation: reveal 220ms ease-out 2.5s both;
+  }
+  .terminal.play .probe {
+    animation: reveal 300ms ease-out 11.5s both;
+  }
+
+  .terminal.play .sa-run {
+    animation: spento 200ms ease-in 9s forwards;
+  }
+  .terminal.play .sa-term {
+    animation: acceso 200ms ease-out 9s forwards;
+  }
+  .terminal.play .rb-0 {
+    animation: spento 150ms ease-in 7.2s forwards;
+  }
+  .terminal.play .rb-1 {
+    animation: acceso 200ms ease-out 7.2s forwards;
+  }
+  .terminal.play .sb-pen {
+    animation: spento 150ms ease-in 5.7s forwards;
+  }
+  .terminal.play .sb-cc {
+    animation:
+      acceso 150ms ease-out 5.7s forwards,
+      spento 150ms ease-in 7.2s forwards;
+  }
+  .terminal.play .sb-run {
+    animation: acceso 200ms ease-out 7.2s forwards;
+  }
+
+  .terminal.play .ev-1 {
+    animation: spento 200ms ease-in 3.9s forwards;
+  }
+  .terminal.play .ev-2 {
+    animation:
+      acceso 200ms ease-out 4s forwards,
+      spento 200ms ease-in 8s forwards;
+  }
+  .terminal.play .ev-3 {
+    animation:
+      acceso 200ms ease-out 8s forwards,
+      spento 200ms ease-in 10.4s forwards;
+  }
+  .terminal.play .ev-4 {
+    animation: acceso 200ms ease-out 10.4s forwards;
   }
 
   @keyframes reveal {
@@ -151,9 +242,43 @@ const ariaLabel =
       transform: none;
     }
   }
-  @keyframes dimout {
+  @keyframes acceso {
+    from {
+      opacity: 0;
+    }
     to {
-      opacity: 0.32;
+      opacity: 1;
+    }
+  }
+  @keyframes spento {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes espandi {
+    from {
+      max-height: 0;
+      opacity: 0;
+    }
+    to {
+      max-height: 1.85em;
+      opacity: 1;
+    }
+  }
+  @keyframes collassa {
+    0% {
+      max-height: 1.85em;
+      opacity: 1;
+    }
+    40% {
+      opacity: 0.25;
+    }
+    100% {
+      max-height: 0;
+      opacity: 0;
     }
   }
   @keyframes typing {
@@ -174,21 +299,43 @@ const ariaLabel =
     }
   }
 
+  /* ── fermo-immagine: A terminating, B running, probe visibile ── */
   @media (prefers-reduced-motion: reduce) {
     .tl,
     .terminal.play .tl {
       animation: none;
       opacity: 1;
     }
-    .bye,
-    .terminal.play .bye {
-      animation: none;
-      opacity: 0.32;
-    }
     .cmd .typed,
     .terminal.play .cmd .typed {
       animation: none;
       border-right: none;
+    }
+    .pod-b,
+    .terminal.play .pod-b {
+      animation: none;
+      max-height: 1.85em;
+    }
+    .pod-a,
+    .terminal.play .pod-a {
+      animation: none;
+      opacity: 0.45;
+    }
+    .s {
+      animation: none !important;
+      opacity: 0;
+    }
+    .sa-term,
+    .rb-1,
+    .sb-run,
+    .ev-3 {
+      opacity: 1 !important;
+    }
+    .sa-run,
+    .rb-0,
+    .sb-pen,
+    .ev-1 {
+      opacity: 0 !important;
     }
     .replay {
       display: none;
@@ -202,11 +349,23 @@ const ariaLabel =
       animation: none;
       opacity: 1;
     }
-    [data-terminal] .tl:nth-last-child(2) {
-      opacity: 0.32;
-    }
     [data-terminal] .cmd span {
       border-right: none;
+    }
+    [data-terminal] .pod-b {
+      max-height: 1.85em;
+    }
+    [data-terminal] .pod-a {
+      opacity: 0.45;
+    }
+    [data-terminal] .s {
+      opacity: 0;
+    }
+    [data-terminal] .sa-term,
+    [data-terminal] .rb-1,
+    [data-terminal] .sb-run,
+    [data-terminal] .ev-3 {
+      opacity: 1;
     }
   </style>
 </noscript>
@@ -227,14 +386,14 @@ const ariaLabel =
       terminal.classList.add('play');
     } else {
       const io = new IntersectionObserver(
-        (entries) => {
-          if (entries.some((e) => e.isIntersecting)) {
+        (voci) => {
+          if (voci.some((v) => v.isIntersecting)) {
             play();
             io.disconnect();
             if (replay) {
               setTimeout(() => {
                 replay.hidden = false;
-              }, 10500);
+              }, 12200);
             }
           }
         },

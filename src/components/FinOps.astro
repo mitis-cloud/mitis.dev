@@ -1,5 +1,8 @@
 ---
 import Section from './Section.astro';
+
+const Titolo = Astro.props.h1 ? 'h1' : 'h2';
+const Sottotitolo = Astro.props.h1 ? 'h2' : 'h3';
 import { azienda } from '../dati';
 
 const leve = [
@@ -15,9 +18,9 @@ const leve = [
 ---
 
 <Section id="finops" eyebrow="finops" class="py-14 md:py-20">
-  <h2 class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>
+  <Titolo class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>
     Meno spesa, stesse prestazioni.
-  </h2>
+  </Titolo>
   <p class="mt-5 max-w-[62ch] text-body text-carta/75" data-rivela>
     La bolletta cloud non scende chiedendo uno sconto: scende con l’ingegneria. Right-sizing,
     spot, consolidamento, storage, traffico. Lavoro poco appariscente, molto misurabile.
@@ -62,7 +65,7 @@ const leve = [
 
     <div class="flex flex-col justify-between gap-6">
       <div>
-        <h3 class="font-display text-l font-bold">Cosa è cambiato, in concreto</h3>
+        <Sottotitolo class="font-display text-l font-bold">Cosa è cambiato, in concreto</Sottotitolo>
         <ul class="mt-4 grid gap-x-8 gap-y-2 sm:grid-cols-1">
           {
             leve.map((l) => (
@@ -86,7 +89,7 @@ const leve = [
     </p>
     <p class="mt-2 text-s text-carta/70">
       Il primo passo è l’<a
-        href="#offerte"
+        href="/servizi"
         class="text-lichene underline underline-offset-4 hover:no-underline">assessment gratuito</a
       >: una chiamata tecnica e una prima lettura di spesa e architettura, senza impegno.
     </p>

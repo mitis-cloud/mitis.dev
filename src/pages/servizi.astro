@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Servizi from '../components/Servizi.astro';
+import Faq from '../components/Faq.astro';
+import CtaFinale from '../components/CtaFinale.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  titolo="Servizi: assessment gratuito, poi prezzo fisso | mitis"
+  descrizione="Si parte da un assessment gratuito; poi prezzo fisso scritto prima di iniziare, e supporto in abbonamento disdicibile. Con le risposte alle obiezioni vere."
+>
+  <Nav />
+  <main id="contenuto" class="pt-4 md:pt-8">
+    <Servizi h1 />
+    <Faq />
+  </main>
+  <CtaFinale />
+  <Footer />
+</Base>

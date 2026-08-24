@@ -6,12 +6,12 @@ interface Props {
   descrizione?: string;
 }
 
-const title =
-  Astro.props.titolo ?? 'mitis — Consulenza Cloud e DevOps a prezzo fisso · FinOps e Kubernetes';
+const title = Astro.props.titolo ?? 'mitis | Infrastruttura cloud noiosa, che costa la metà';
 const description =
   Astro.props.descrizione ??
   'Consulenza Cloud e DevOps per scaleup e PMI. Kubernetes, Terraform e FinOps a prezzo fisso: infrastruttura prevedibile, spesa sotto controllo, codice tuo.';
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const inHome = Astro.url.pathname === '/';
 const ogImage = new URL('/og.png', Astro.site).href;
 
 const jsonLd = {
@@ -84,7 +84,7 @@ const jsonLd = {
       crossorigin
     />
 
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {inHome && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body>
     <a

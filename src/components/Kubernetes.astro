@@ -1,6 +1,8 @@
 ---
 import { Code } from 'astro:components';
 import Section from './Section.astro';
+
+const Titolo = Astro.props.h1 ? 'h1' : 'h2';
 import { contatti } from '../dati';
 
 const crd = `apiVersion: apps.understudy.sh/v1alpha1
@@ -43,9 +45,9 @@ const pratiche = [
 ---
 
 <Section id="kubernetes" eyebrow="kubernetes" class="py-14 md:py-20">
-  <h2 class="max-w-[26ch] font-display text-h2 font-bold" data-rivela>
+  <Titolo class="max-w-[26ch] font-display text-h2 font-bold" data-rivela>
     Conosciamo Kubernetes da dentro.
-  </h2>
+  </Titolo>
   <p class="mt-5 max-w-[64ch] text-body text-carta/75" data-rivela>
     Cluster, upgrade, multi-tenancy: ordinaria amministrazione. La differenza emerge quando il
     problema non ha una soluzione a scaffale: a quel punto l’operator lo scriviamo noi. È

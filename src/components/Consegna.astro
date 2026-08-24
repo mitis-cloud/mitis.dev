@@ -1,5 +1,8 @@
 ---
 import Section from './Section.astro';
+
+const Titolo = Astro.props.h1 ? 'h1' : 'h2';
+const Sottotitolo = Astro.props.h1 ? 'h2' : 'h3';
 import Icona from './Icona.astro';
 
 const fasi = [
@@ -36,9 +39,9 @@ const pratiche = [
 ---
 
 <Section id="devops" eyebrow="devops" class="py-14 md:py-20">
-  <h2 class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>
+  <Titolo class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>
     Il deploy più noioso della settimana.
-  </h2>
+  </Titolo>
   <p class="mt-5 max-w-[64ch] text-body text-carta/75" data-rivela>
     La piattaforma non è solo infrastruttura: è il modo in cui il codice arriva in produzione.
     Sul CI non abbiamo dogmi: teniamo quello che usi già. È dopo il merge che cambia tutto:
@@ -90,7 +93,7 @@ const pratiche = [
       pratiche.map((p) => (
         <div class="rounded-lg border border-carta/10 bg-quadro p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-carta/25">
           <Icona nome={p.icona} class="mb-3 h-[22px] w-[22px] text-lichene" />
-          <h3 class="font-mono text-label font-bold text-carta">{p.titolo.toLowerCase()}</h3>
+          <Sottotitolo class="font-mono text-label font-bold text-carta">{p.titolo.toLowerCase()}</Sottotitolo>
           <p class="mt-2 text-s text-carta/70">{p.testo}</p>
         </div>
       ))

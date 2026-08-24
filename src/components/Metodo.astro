@@ -1,5 +1,8 @@
 ---
 import Section from './Section.astro';
+
+const Titolo = Astro.props.h1 ? 'h1' : 'h2';
+const Sottotitolo = Astro.props.h1 ? 'h2' : 'h3';
 import Icona from './Icona.astro';
 
 const principi = [
@@ -35,9 +38,9 @@ const principi = [
 ---
 
 <Section eyebrow="metodo" class="py-14 md:py-20">
-  <h2 class="max-w-[26ch] font-display text-h2 font-bold" data-rivela>
+  <Titolo class="max-w-[26ch] font-display text-h2 font-bold" data-rivela>
     L’open source è gratis. Il sistema è il prodotto.
-  </h2>
+  </Titolo>
   <p class="mt-5 max-w-[66ch] text-body text-carta/75" data-rivela>
     Costruiamo su un ecosistema open source collaudato — moduli Terraform pubblici, componenti
     riusabili, il framework Atmos, tutto Apache 2.0, usato in produzione da centinaia di team.
@@ -51,7 +54,7 @@ const principi = [
       principi.map((p) => (
         <div class="flex flex-col rounded-lg border border-carta/10 bg-quadro p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-carta/25 md:p-7">
           <Icona nome={p.icona} class="mb-3 h-6 w-6 text-lichene" />
-          <h3 class="font-display text-l font-bold">{p.titolo}</h3>
+          <Sottotitolo class="font-display text-l font-bold">{p.titolo}</Sottotitolo>
           <p class="mt-3 text-s text-carta/70">{p.testo}</p>
           <p class="mt-auto pt-4 font-mono text-label text-carta/55 italic">// {p.nota}</p>
         </div>

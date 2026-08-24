@@ -1,6 +1,11 @@
 ---
 import Section from './Section.astro';
 
+interface Props {
+  compatta?: boolean;
+}
+const { compatta = false } = Astro.props;
+
 const cardini = ['🧱 stack battle-tested', '🤖 ai per l’adattamento', '👀 review umana su tutto'];
 ---
 
@@ -8,18 +13,33 @@ const cardini = ['🧱 stack battle-tested', '🤖 ai per l’adattamento', '�
   <h2 class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>
     In produzione in settimane, non mesi.
   </h2>
-  <div class="mt-5 max-w-[66ch] space-y-4 text-body text-carta/75" data-rivela>
-    <p>
-      Non perché corriamo: perché non partiamo da zero. Lo stack è battle-tested (moduli e
-      architetture che giravano in produzione ben prima di arrivare da te) e usiamo l’AI per
-      adattarlo al tuo contesto: account, ambienti, vincoli, convenzioni, policy.
-    </p>
-    <p>
-      Il lavoro ripetitivo lo fa la macchina; le decisioni le prende chi ne risponde. Ogni riga
-      passa da una review umana ed è scritta per essere letta fra tre anni. L’AI accelera il
-      mestiere, non lo sostituisce: niente slop in produzione.
-    </p>
-  </div>
+  {
+    compatta ? (
+      <p class="mt-5 max-w-[66ch] text-body text-carta/75" data-rivela>
+        Non perché corriamo: perché non partiamo da zero. Stack battle-tested, AI per adattarlo
+        al tuo contesto, review umana su ogni riga.{' '}
+        <a
+          href="/metodo"
+          class="text-lichene underline underline-offset-4 hover:no-underline"
+        >
+          Come lavoriamo →
+        </a>
+      </p>
+    ) : (
+      <div class="mt-5 max-w-[66ch] space-y-4 text-body text-carta/75" data-rivela>
+        <p>
+          Non perché corriamo: perché non partiamo da zero. Lo stack è battle-tested (moduli e
+          architetture che giravano in produzione ben prima di arrivare da te) e usiamo l’AI
+          per adattarlo al tuo contesto: account, ambienti, vincoli, convenzioni, policy.
+        </p>
+        <p>
+          Il lavoro ripetitivo lo fa la macchina; le decisioni le prende chi ne risponde. Ogni
+          riga passa da una review umana ed è scritta per essere letta fra tre anni. L’AI
+          accelera il mestiere, non lo sostituisce: niente slop in produzione.
+        </p>
+      </div>
+    )
+  }
   <ul class="mt-7 flex flex-wrap gap-3" data-rivela-serie>
     {
       cardini.map((c) => (

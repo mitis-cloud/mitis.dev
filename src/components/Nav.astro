@@ -3,12 +3,14 @@ import Wordmark from './Wordmark.astro';
 import { contatti } from '../dati';
 
 const links = [
-  { href: '#finops', label: 'FinOps' },
-  { href: '#kubernetes', label: 'Kubernetes' },
-  { href: '#devops', label: 'DevOps' },
-  { href: '#offerte', label: 'Offerte' },
-  { href: '#faq', label: 'FAQ' },
+  { href: '/finops', label: 'FinOps' },
+  { href: '/kubernetes', label: 'Kubernetes' },
+  { href: '/devops', label: 'DevOps' },
+  { href: '/metodo', label: 'Metodo' },
+  { href: '/servizi', label: 'Servizi' },
 ];
+
+const percorso = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
 <header class="sticky top-0 z-40 border-b border-carta/10 bg-sfondo/85 px-5 backdrop-blur-md sm:px-8">
@@ -26,7 +28,11 @@ const links = [
             <li>
               <a
                 href={l.href}
-                class="font-mono text-label text-carta/60 transition-colors hover:text-carta"
+                aria-current={percorso === l.href ? 'page' : undefined}
+                class:list={[
+                  'font-mono text-label transition-colors hover:text-carta',
+                  percorso === l.href ? 'text-lichene' : 'text-carta/60',
+                ]}
               >
                 {l.label}
               </a>

@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import FinOps from '../components/FinOps.astro';
+import CtaFinale from '../components/CtaFinale.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  titolo="FinOps: fino a −70% di spesa cloud | mitis"
+  descrizione="La spesa cloud scende con l'ingegneria: right-sizing, spot, Karpenter, commitment. Un caso reale fino a −70%, e un assessment gratuito per capire quanto recuperi tu."
+>
+  <Nav />
+  <main id="contenuto" class="pt-4 md:pt-8">
+    <FinOps h1 />
+  </main>
+  <CtaFinale />
+  <Footer />
+</Base>

@@ -1,7 +1,14 @@
 # mitis.dev
 
-Homepage di mitis — consulenza Cloud & DevOps. Astro 7 + Tailwind 4, output statico,
-JS quasi nullo (solo il trigger dell'animazione hero, inline).
+Sito di mitis — consulenza Cloud & DevOps. Astro 7 + Tailwind 4, output statico,
+JS quasi nullo (trigger delle animazioni e reveal, inline).
+
+## Struttura
+
+Home compatta (hero + clienti + problema + tre pilastri + velocità + man mitis + CTA)
+e pagine di dettaglio: `/finops`, `/kubernetes`, `/devops`, `/metodo`
+(metodo+velocità+deliverable+percorso+per-chi), `/servizi` (servizi+FAQ), più
+`/privacy` e `/cookie`. Sitemap generata da `@astrojs/sitemap`.
 
 ## Comandi
 

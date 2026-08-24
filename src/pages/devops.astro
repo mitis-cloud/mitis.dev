@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Consegna from '../components/Consegna.astro';
+import CtaFinale from '../components/CtaFinale.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  titolo="DevOps: deploy noiosi con ArgoCD e Kargo | mitis"
+  descrizione="Rilasci GitOps con ArgoCD, promozioni tra ambienti con Kargo, un'anteprima per ogni pull request. Il CI resta il tuo. Deploy noiosi, nel senso buono."
+>
+  <Nav />
+  <main id="contenuto" class="pt-4 md:pt-8">
+    <Consegna h1 />
+  </main>
+  <CtaFinale />
+  <Footer />
+</Base>
