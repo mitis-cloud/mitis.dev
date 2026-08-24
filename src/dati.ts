@@ -1,8 +1,6 @@
 export const contatti = {
-  email: 'francesco.lauritano1@protonmail.com',
-  chiamata:
-    'mailto:francesco.lauritano1@protonmail.com?subject=' +
-    encodeURIComponent('Prenota una chiamata tecnica'),
+  email: 'info@mitis.dev',
+  chiamata: 'mailto:info@mitis.dev?subject=' + encodeURIComponent('Prenota una chiamata tecnica'),
   github: 'https://github.com/mitis-cloud',
   understudy: 'https://github.com/mitis-cloud/understudy',
 };
