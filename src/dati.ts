@@ -4,7 +4,7 @@ export const contatti = {
     'mailto:francesco.lauritano1@protonmail.com?subject=' +
     encodeURIComponent('Prenota una chiamata tecnica'),
   github: 'https://github.com/mitis-cloud',
-  understudy: 'https://github.com/kylan11/understudy',
+  understudy: 'https://github.com/mitis-cloud/understudy',
 };
 
 export const azienda = {
