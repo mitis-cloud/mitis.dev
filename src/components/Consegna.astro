@@ -3,11 +3,11 @@ import Section from './Section.astro';
 
 const fasi = [
   'pr aperta',
-  'ci: test + plan',
-  'review',
+  'ci: build + test',
   'merge',
-  'apply + deploy',
-  'in produzione',
+  'argocd: sync dev',
+  'kargo: promote staging',
+  'kargo: promote prod',
 ];
 
 const pratiche = [
@@ -16,8 +16,8 @@ const pratiche = [
     testo: 'si discute su un ambiente vivo, non su uno screenshot',
   },
   {
-    titolo: 'Promozione via Git',
-    testo: 'dev, staging e produzione si somigliano davvero',
+    titolo: 'Promozioni con Kargo',
+    testo: 'dev, staging e produzione avanzano con regole scritte, non a mano',
   },
   {
     titolo: 'Rollback = revert',
@@ -25,7 +25,7 @@ const pratiche = [
   },
   {
     titolo: 'Un solo flusso',
-    testo: 'applicazioni e infrastruttura viaggiano sulla stessa pipeline',
+    testo: 'applicazioni e infrastruttura viaggiano nello stesso flusso Git',
   },
 ];
 ---
@@ -36,9 +36,10 @@ const pratiche = [
   </h2>
   <p class="mt-5 max-w-[64ch] text-body text-carta/75" data-rivela>
     La piattaforma non è solo infrastruttura: è il modo in cui il codice arriva in produzione.
-    Pipeline su GitHub Actions, un ambiente di anteprima per ogni pull request, rilasci GitOps,
-    e la stessa strada per applicazioni e infrastruttura: il plan si legge nel CI, l’apply
-    parte al merge.
+    Sul CI non abbiamo dogmi: teniamo quello che usi già. È dopo il merge che cambia tutto:
+    ArgoCD tiene gli ambienti allineati a ciò che è scritto nei repository, Kargo governa le
+    promozioni da dev a produzione, e applicazioni e infrastruttura seguono la stessa strada —
+    il plan si legge nella pull request, l’apply parte al merge.
   </p>
 
   <figure
@@ -48,13 +49,13 @@ const pratiche = [
     <figcaption class="flex items-center gap-2.5 border-b border-carta/10 px-4 py-2.5">
       <span class="h-2 w-2 shrink-0 bg-lichene" aria-hidden="true"></span>
       <span class="font-mono text-[0.72rem] tracking-[0.05em] text-carta/55"
-        >github actions · deploy.yml</span
+        >gitops · argocd + kargo</span
       >
     </figcaption>
     <div
       class="px-6 py-8 md:px-10 md:py-10"
       role="img"
-      aria-label="Percorso di una pull request: aperta, test e plan nel CI, review, merge, apply e deploy, in produzione. Rollback disponibile con git revert."
+      aria-label="Percorso di una pull request: aperta, build e test nel CI, merge, sync dell'ambiente dev con ArgoCD, promozione a staging e a produzione con Kargo. Rollback disponibile con git revert."
     >
       <div class="relative">
         <div class="binario"><div class="progresso"></div></div>

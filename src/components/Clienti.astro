@@ -1,21 +1,60 @@
 ---
-const clienti = ['Wolters Kluwer', 'Conio', 'DBridge', 'Otherside Technology'];
+const clienti = [
+  {
+    nome: 'Wolters Kluwer',
+    file: '/clienti/wolters-kluwer.svg',
+    w: 1134,
+    h: 240,
+    classe: 'h-[26px]',
+  },
+  { nome: 'Conio', file: '/clienti/conio.webp', w: 248, h: 85, classe: 'h-[24px]' },
+  { nome: 'DBridge', file: '/clienti/dbridge.png', w: 102, h: 19, classe: 'h-[17px]' },
+  {
+    nome: 'Otherside Technology',
+    file: '/clienti/otherside.svg',
+    w: 469,
+    h: 114,
+    classe: 'h-[22px]',
+  },
+  { nome: 'EGlobe', file: '/clienti/eglobe.png', w: 191, h: 49, classe: 'h-[21px] globo' },
+];
 ---
 
-<section class="px-5 sm:px-8" aria-label="Aziende con cui abbiamo lavorato">
+<section class="px-5 sm:px-8" aria-label="Alcuni dei nostri clienti">
   <div
-    class="mx-auto flex w-full max-w-6xl flex-wrap items-baseline gap-x-10 gap-y-4 border-y border-carta/10 py-7"
+    class="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-x-12 gap-y-5 border-y border-carta/10 py-7"
     data-rivela
   >
-    <p class="font-mono text-label text-carta/55">abbiamo lavorato con</p>
-    <ul class="flex flex-wrap items-baseline gap-x-10 gap-y-3">
+    <p class="font-mono text-label text-carta/55">alcuni dei nostri clienti</p>
+    <ul class="flex flex-wrap items-center gap-x-12 gap-y-5">
       {
         clienti.map((c) => (
-          <li class="font-display text-l font-bold tracking-tight text-carta/55 transition-colors hover:text-carta/90">
-            {c}
+          <li class="flex items-center">
+            <img
+              src={c.file}
+              alt={c.nome}
+              width={c.w}
+              height={c.h}
+              loading="lazy"
+              class:list={['logo w-auto', c.classe]}
+            />
           </li>
         ))
       }
     </ul>
   </div>
 </section>
+
+<style>
+  .logo {
+    filter: brightness(0) invert(1);
+    opacity: 0.55;
+    transition: opacity 200ms ease;
+  }
+  .logo.globo {
+    filter: grayscale(1) brightness(1.15);
+  }
+  .logo:hover {
+    opacity: 0.9;
+  }
+</style>
