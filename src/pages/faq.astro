@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Faq from '../components/Faq.astro';
+import CtaFinale from '../components/CtaFinale.astro';
+import Footer from '../components/Footer.astro';
+import { gruppi } from '../faq-dati';
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: gruppi.flatMap((g) =>
+    g.voci.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  ),
+};
+---
+
+<Base
+  titolo="FAQ: le obiezioni vere | mitis"
+  descrizione="Prezzo fisso, tempi, accessi, NDA, Azure, cosa succede dopo l'handover: le domande che ci fanno davvero, con le risposte che daremmo in chiamata."
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqLd)} />
+  <Nav />
+  <main id="contenuto" class="pt-4 md:pt-8">
+    <Faq />
+  </main>
+  <CtaFinale />
+  <Footer />
+</Base>

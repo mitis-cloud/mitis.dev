@@ -85,6 +85,7 @@ const jsonLd = {
     />
 
     {inHome && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    <slot name="head" />
   </head>
   <body>
     <a
