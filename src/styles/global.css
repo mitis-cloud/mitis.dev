@@ -132,7 +132,7 @@
   font-family: var(--font-mono);
   font-size: var(--text-label);
   letter-spacing: var(--text-label--letter-spacing);
-  color: color-mix(in srgb, var(--color-inchiostro) 62%, transparent);
+  color: color-mix(in srgb, var(--color-inchiostro) 68%, transparent);
   display: inline-flex;
   align-items: center;
   gap: 0.625rem;

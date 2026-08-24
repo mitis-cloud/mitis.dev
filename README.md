@@ -1,43 +1,45 @@
-# Astro Starter Kit: Minimal
+# mitis.dev
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Homepage di mitis — consulenza Cloud & DevOps. Astro 7 + Tailwind 4, output statico,
+JS quasi nullo (solo il trigger dell'animazione hero, inline).
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Comandi
 
-## 🚀 Project Structure
+| comando           | effetto                                      |
+| ----------------- | -------------------------------------------- |
+| `npm install`     | dipendenze                                   |
+| `npm run dev`     | dev server su `localhost:4321`               |
+| `npm run build`   | build statica in `dist/`                     |
+| `npm run preview` | serve `dist/` in locale                      |
+| `npm run og`      | rigenera `public/og.png` (richiede playwright) |
 
-Inside of your Astro project, you'll see the following folders and files:
+## Segnaposto da riempire
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Tutti i valori `{{...}}` visibili in pagina vivono in **`src/dati.ts`**: contatti
+(email, calendario) e dati commerciali (prezzi, durate, SLA, P.IVA, URL privacy e
+cookie policy, dettagli del caso FinOps). Sostituirli lì e ricompilare.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Nota: la citazione nella sezione FinOps promette l'esito dell'assessment "in due
+settimane" — se `{{DURATA_ASSESSMENT}}` diventa un'altra durata, allineare anche
+quella frase (`src/components/FinOps.astro`).
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Deploy
 
-Any static assets, like images, can be placed in the `public/` directory.
+Push su `main` → `.github/workflows/deploy.yml` builda e pubblica su GitHub Pages
+(`public/CNAME` punta a `mitis.dev`). Da fare una tantum sul repo GitHub:
+Settings → Pages → Source: GitHub Actions, più il DNS di `mitis.dev`
+(CNAME/ALIAS verso GitHub Pages).
 
-## 🧞 Commands
+## Design system
 
-All commands are run from the root of the project, from a terminal:
+Palette (in `src/styles/global.css`, blocco `@theme`): `carta #f2f1ec`,
+`inchiostro #1b1a17`, `terminale #101613`, `felce #166b4a`, `lichene #53c287`,
+`ruggine #a63b2a` — il rosso è solo semantico (diff `-`, spreco), il verde è
+apply/risparmio. Font self-hosted in `public/fonts/` (tutti OFL): Schibsted
+Grotesk (display), Instrument Sans (testo), JetBrains Mono (terminale, etichette,
+dati).
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+I numeri in pagina (benchmark di Understudy, caso −70%) sono gli unici claim
+quantitativi ammessi e vanno tenuti identici alle fonti: il benchmark viene dal
+README di [Understudy](https://github.com/kylan11/understudy) e non va
+arrotondato né estrapolato.
