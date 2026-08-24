@@ -1,0 +1,246 @@
+---
+const ariaLabel =
+  "Simulazione da terminale: un nodo spot riceve l'avviso di interruzione, Understudy trattiene l'eviction, avvia un pod sostituto, aspetta che sia pronto e solo allora lascia uscire l'originale. Il probe registra 764 richieste, 1 fallita.";
+---
+
+<figure class="terminal" data-terminal>
+  <figcaption class="bar">
+    <span class="bar-dot" aria-hidden="true"></span>
+    <span class="bar-title">produzione — eks · karpenter · spot</span>
+    <button class="replay" data-replay hidden aria-label="Rivedi l'animazione">↻ rivedi</button>
+  </figcaption>
+
+  <div class="body" role="img" aria-label={ariaLabel}>
+    <div aria-hidden="true">
+      <p class="tl cmd" style="--d: 0.15s"><span class="typed">$ kubectl get pods -w -l app=tenant-worker</span></p>
+      <p class="tl dim" style="--d: 1.5s">NAME                         READY  STATUS</p>
+      <p class="tl" style="--d: 1.7s">tenant-worker-6d8f7c-x2k4q   1/1    <span class="ok">Running</span></p>
+      <p class="tl warn" style="--d: 3.1s">! spot interruption: node spot-arm64-a7f3 (2m)</p>
+      <p class="tl op" style="--d: 3.9s">understudy: holding eviction, starting stand-in</p>
+      <p class="tl" style="--d: 4.7s">tenant-worker-6d8f7c-p9d2m   0/1    <span class="dim">Pending</span></p>
+      <p class="tl" style="--d: 6.6s">tenant-worker-6d8f7c-p9d2m   1/1    <span class="ok">Running</span></p>
+      <p class="tl op" style="--d: 7.4s">understudy: stand-in ready, releasing original</p>
+      <p class="tl bye" style="--d: 8.2s">tenant-worker-6d8f7c-x2k4q   1/1    <span class="warn">Terminating</span></p>
+      <p class="tl probe" style="--d: 9.6s">probe: <strong>764 requests, 1 failed</strong></p>
+    </div>
+  </div>
+</figure>
+
+<p class="mt-4 max-w-[56ch] text-s text-inchiostro/70">
+  Non è un'animazione di fantasia: su un'interruzione spot reale il probe ha misurato{' '}
+  <strong class="font-semibold text-inchiostro">1 richiesta fallita su 764</strong>. Un rolling
+  update di routine ne perde 2 su 38.{' '}
+  <a href="#kubernetes" class="text-felce underline underline-offset-4 hover:no-underline"
+    >I numeri, più sotto</a
+  >.
+</p>
+
+<style>
+  .terminal {
+    background-color: var(--color-terminale);
+    border: 1px solid color-mix(in srgb, var(--color-carta) 12%, transparent);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 0 color-mix(in srgb, var(--color-inchiostro) 8%, transparent);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.625rem 1rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-carta) 10%, transparent);
+  }
+
+  .bar-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: var(--color-lichene);
+    flex-shrink: 0;
+  }
+
+  .bar-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    color: color-mix(in srgb, var(--color-carta) 55%, transparent);
+  }
+
+  .replay {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: color-mix(in srgb, var(--color-carta) 65%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-carta) 20%, transparent);
+    border-radius: 5px;
+    padding: 0.1rem 0.5rem;
+    cursor: pointer;
+    transition: color 150ms;
+  }
+  .replay:hover {
+    color: var(--color-carta);
+  }
+
+  .body {
+    padding: 1rem 1.25rem 1.25rem;
+    overflow-x: auto;
+  }
+
+  .tl {
+    font-family: var(--font-mono);
+    font-size: clamp(0.64rem, 0.42rem + 1vw, 0.8125rem);
+    line-height: 1.85;
+    white-space: pre;
+    color: color-mix(in srgb, var(--color-carta) 88%, transparent);
+    opacity: 0;
+  }
+
+  .terminal.play .tl {
+    animation: reveal 220ms ease-out var(--d) both;
+  }
+
+  .dim {
+    color: color-mix(in srgb, var(--color-carta) 45%, transparent);
+  }
+  .ok {
+    color: var(--color-lichene);
+  }
+  .op {
+    color: var(--color-lichene);
+  }
+  .warn {
+    color: color-mix(in srgb, var(--color-ruggine) 45%, white);
+  }
+  .probe {
+    margin-top: 0.9em;
+    color: color-mix(in srgb, var(--color-carta) 70%, transparent);
+  }
+  .probe strong {
+    color: var(--color-carta);
+    font-weight: 700;
+  }
+
+  .terminal.play .bye {
+    animation:
+      reveal 220ms ease-out var(--d) both,
+      dimout 500ms ease-out 9.1s forwards;
+  }
+
+  .cmd .typed {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    max-width: 42ch;
+    border-right: 0.45em solid var(--color-lichene);
+  }
+  .terminal.play .cmd .typed {
+    animation:
+      typing 1.1s steps(42) 0.15s backwards,
+      caret 0.9s step-end 0.15s 3;
+  }
+
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(3px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes dimout {
+    to {
+      opacity: 0.32;
+    }
+  }
+  @keyframes typing {
+    from {
+      max-width: 0;
+    }
+    to {
+      max-width: 42ch;
+    }
+  }
+  @keyframes caret {
+    0%,
+    100% {
+      border-color: var(--color-lichene);
+    }
+    50% {
+      border-color: transparent;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tl,
+    .terminal.play .tl {
+      animation: none;
+      opacity: 1;
+    }
+    .bye,
+    .terminal.play .bye {
+      animation: none;
+      opacity: 0.32;
+    }
+    .cmd .typed,
+    .terminal.play .cmd .typed {
+      animation: none;
+      border-right: none;
+    }
+    .replay {
+      display: none;
+    }
+  }
+</style>
+
+<noscript>
+  <style>
+    [data-terminal] .tl {
+      animation: none;
+      opacity: 1;
+    }
+    [data-terminal] .tl:nth-last-child(2) {
+      opacity: 0.32;
+    }
+    [data-terminal] .cmd span {
+      border-right: none;
+    }
+  </style>
+</noscript>
+
+<script>
+  const terminal = document.querySelector<HTMLElement>('[data-terminal]');
+  const replay = document.querySelector<HTMLButtonElement>('[data-replay]');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (terminal) {
+    const play = () => {
+      terminal.classList.remove('play');
+      void terminal.offsetWidth;
+      terminal.classList.add('play');
+    };
+
+    if (reduced || !('IntersectionObserver' in window)) {
+      terminal.classList.add('play');
+    } else {
+      const io = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) {
+            play();
+            io.disconnect();
+            if (replay) {
+              setTimeout(() => {
+                replay.hidden = false;
+              }, 10500);
+            }
+          }
+        },
+        { threshold: 0.4 },
+      );
+      io.observe(terminal);
+    }
+
+    replay?.addEventListener('click', play);
+  }
+</script>

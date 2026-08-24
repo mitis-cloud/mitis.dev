@@ -1,0 +1,115 @@
+---
+import { Code } from 'astro:components';
+import Section from './Section.astro';
+import { contatti } from '../dati';
+
+const crd = `apiVersion: apps.understudy.sh/v1alpha1
+kind: Understudy
+metadata:
+  name: tenant-worker
+spec:
+  targetRef:
+    kind: Deployment
+    name: tenant-worker
+  holdMode: always
+  minSurgeTimeSeconds: 60
+  readinessDeadlineSeconds: 600`;
+
+const benchmark = [
+  { evento: 'Niente in corso (controllo)', esito: '0 su 120' },
+  { evento: 'kubectl drain', esito: '1 su 350', mono: true },
+  { evento: 'Disruption di Karpenter', esito: '1 su 189' },
+  { evento: 'Interruzione spot AWS reale', esito: '1 su 764', forte: true },
+  { evento: 'Rolling update ordinario, senza Understudy (controllo)', esito: '2 su 38', forte: true },
+];
+---
+
+<Section id="kubernetes" eyebrow="kubernetes" class="py-14 md:py-20">
+  <h2 class="max-w-[26ch] font-display text-h2 font-bold">
+    Kubernetes, al livello di scrivere operator.
+  </h2>
+  <p class="mt-5 max-w-[64ch] text-body text-inchiostro/80">
+    Gestire un cluster è ordinaria amministrazione. Il livello a cui lavoriamo è un gradino
+    sotto: i controller che lo governano. La prova è pubblica e si chiama{' '}
+    <a
+      href={contatti.understudy}
+      class="font-semibold text-felce underline underline-offset-4 hover:no-underline"
+      >Understudy</a
+    >: un operator per l’alta disponibilità dei workload a replica singola. Quando un nodo sta
+    per sparire, porta su un sostituto, aspetta che sia davvero pronto e solo allora lascia
+    uscire l’originale. La seconda replica esiste per i minuti in cui serve, non
+    ventiquattr’ore al giorno.
+  </p>
+
+  <div class="mt-10 grid items-start gap-8 lg:grid-cols-[1.1fr_1fr]">
+    <div class="min-w-0">
+      <p class="font-mono text-label text-inchiostro/60">richieste fallite per evento</p>
+      <table class="mt-3 w-full border-collapse text-s">
+        <caption class="sr-only">
+          Richieste fallite per tipo di evento, misurate con e senza Understudy
+        </caption>
+        <tbody>
+          {
+            benchmark.map((r) => (
+              <tr class="border-b border-inchiostro/10">
+                <th scope="row" class="py-2.5 pr-4 text-left font-normal text-inchiostro/85">
+                  {r.mono ? <code class="font-mono text-[0.85em]">{r.evento}</code> : r.evento}
+                </th>
+                <td
+                  class:list={[
+                    'py-2.5 text-right font-mono whitespace-nowrap',
+                    r.forte ? 'font-bold text-inchiostro' : 'text-inchiostro/70',
+                  ]}
+                >
+                  {r.esito}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+      <p class="mt-3 max-w-[58ch] text-s text-inchiostro/60">
+        Misurato su EKS con Karpenter, nodi spot arm64, una replica dietro un application load
+        balancer, senza capacità di riserva. Probe a circa tre richieste al secondo.
+      </p>
+      <p class="mt-5 max-w-[54ch] border-l-4 border-felce pl-4 text-l font-medium">
+        La riga che conta è l’ultima: un’interruzione del nodo finisce per costare quanto un
+        deploy di routine.
+      </p>
+      <p class="mt-5 max-w-[58ch] text-s text-inchiostro/60">
+        Best effort, detto chiaramente: le richieste in volo non si salvano, i workload che non
+        tollerano due istanze contemporanee restano fuori scope, e contro la morte improvvisa
+        dell’hardware serve comunque una seconda replica.
+      </p>
+    </div>
+
+    <div class="min-w-0">
+      <div class="overflow-hidden rounded-[10px] border border-carta/0 bg-terminale shadow-[0_1px_0_rgba(27,26,23,0.08)]">
+        <div class="flex items-center gap-2.5 border-b border-carta/10 px-4 py-2.5">
+          <span class="h-2 w-2 shrink-0 bg-lichene" aria-hidden="true"></span>
+          <span class="font-mono text-[0.72rem] tracking-[0.05em] text-carta/55">understudy.yaml</span>
+        </div>
+        <Code code={crd} lang="yaml" theme="everforest-dark" class="crd-code" />
+      </div>
+      <p class="mt-4 font-mono text-label text-inchiostro/60">
+        Apache 2.0 · Go · CRD e webhook di ammissione ·{' '}
+        <a
+          href={contatti.understudy}
+          class="text-felce underline underline-offset-4 hover:no-underline">il repository</a
+        >
+      </p>
+    </div>
+  </div>
+</Section>
+
+<style is:global>
+  .crd-code {
+    background-color: var(--color-terminale) !important;
+    padding: 1.1rem 1.25rem;
+    font-size: 0.8125rem;
+    line-height: 1.8;
+  }
+  .crd-code code {
+    font-family: var(--font-mono);
+  }
+</style>

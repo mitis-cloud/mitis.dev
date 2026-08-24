@@ -1,0 +1,60 @@
+---
+import Section from './Section.astro';
+
+const principi = [
+  {
+    titolo: 'Tutto è tuo, dal primo giorno',
+    testo:
+      'Repository tuoi, account tuoi, pipeline tue. Nessuna piattaforma proprietaria, nessun agente installato, nessuna licenza da rinnovare.',
+    nota: 'se un giorno ci mandi via, non perdi niente.',
+  },
+  {
+    titolo: 'Prezzo fisso, esito garantito',
+    testo:
+      'Ambito e tempi definiti prima di iniziare, con clausola di rimborso scritta nel contratto. Non vendiamo giornate: vendiamo un risultato.',
+    nota: 'chi vende giornate ha interesse ad allungare. chi vende un esito, a finire.',
+  },
+  {
+    titolo: 'Infrastruttura che gira, non slide',
+    testo:
+      'Il deliverable è una piattaforma in produzione con la sua documentazione, non una roadmap in PDF.',
+    nota: 'i pdf non reggono traffico.',
+  },
+  {
+    titolo: 'Ce ne andiamo, davvero',
+    testo:
+      'L’ingaggio finisce con il tuo team che opera la piattaforma: handover e formazione sono nel prezzo. Dopo, se serve, un abbonamento di supporto trasparente.',
+    nota: 'la misura del successo è non esserti più necessari.',
+  },
+];
+---
+
+<Section eyebrow="metodo" class="py-14 md:py-20">
+  <h2 class="max-w-[26ch] font-display text-h2 font-bold">
+    L’open source è gratis. Il sistema è il prodotto.
+  </h2>
+  <p class="mt-5 max-w-[66ch] text-body text-inchiostro/80">
+    Costruiamo apertamente sull’ecosistema open source di{' '}
+    <a
+      href="https://github.com/cloudposse"
+      class="text-felce underline underline-offset-4 hover:no-underline">Cloud Posse</a
+    >{' '}
+    — moduli Terraform, componenti, il framework Atmos, tutto Apache 2.0, usato in produzione
+    da centinaia di team — e ne consegniamo una versione semplificata, adatta alla scala di una
+    scaleup o di una PMI, non di una enterprise americana. Stare su fondamenta pubbliche e
+    collaudate è il contrario dell’impianto su misura che solo chi l’ha scritto sa mantenere.
+    Quello che paghi è l’architettura che tiene insieme i pezzi, implementata nei tuoi account.
+  </p>
+
+  <div class="mt-10 grid gap-5 md:grid-cols-2">
+    {
+      principi.map((p) => (
+        <div class="flex flex-col rounded-lg border border-inchiostro/12 p-6 md:p-7">
+          <h3 class="font-display text-l font-bold">{p.titolo}</h3>
+          <p class="mt-3 text-s text-inchiostro/80">{p.testo}</p>
+          <p class="mt-auto pt-4 font-mono text-label text-inchiostro/50 italic">// {p.nota}</p>
+        </div>
+      ))
+    }
+  </div>
+</Section>

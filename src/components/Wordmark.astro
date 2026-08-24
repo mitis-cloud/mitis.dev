@@ -1,0 +1,13 @@
+---
+interface Props {
+  class?: string;
+  cursor?: string;
+}
+const { class: className = '', cursor = 'bg-felce' } = Astro.props;
+---
+
+<span class:list={['font-display font-bold tracking-tight', className]}
+  >mitis<span
+    class:list={['ml-[0.09em] inline-block h-[0.82em] w-[0.14em] align-[-0.08em]', cursor]}
+    aria-hidden="true"></span></span
+>

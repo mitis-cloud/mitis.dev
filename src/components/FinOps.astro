@@ -1,0 +1,74 @@
+---
+import Section from './Section.astro';
+import { segnaposto } from '../dati';
+
+const leve = [
+  'right-sizing sistematico di compute e database',
+  'nodi spot e preemptible dove il carico lo consente',
+  'consolidamento dei nodi con Karpenter',
+  'classi di storage e lifecycle policy',
+  'egress e traffico inter-AZ sotto controllo',
+  'risorse orfane e ambienti dimenticati, spenti',
+  'copertura a impegno: Savings Plans e CUD',
+  'allocazione dei costi per tenant, con showback',
+];
+---
+
+<Section id="finops" eyebrow="finops" class="py-14 md:py-20">
+  <h2 class="max-w-[24ch] font-display text-h2 font-bold">Meno spesa, stesse prestazioni.</h2>
+  <p class="mt-5 max-w-[62ch] text-body text-inchiostro/80">
+    La bolletta cloud non scende chiedendo uno sconto: scende con l’ingegneria. Right-sizing,
+    spot, consolidamento, storage, traffico. Lavoro poco appariscente, molto misurabile.
+  </p>
+
+  <div class="mt-10 grid gap-6 lg:grid-cols-[1fr_1fr]">
+    <div class="rounded-lg border border-inchiostro/12 p-6 md:p-8">
+      <p class="font-mono text-label text-inchiostro/60">caso reale, anonimizzato</p>
+      <p class="mt-4 font-display text-[clamp(3rem,2.2rem+3vw,4.5rem)] leading-none font-extrabold text-felce">
+        fino al −70%
+      </p>
+      <p class="mt-3 max-w-[44ch] text-body text-inchiostro/85">
+        di spesa cloud su una piattaforma multi-tenant enterprise, a parità di carico servito.
+      </p>
+      <dl class="mt-6 grid gap-x-6 gap-y-2 font-mono text-s sm:grid-cols-[auto_1fr]">
+        <dt class="text-inchiostro/55">settore</dt>
+        <dd class="[overflow-wrap:anywhere] max-sm:mb-2">{segnaposto.settoreCliente}</dd>
+        <dt class="text-inchiostro/55">spesa iniziale</dt>
+        <dd class="[overflow-wrap:anywhere] max-sm:mb-2">{segnaposto.ordineSpesa} / anno</dd>
+        <dt class="text-inchiostro/55">periodo</dt>
+        <dd class="[overflow-wrap:anywhere]">{segnaposto.periodoIntervento}</dd>
+      </dl>
+    </div>
+
+    <div class="flex flex-col justify-between gap-6">
+      <div>
+        <h3 class="font-display text-l font-bold">Cosa è cambiato, in concreto</h3>
+        <ul class="mt-4 grid gap-x-8 gap-y-2 sm:grid-cols-1">
+          {
+            leve.map((l) => (
+              <li class="flex gap-3 text-s text-inchiostro/85">
+                <span class="mt-0.5 shrink-0 font-mono font-bold text-felce" aria-hidden="true">
+                  +
+                </span>
+                {l}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-8 rounded-lg border-l-4 border-felce bg-felce/8 px-6 py-5 md:px-8">
+    <p class="max-w-[70ch] text-l text-inchiostro">
+      Non promettiamo il 70% a tutti. Promettiamo di dirti in due settimane quanto puoi
+      realisticamente recuperare, e cosa costa ottenerlo.
+    </p>
+    <p class="mt-2 text-s text-inchiostro/70">
+      È il lavoro dell’<a
+        href="#offerte"
+        class="text-felce underline underline-offset-4 hover:no-underline">assessment FinOps</a
+      >: prezzo fisso, durata fissa, utile anche se poi non ci scegli.
+    </p>
+  </div>
+</Section>

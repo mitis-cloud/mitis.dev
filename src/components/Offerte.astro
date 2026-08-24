@@ -1,0 +1,61 @@
+---
+import Section from './Section.astro';
+import { segnaposto } from '../dati';
+
+const offerte = [
+  {
+    nome: 'assessment finops',
+    prezzo: segnaposto.prezzoAssessment,
+    dettagli: `prezzo fisso · ${segnaposto.durataAssessment}`,
+    testo:
+      'Analisi di spesa e architettura sui tuoi account. Ne esce una lista prioritizzata dei risparmi, con impatto stimato e sforzo per ottenerli, più una stima onesta di quanto puoi recuperare.',
+    nota: 'il punto d’ingresso: piccolo, definito, utile anche da solo.',
+    inEvidenza: true,
+  },
+  {
+    nome: 'acceleratore',
+    prezzo: segnaposto.prezzoAccelerator,
+    dettagli: `prezzo fisso · ${segnaposto.durataSettimane} settimane`,
+    testo:
+      'La piattaforma completa a scope fisso: landing zone, Kubernetes, GitOps, osservabilità, handover con formazione del team. Esito garantito, con clausola di rimborso.',
+    nota: 'tutto nei tuoi repository, dal primo commit.',
+    inEvidenza: false,
+  },
+  {
+    nome: 'supporto continuativo',
+    prezzo: `${segnaposto.prezzoSupporto} / mese`,
+    dettagli: `risposta entro ${segnaposto.slaRisposta}`,
+    testo:
+      'Abbonamento mensile, disdicibile, per evoluzioni, reperibilità e un secondo paio d’occhi sulle decisioni di piattaforma.',
+    nota: 'esiste solo dopo l’handover: non è un modo per restare.',
+    inEvidenza: false,
+  },
+];
+---
+
+<Section id="offerte" eyebrow="offerte" class="py-14 md:py-20">
+  <h2 class="max-w-[24ch] font-display text-h2 font-bold">Come si compra.</h2>
+  <div class="mt-10 grid gap-5 lg:grid-cols-3">
+    {
+      offerte.map((o) => (
+        <div
+          class:list={[
+            'flex flex-col rounded-lg border p-6 md:p-7',
+            o.inEvidenza ? 'border-felce/60 bg-felce/5' : 'border-inchiostro/12',
+          ]}
+        >
+          {o.inEvidenza && (
+            <p class="mb-3 -mt-1 font-mono text-label font-bold text-felce">per iniziare</p>
+          )}
+          <h3 class="font-mono text-body font-bold">{o.nome}</h3>
+          <p class="mt-3 font-mono text-l [overflow-wrap:anywhere]">{o.prezzo}</p>
+          <p class="mt-1 font-mono text-label text-inchiostro/60 [overflow-wrap:anywhere]">
+            {o.dettagli}
+          </p>
+          <p class="mt-4 text-s text-inchiostro/80">{o.testo}</p>
+          <p class="mt-auto pt-4 font-mono text-label text-inchiostro/50 italic">// {o.nota}</p>
+        </div>
+      ))
+    }
+  </div>
+</Section>

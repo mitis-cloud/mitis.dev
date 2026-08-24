@@ -1,0 +1,60 @@
+---
+import Section from './Section.astro';
+
+const faq = [
+  {
+    q: 'Perché prezzo fisso e non a giornata?',
+    a: 'Perché allinea gli incentivi. A giornata, ogni imprevisto allunga il progetto e la fattura; a prezzo fisso, l’imprevisto è un problema nostro. L’ambito si definisce per iscritto prima di iniziare, e se l’esito concordato non arriva c’è una clausola di rimborso.',
+  },
+  {
+    q: 'Il 70% vale anche per me?',
+    a: 'Non lo sappiamo, ed è il motivo per cui non lo promettiamo. Quel risultato viene da una piattaforma multi-tenant con anni di stratificazioni: più margine di così è raro. L’assessment serve esattamente a questo: dirti prima quanto puoi recuperare tu, con quali interventi e in quanto tempo.',
+  },
+  {
+    q: 'E se il risparmio non arriva?',
+    a: 'L’assessment produce stime con ipotesi esplicite, non numeri da brochure. Sugli ingaggi a scope fisso l’esito è scritto nel contratto, con clausola di rimborso. E se dall’analisi emerge che non c’è abbastanza da recuperare, te lo diciamo e ci fermiamo lì.',
+  },
+  {
+    q: 'Il mio team non ha mai gestito Kubernetes: poi chi la mantiene?',
+    a: 'Il tuo team, ed è il punto. La piattaforma usa componenti standard e documentati, l’handover include formazione e runbook, e per i primi mesi c’è l’abbonamento di supporto. Se il tuo team sa fare review a una pull request, può operare la piattaforma.',
+  },
+  {
+    q: 'Se l’open source è gratis, cosa stiamo pagando?',
+    a: 'L’architettura che tiene insieme i pezzi, la sua implementazione nei tuoi account, e la garanzia sull’esito. I moduli sono pubblici e restano pubblici: paghi il sistema che ne esce, non il permesso di usarli.',
+  },
+  {
+    q: 'Costruite su Cloud Posse: cosa aggiungete voi?',
+    a: 'La selezione e la semplificazione: la loro architettura di riferimento nasce per enterprise americane, noi ne consegniamo una versione ridotta, operabile da un team piccolo. Poi GCP accanto ad AWS, il FinOps come pratica e non come slide, e il contesto: lingua, fuso orario, GDPR, NIS2, ACN.',
+  },
+  {
+    q: 'Lavorate anche su Azure?',
+    a: 'Caso per caso, senza promettere la stessa profondità che abbiamo su AWS e GCP. Se il grosso del tuo carico è su Azure, probabilmente esiste un fornitore migliore di noi, e te lo diremo.',
+  },
+  {
+    q: 'Siete una persona sola o un team?',
+    a: 'Una struttura volutamente piccola e senior: chi firma il preventivo è chi scrive il Terraform. Quando un progetto richiede più mani, lo diciamo prima, non lo fatturiamo dopo.',
+  },
+];
+---
+
+<Section id="faq" eyebrow="faq" class="py-14 md:py-20">
+  <h2 class="max-w-[24ch] font-display text-h2 font-bold">Le obiezioni vere.</h2>
+  <div class="mt-8 max-w-3xl">
+    {
+      faq.map((f) => (
+        <details class="group border-b border-inchiostro/12">
+          <summary class="flex cursor-pointer list-none items-baseline justify-between gap-6 py-5 font-display text-l font-bold [&::-webkit-details-marker]:hidden">
+            {f.q}
+            <span
+              class="shrink-0 font-mono text-l font-normal text-felce transition-transform group-open:rotate-45"
+              aria-hidden="true"
+            >
+              +
+            </span>
+          </summary>
+          <p class="max-w-[66ch] pb-6 text-s text-inchiostro/80">{f.a}</p>
+        </details>
+      ))
+    }
+  </div>
+</Section>

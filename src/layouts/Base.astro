@@ -1,0 +1,90 @@
+---
+import '../styles/global.css';
+
+const title = 'mitis — Consulenza Cloud e DevOps a prezzo fisso · FinOps e Kubernetes';
+const description =
+  'Consulenza Cloud e DevOps per scaleup e PMI. Kubernetes, Terraform e FinOps a prezzo fisso: infrastruttura prevedibile, spesa sotto controllo, codice nei tuoi repository.';
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL('/og.png', Astro.site).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'mitis',
+  url: Astro.site?.href,
+  description,
+  serviceType: 'Consulenza Cloud e DevOps',
+  areaServed: { '@type': 'Country', name: 'Italia' },
+  availableLanguage: ['it', 'en'],
+  knowsAbout: [
+    'Kubernetes',
+    'Terraform',
+    'FinOps',
+    'AWS',
+    'Google Cloud',
+    'Atmos',
+    'GitOps',
+    'Piattaforme interne',
+  ],
+  sameAs: ['https://github.com/kylan11'],
+};
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#f2f1ec" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="mitis" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="mitis — infrastruttura cloud noiosa, e che costa la metà" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link
+      rel="preload"
+      href="/fonts/schibsted-grotesk-v7-latin-800.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/instrument-sans-v4-latin-regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/jetbrains-mono-v24-latin-regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a
+      href="#contenuto"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-carta focus:px-4 focus:py-2 focus:font-mono focus:text-label"
+    >
+      Vai al contenuto
+    </a>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,56 @@
+---
+import Section from './Section.astro';
+
+const si = [
+  'team di prodotto tra 15 e 200 persone, su AWS o GCP',
+  'chi preferisce Terraform ai click in console',
+  'chi vuole che la piattaforma resti del proprio team',
+  'chi ha una bolletta cloud diventata una voce seria di bilancio',
+];
+
+const no = [
+  'se cerchi giornate-uomo da rivendere dentro un progetto più grande',
+  'se l’infrastruttura deve restare per sempre un reparto esterno: lavoriamo per renderci superflui',
+  'se il grosso del carico è su Azure: possiamo parlarne, ma non è dove siamo più profondi',
+  'se ti serve una migrazione mainframe o un ERP: non è il nostro mestiere',
+];
+---
+
+<Section eyebrow="per chi" class="py-14 md:py-20">
+  <h2 class="max-w-[24ch] font-display text-h2 font-bold">Per chi è, per chi no.</h2>
+  <div class="mt-10 grid gap-8 md:grid-cols-2">
+    <div>
+      <h3 class="font-mono text-label text-inchiostro/60">lavoriamo bene con</h3>
+      <ul class="mt-4 space-y-3">
+        {
+          si.map((v) => (
+            <li class="flex gap-3 text-s text-inchiostro/85">
+              <span class="mt-0.5 shrink-0 font-mono font-bold text-felce" aria-hidden="true">
+                +
+              </span>
+              {v}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-mono text-label text-inchiostro/60">non siamo il fornitore giusto</h3>
+      <ul class="mt-4 space-y-3">
+        {
+          no.map((v) => (
+            <li class="flex gap-3 text-s text-inchiostro/85">
+              <span class="mt-0.5 shrink-0 font-mono font-bold text-ruggine" aria-hidden="true">
+                −
+              </span>
+              {v}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+  <p class="mt-8 max-w-[60ch] text-s text-inchiostro/60">
+    Dire di no alla vendita sbagliata costa meno che gestirla. Vale per te e per noi.
+  </p>
+</Section>
