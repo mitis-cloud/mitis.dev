@@ -1,7 +1,7 @@
 ---
 import Section from './Section.astro';
 import Icona from './Icona.astro';
-import { linguaDi } from '../i18n';
+import { linguaDi, via } from '../i18n';
 
 const Titolo = Astro.props.h1 ? 'h1' : 'h2';
 const Sottotitolo = Astro.props.h1 ? 'h2' : 'h3';
@@ -13,6 +13,9 @@ const testi = {
     titolo: 'L’open source è gratis. Il sistema è il prodotto.',
     intro:
       'Costruiamo su un ecosistema open source collaudato — moduli Terraform pubblici, componenti riusabili, il framework Atmos, tutto Apache 2.0, usato in produzione da centinaia di team. Stare su fondamenta pubbliche e collaudate è il contrario dell’impianto su misura che solo chi l’ha scritto sa mantenere. Quello che paghi è l’architettura che tiene insieme i pezzi, implementata nei tuoi account.',
+    introDue: 'E una parte di quelle fondamenta la manteniamo noi:',
+    introLink: 'quello che pubblichiamo',
+    introDueFine: 'è leggibile prima ancora di parlarci.',
     principi: [
       {
         icona: 'scatola',
@@ -49,6 +52,9 @@ const testi = {
     titolo: 'The open source is free. The system is the product.',
     intro:
       'We build on a proven open source ecosystem — public Terraform modules, reusable components, the Atmos framework, all Apache 2.0, used in production by hundreds of teams. Standing on public, proven foundations is the opposite of the bespoke contraption only its author knows how to maintain. What you pay for is the architecture that holds the pieces together, implemented in your accounts.',
+    introDue: 'And part of those foundations we maintain ourselves:',
+    introLink: 'what we publish',
+    introDueFine: 'is readable before you even talk to us.',
     principi: [
       {
         icona: 'scatola',
@@ -89,6 +95,14 @@ const testi = {
   </Titolo>
   <p class="mt-5 max-w-[66ch] text-body text-carta/75" data-rivela>
     {testi.intro}
+  </p>
+  <p class="mt-4 max-w-[66ch] text-body text-carta/75" data-rivela>
+    {testi.introDue}{' '}
+    <a
+      href={via(l, '/open-source')}
+      class="text-lichene underline underline-offset-4 hover:no-underline">{testi.introLink}</a
+    >{' '}
+    {testi.introDueFine}
   </p>
 
   <div class="mt-10 grid gap-5 md:grid-cols-2" data-rivela-serie>

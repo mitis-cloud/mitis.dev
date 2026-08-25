@@ -6,6 +6,7 @@ export const rotte: Record<string, string> = {
   '/kubernetes': '/en/kubernetes',
   '/devops': '/en/devops',
   '/metodo': '/en/method',
+  '/open-source': '/en/open-source',
   '/servizi': '/en/services',
   '/faq': '/en/faq',
   '/privacy': '/en/privacy',

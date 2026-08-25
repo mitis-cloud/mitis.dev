@@ -64,6 +64,10 @@ const it = [
         a: 'Sì. AWS e GCP sono i cloud dove abbiamo più chilometri, ma lavoriamo anche su Azure: stesso metodo, stessi strumenti — Terraform, AKS, GitOps con ArgoCD. Quello che non cambia mai è la regola: tutto nei tuoi account e nei tuoi repository.',
       },
       {
+        q: 'Lavorate su cloud europei?',
+        a: 'Sì. Oltre ad AWS, GCP e Azure lavoriamo su Scaleway, e i moduli Terraform per la sua parte Kubernetes li manteniamo noi: pubblici, Apache 2.0, sul Terraform Registry. Se tenere i dati in Europa è un tuo vincolo, è una strada che percorriamo con codice nostro invece che con promesse. Il metodo non cambia: cambia il provider Terraform, non il modo di lavorare.',
+      },
+      {
         q: 'Che accessi vi servono?',
         a: 'Per l’assessment, sola lettura su billing e account. Per l’implementazione, il minimo necessario: ruoli dedicati, tracciati e revocabili, mai credenziali personali o condivise. E ogni modifica passa da una pull request nei tuoi repository, quindi resta scritta.',
       },
@@ -156,6 +160,10 @@ const en = [
       {
         q: 'Do you work on Azure too?',
         a: 'Yes. AWS and GCP are the clouds where we have the most mileage, but we work on Azure as well: same method, same tools — Terraform, AKS, GitOps with ArgoCD. What never changes is the rule: everything in your accounts and your repositories.',
+      },
+      {
+        q: 'Do you work on European clouds?',
+        a: 'Yes. Alongside AWS, GCP and Azure we work on Scaleway, and we maintain the Terraform modules for its Kubernetes side ourselves: public, Apache 2.0, on the Terraform Registry. If keeping data in Europe is a constraint for you, it is a road we walk with our own code rather than with promises. The method does not change: the Terraform provider changes, not how we work.',
       },
       {
         q: 'What access do you need?',
