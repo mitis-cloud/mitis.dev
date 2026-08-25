@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import FinOps from '../../components/FinOps.astro';
+import CtaFinale from '../../components/CtaFinale.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Base
+  titolo="FinOps: up to −70% off your cloud bill | mitis"
+  descrizione="The cloud bill comes down through engineering: right-sizing, spot, Karpenter, commitments. A real case of up to −70%, and a free assessment to find out how much you can recover."
+>
+  <Nav />
+  <main id="contenuto" class="pt-4 md:pt-8">
+    <FinOps h1 />
+  </main>
+  <CtaFinale />
+  <Footer />
+</Base>

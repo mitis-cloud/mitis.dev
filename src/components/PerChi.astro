@@ -1,28 +1,58 @@
 ---
 import Section from './Section.astro';
+import { linguaDi } from '../i18n';
 
-const si = [
-  'team di prodotto tra 15 e 200 persone, su AWS, GCP o Azure',
-  'chi preferisce Terraform ai click in console',
-  'chi vuole che la piattaforma resti del proprio team',
-  'chi ha una bolletta cloud diventata una voce seria di bilancio',
-];
+const l = linguaDi(Astro.url.pathname);
 
-const no = [
-  'se cerchi giornate-uomo da rivendere dentro un progetto più grande',
-  'se l’infrastruttura deve restare per sempre un reparto esterno: lavoriamo per renderci superflui',
-  'se ti serve una migrazione mainframe o un ERP: non è il nostro mestiere',
-];
+const testi = {
+  it: {
+    eyebrow: 'per chi',
+    titolo: 'Per chi è, per chi no.',
+    intestaSi: 'lavoriamo bene con',
+    intestaNo: 'non siamo il fornitore giusto',
+    si: [
+      'team di prodotto tra 15 e 200 persone, su AWS, GCP o Azure',
+      'chi preferisce Terraform ai click in console',
+      'chi vuole che la piattaforma resti del proprio team',
+      'chi ha una bolletta cloud diventata una voce seria di bilancio',
+    ],
+    no: [
+      'se cerchi giornate-uomo da rivendere dentro un progetto più grande',
+      'se l’infrastruttura deve restare per sempre un reparto esterno: lavoriamo per renderci superflui',
+      'se ti serve una migrazione mainframe o un ERP: non è il nostro mestiere',
+    ],
+    chiusura: 'Dire di no alla vendita sbagliata costa meno che gestirla. Vale per te e per noi.',
+  },
+  en: {
+    eyebrow: 'who it’s for',
+    titolo: 'Who it’s for, who it’s not.',
+    intestaSi: 'we work well with',
+    intestaNo: 'we’re not the right vendor',
+    si: [
+      'product teams between 15 and 200 people, on AWS, GCP or Azure',
+      'people who prefer Terraform to clicking around a console',
+      'people who want the platform to stay with their own team',
+      'anyone whose cloud bill has become a serious line item',
+    ],
+    no: [
+      'if you’re looking for billable days to resell inside a bigger project',
+      'if infrastructure must forever remain an external department: we work to make ourselves unnecessary',
+      'if you need a mainframe migration or an ERP: not our trade',
+    ],
+    chiusura:
+      'Saying no to the wrong sale costs less than managing it. That goes for you and for us.',
+  },
+}[l];
 ---
 
-<Section eyebrow="per chi" class="py-14 md:py-20">
-  <h2 class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>Per chi è, per chi no.</h2>
+<Section eyebrow={testi.eyebrow} class="py-14 md:py-20">
+  <h2 class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>{testi.titolo}</h2>
   <div class="mt-10 grid gap-8 md:grid-cols-2" data-rivela-serie>
     <div>
-      <h3 class="font-mono text-label text-carta/60">lavoriamo bene con</h3>
+      <h3 class="font-mono text-label text-carta/60">{testi.intestaSi}</h3>
       <ul class="mt-4 space-y-3">
         {
-          si.map((v) => (
+          testi.si.map((v) => (
             <li class="flex gap-3 text-s text-carta/80">
               <span class="mt-0.5 shrink-0 font-mono font-bold text-lichene" aria-hidden="true">
                 +
@@ -34,10 +64,10 @@ const no = [
       </ul>
     </div>
     <div>
-      <h3 class="font-mono text-label text-carta/60">non siamo il fornitore giusto</h3>
+      <h3 class="font-mono text-label text-carta/60">{testi.intestaNo}</h3>
       <ul class="mt-4 space-y-3">
         {
-          no.map((v) => (
+          testi.no.map((v) => (
             <li class="flex gap-3 text-s text-carta/80">
               <span class="mt-0.5 shrink-0 font-mono font-bold text-salmone" aria-hidden="true">
                 −
@@ -50,6 +80,6 @@ const no = [
     </div>
   </div>
   <p class="mt-8 max-w-[60ch] text-s text-carta/60" data-rivela>
-    Dire di no alla vendita sbagliata costa meno che gestirla. Vale per te e per noi.
+    {testi.chiusura}
   </p>
 </Section>

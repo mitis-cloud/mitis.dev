@@ -1,11 +1,50 @@
 ---
 import Section from './Section.astro';
+import { linguaDi } from '../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+
+const testi = {
+  it: {
+    eyebrow: 'il nome',
+    manuale: 'Manuale',
+    nome: 'NOME',
+    voceNome: ['mitis — dal latino: ', 'mite', ', calmo, che non si agita.'],
+    descrizione: 'DESCRIZIONE',
+    voceDescrizione:
+      'Detto di clima, di carattere e — da noi — di infrastruttura. Esattamente ciò che vuoi dalla tua.',
+    vediAnche: 'VEDI ANCHE',
+    voceVediAnche: 'noioso(1), prevedibile(1), silenzioso(8)',
+  },
+  en: {
+    eyebrow: 'the name',
+    manuale: 'Manual',
+    nome: 'NAME',
+    voceNome: ['mitis — from the Latin: ', 'mild', ', calm, unruffled.'],
+    descrizione: 'DESCRIPTION',
+    voceDescrizione:
+      'Said of climates, of temperaments and — around here — of infrastructure. Exactly what you want from yours.',
+    vediAnche: 'SEE ALSO',
+    voceVediAnche: 'boring(1), predictable(1), quiet(8)',
+  },
+}[l];
 ---
 
-<Section eyebrow="il nome" class="py-14 md:py-20">
+<Section eyebrow={testi.eyebrow} class="py-14 md:py-20">
   <h2 class="max-w-[26ch] font-display text-h2 font-bold" data-rivela>
-    Il tuo prodotto sia pure <span class="text-salmone">fuoco e fiamme</span>. La piattaforma
-    che lo regge, <span class="text-lichene">mite</span>.
+    {
+      l === 'en' ? (
+        <>
+          Let your product be <span class="text-salmone">fire and flames</span>. The platform
+          beneath it, <span class="text-lichene">mild</span>.
+        </>
+      ) : (
+        <>
+          Il tuo prodotto sia pure <span class="text-salmone">fuoco e fiamme</span>. La
+          piattaforma che lo regge, <span class="text-lichene">mite</span>.
+        </>
+      )
+    }
   </h2>
 
   <div class="mt-10 w-full max-w-2xl" data-rivela>
@@ -19,20 +58,19 @@ import Section from './Section.astro';
       <div class="px-6 py-6 font-mono text-s md:px-8">
         <div class="flex justify-between text-carta/45">
           <span>MITIS(7)</span>
-          <span class="max-sm:hidden">Manuale</span>
+          <span class="max-sm:hidden">{testi.manuale}</span>
           <span>MITIS(7)</span>
         </div>
-        <p class="mt-5 font-bold text-carta/80">NOME</p>
+        <p class="mt-5 font-bold text-carta/80">{testi.nome}</p>
         <p class="mt-1 pl-6 text-carta/85">
-          mitis — dal latino: <span class="text-lichene">mite</span>, calmo, che non si agita.
+          {testi.voceNome[0]}<span class="text-lichene">{testi.voceNome[1]}</span>{testi.voceNome[2]}
         </p>
-        <p class="mt-4 font-bold text-carta/80">DESCRIZIONE</p>
+        <p class="mt-4 font-bold text-carta/80">{testi.descrizione}</p>
         <p class="mt-1 pl-6 text-carta/85">
-          Detto di clima, di carattere e — da noi — di infrastruttura. Esattamente ciò che vuoi
-          dalla tua.
+          {testi.voceDescrizione}
         </p>
-        <p class="mt-4 font-bold text-carta/80">VEDI ANCHE</p>
-        <p class="mt-1 pl-6 text-carta/85">noioso(1), prevedibile(1), silenzioso(8)</p>
+        <p class="mt-4 font-bold text-carta/80">{testi.vediAnche}</p>
+        <p class="mt-1 pl-6 text-carta/85">{testi.voceVediAnche}</p>
       </div>
     </div>
   </div>

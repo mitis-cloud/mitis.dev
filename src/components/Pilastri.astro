@@ -1,39 +1,77 @@
 ---
 import Section from './Section.astro';
 import Icona from './Icona.astro';
+import { linguaDi, via } from '../i18n';
 
-const pilastri = [
-  {
-    href: '/finops',
-    cifra: '−70%',
-    titolo: 'Meno spesa, stesse prestazioni.',
-    testo:
-      'La bolletta scende con l’ingegneria, non con gli sconti. Un caso reale documentato, e le leve concrete.',
+const l = linguaDi(Astro.url.pathname);
+
+const testi = {
+  it: {
+    eyebrow: 'cosa facciamo',
+    titolo: 'Tre cose, fatte bene.',
+    approfondisci: 'approfondisci',
+    pilastri: [
+      {
+        href: '/finops',
+        cifra: '−70%',
+        titolo: 'Meno spesa, stesse prestazioni.',
+        testo:
+          'La bolletta scende con l’ingegneria, non con gli sconti. Un caso reale documentato, e le leve concrete.',
+      },
+      {
+        href: '/kubernetes',
+        icona: 'esagono',
+        titolo: 'Kubernetes, conosciuto da dentro.',
+        testo:
+          'Quando serve, l’operator lo scriviamo noi: Understudy, open source, ha perso 1 richiesta su 764 in un’interruzione spot reale.',
+      },
+      {
+        href: '/devops',
+        icona: 'ramo',
+        titolo: 'Il deploy più noioso della settimana.',
+        testo:
+          'GitOps con ArgoCD, promozioni con Kargo, un’anteprima per ogni pull request. Il CI resta il tuo.',
+      },
+    ],
   },
-  {
-    href: '/kubernetes',
-    icona: 'esagono',
-    titolo: 'Kubernetes, conosciuto da dentro.',
-    testo:
-      'Quando serve, l’operator lo scriviamo noi: Understudy, open source, ha perso 1 richiesta su 764 in un’interruzione spot reale.',
+  en: {
+    eyebrow: 'what we do',
+    titolo: 'Three things, done well.',
+    approfondisci: 'read more',
+    pilastri: [
+      {
+        href: '/finops',
+        cifra: '−70%',
+        titolo: 'Less spend, same performance.',
+        testo:
+          'The bill comes down through engineering, not discounts. One documented real-world case, and the concrete levers.',
+      },
+      {
+        href: '/kubernetes',
+        icona: 'esagono',
+        titolo: 'Kubernetes, known from the inside.',
+        testo:
+          'When it takes an operator, we write it ourselves: Understudy, open source, lost 1 request out of 764 in a real spot interruption.',
+      },
+      {
+        href: '/devops',
+        icona: 'ramo',
+        titolo: 'The most boring deploy of the week.',
+        testo:
+          'GitOps with ArgoCD, promotions with Kargo, a preview environment for every pull request. Your CI stays yours.',
+      },
+    ],
   },
-  {
-    href: '/devops',
-    icona: 'ramo',
-    titolo: 'Il deploy più noioso della settimana.',
-    testo:
-      'GitOps con ArgoCD, promozioni con Kargo, un’anteprima per ogni pull request. Il CI resta il tuo.',
-  },
-];
+}[l];
 ---
 
-<Section eyebrow="cosa facciamo" class="py-14 md:py-20">
-  <h2 class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>Tre cose, fatte bene.</h2>
+<Section eyebrow={testi.eyebrow} class="py-14 md:py-20">
+  <h2 class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>{testi.titolo}</h2>
   <div class="mt-10 grid gap-5 lg:grid-cols-3" data-rivela-serie>
     {
-      pilastri.map((p) => (
+      testi.pilastri.map((p) => (
         <a
-          href={p.href}
+          href={via(l, p.href)}
           class="group flex flex-col rounded-lg border border-carta/12 bg-quadro p-6 transition-all duration-300 hover:-translate-y-1 hover:border-lichene/50 hover:shadow-[0_0_40px_rgba(83,194,135,0.1)] md:p-7"
         >
           {p.cifra ? (
@@ -46,7 +84,7 @@ const pilastri = [
           <h3 class="mt-4 font-display text-l font-bold">{p.titolo}</h3>
           <p class="mt-3 text-s text-carta/70">{p.testo}</p>
           <p class="mt-auto pt-5 font-mono text-label text-lichene">
-            approfondisci{' '}
+            {testi.approfondisci}{' '}
             <span class="inline-block transition-transform group-hover:translate-x-1">→</span>
           </p>
         </a>

@@ -1,48 +1,66 @@
 ---
 import Section from './Section.astro';
+import { linguaDi, via } from '../i18n';
 
 interface Props {
   compatta?: boolean;
 }
 const { compatta = false } = Astro.props;
+const l = linguaDi(Astro.url.pathname);
 
-const cardini = ['🧱 stack battle-tested', '🤖 ai per l’adattamento', '👀 review umana su tutto'];
+const testi = {
+  it: {
+    eyebrow: 'velocità',
+    titolo: 'In produzione in settimane, non mesi.',
+    breve:
+      'Non perché corriamo: perché non partiamo da zero. Stack battle-tested, AI per adattarlo al tuo contesto, review umana su ogni riga.',
+    linkMetodo: 'Come lavoriamo →',
+    lunga1:
+      'Non perché corriamo: perché non partiamo da zero. Lo stack è battle-tested (moduli e architetture che giravano in produzione ben prima di arrivare da te) e usiamo l’AI per adattarlo al tuo contesto: account, ambienti, vincoli, convenzioni, policy.',
+    lunga2:
+      'Il lavoro ripetitivo lo fa la macchina; le decisioni le prende chi ne risponde. Ogni riga passa da una review umana ed è scritta per essere letta fra tre anni. L’AI accelera il mestiere, non lo sostituisce: niente slop in produzione.',
+    cardini: ['🧱 stack battle-tested', '🤖 ai per l’adattamento', '👀 review umana su tutto'],
+  },
+  en: {
+    eyebrow: 'speed',
+    titolo: 'In production in weeks, not months.',
+    breve:
+      'Not because we rush: because we don’t start from zero. A battle-tested stack, AI to adapt it to your context, human review on every line.',
+    linkMetodo: 'How we work →',
+    lunga1:
+      'Not because we rush: because we don’t start from zero. The stack is battle-tested (modules and architectures that ran in production long before reaching you) and we use AI to adapt it to your context: accounts, environments, constraints, conventions, policies.',
+    lunga2:
+      'The repetitive work is done by the machine; the decisions are made by someone accountable for them. Every line goes through human review and is written to be read three years from now. AI speeds up the craft, it doesn’t replace it: no slop in production.',
+    cardini: ['🧱 battle-tested stack', '🤖 ai for the tailoring', '👀 human review on everything'],
+  },
+}[l];
 ---
 
-<Section eyebrow="velocità" class="py-14 md:py-20">
+<Section eyebrow={testi.eyebrow} class="py-14 md:py-20">
   <h2 class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>
-    In produzione in settimane, non mesi.
+    {testi.titolo}
   </h2>
   {
     compatta ? (
       <p class="mt-5 max-w-[66ch] text-body text-carta/75" data-rivela>
-        Non perché corriamo: perché non partiamo da zero. Stack battle-tested, AI per adattarlo
-        al tuo contesto, review umana su ogni riga.{' '}
+        {testi.breve}{' '}
         <a
-          href="/metodo"
+          href={via(l, '/metodo')}
           class="text-lichene underline underline-offset-4 hover:no-underline"
         >
-          Come lavoriamo →
+          {testi.linkMetodo}
         </a>
       </p>
     ) : (
       <div class="mt-5 max-w-[66ch] space-y-4 text-body text-carta/75" data-rivela>
-        <p>
-          Non perché corriamo: perché non partiamo da zero. Lo stack è battle-tested (moduli e
-          architetture che giravano in produzione ben prima di arrivare da te) e usiamo l’AI
-          per adattarlo al tuo contesto: account, ambienti, vincoli, convenzioni, policy.
-        </p>
-        <p>
-          Il lavoro ripetitivo lo fa la macchina; le decisioni le prende chi ne risponde. Ogni
-          riga passa da una review umana ed è scritta per essere letta fra tre anni. L’AI
-          accelera il mestiere, non lo sostituisce: niente slop in produzione.
-        </p>
+        <p>{testi.lunga1}</p>
+        <p>{testi.lunga2}</p>
       </div>
     )
   }
   <ul class="mt-7 flex flex-wrap gap-3" data-rivela-serie>
     {
-      cardini.map((c) => (
+      testi.cardini.map((c) => (
         <li class="rounded-full border border-lichene/40 bg-felce/10 px-4 py-1.5 font-mono text-label text-carta/85">
           {c}
         </li>

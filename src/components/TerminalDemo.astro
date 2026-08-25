@@ -1,13 +1,33 @@
 ---
-const ariaLabel =
-  "Simulazione da terminale: il pod in produzione riceve l'avviso di interruzione spot, Understudy trattiene l'eviction e avvia un pod sostituto che passa da Pending a Running; solo allora l'originale termina e sparisce. Il probe registra 764 richieste, 1 fallita.";
+import { linguaDi, via } from '../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+
+const testi = {
+  it: {
+    ariaLabel:
+      "Simulazione da terminale: il pod in produzione riceve l'avviso di interruzione spot, Understudy trattiene l'eviction e avvia un pod sostituto che passa da Pending a Running; solo allora l'originale termina e sparisce. Il probe registra 764 richieste, 1 fallita.",
+    barTitle: 'produzione — eks · karpenter · spot',
+    replayAria: "Rivedi l'animazione",
+    replay: '↻ rivedi',
+  },
+  en: {
+    ariaLabel:
+      'Terminal simulation: the pod in production receives a spot interruption notice, Understudy holds the eviction and starts a stand-in pod that goes from Pending to Running; only then does the original terminate and disappear. The probe records 764 requests, 1 failed.',
+    barTitle: 'production — eks · karpenter · spot',
+    replayAria: 'Replay the animation',
+    replay: '↻ replay',
+  },
+}[l];
+
+const ariaLabel = testi.ariaLabel;
 ---
 
 <figure class="terminal" data-terminal>
   <figcaption class="bar">
     <span class="bar-dot" aria-hidden="true"></span>
-    <span class="bar-title">produzione — eks · karpenter · spot</span>
-    <button class="replay" data-replay hidden aria-label="Rivedi l'animazione">↻ rivedi</button>
+    <span class="bar-title">{testi.barTitle}</span>
+    <button class="replay" data-replay hidden aria-label={testi.replayAria}>{testi.replay}</button>
   </figcaption>
 
   <div class="body" role="img" aria-label={ariaLabel}>
@@ -23,12 +43,35 @@ const ariaLabel =
 </figure>
 
 <p class="mt-4 max-w-[56ch] text-s text-carta/65">
-  Non è un'animazione di fantasia: su un'interruzione spot reale il probe ha misurato{' '}
-  <strong class="font-semibold text-carta">1 richiesta fallita su 764</strong>. Un rolling
-  update di routine ne perde 2 su 38.{' '}
-  <a href="/kubernetes" class="text-lichene underline underline-offset-4 hover:no-underline"
-    >Il contesto, su Kubernetes</a
-  >.
+  {
+    l === 'en' ? (
+      <>
+        This isn't a made-up animation: in a real spot interruption the probe measured{' '}
+        <strong class="font-semibold text-carta">1 failed request out of 764</strong>. A routine
+        rolling update loses 2 out of 38.{' '}
+        <a
+          href={via(l, '/kubernetes')}
+          class="text-lichene underline underline-offset-4 hover:no-underline"
+        >
+          The context, on Kubernetes
+        </a>
+        .
+      </>
+    ) : (
+      <>
+        Non è un'animazione di fantasia: su un'interruzione spot reale il probe ha misurato{' '}
+        <strong class="font-semibold text-carta">1 richiesta fallita su 764</strong>. Un rolling
+        update di routine ne perde 2 su 38.{' '}
+        <a
+          href={via(l, '/kubernetes')}
+          class="text-lichene underline underline-offset-4 hover:no-underline"
+        >
+          Il contesto, su Kubernetes
+        </a>
+        .
+      </>
+    )
+  }
 </p>
 
 <style>

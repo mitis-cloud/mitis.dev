@@ -4,50 +4,102 @@ import Section from './Section.astro';
 const Titolo = Astro.props.h1 ? 'h1' : 'h2';
 const Sottotitolo = Astro.props.h1 ? 'h2' : 'h3';
 import Icona from './Icona.astro';
+import { linguaDi } from '../i18n';
 
-const fasi = [
-  'pr aperta',
-  'ci: build + test',
-  'merge',
-  'argocd: sync dev',
-  'kargo: promote staging',
-  'kargo: promote prod',
-];
+const l = linguaDi(Astro.url.pathname);
 
-const pratiche = [
-  {
-    icona: 'occhio',
-    titolo: 'Anteprima per ogni PR',
-    testo: 'si discute su un ambiente vivo, non su uno screenshot',
+const testi = {
+  it: {
+    eyebrow: 'devops',
+    titolo: 'Il deploy più noioso della settimana.',
+    intro:
+      'La piattaforma non è solo infrastruttura: è il modo in cui il codice arriva in produzione. Sul CI non abbiamo dogmi: teniamo quello che usi già. È dopo il merge che cambia tutto: ArgoCD tiene gli ambienti allineati a ciò che è scritto nei repository, Kargo governa le promozioni da dev a produzione, e applicazioni e infrastruttura seguono la stessa strada — il plan si legge nella pull request, l’apply parte al merge.',
+    ariaPipeline:
+      "Percorso di una pull request: aperta, build e test nel CI, merge, sync dell'ambiente dev con ArgoCD, promozione a staging e a produzione con Kargo. Rollback disponibile con git revert.",
+    fasi: [
+      'pr aperta',
+      'ci: build + test',
+      'merge',
+      'argocd: sync dev',
+      'kargo: promote staging',
+      'kargo: promote prod',
+    ],
+    esitoPrima: 'in produzione — rollback disponibile:',
+    pratiche: [
+      {
+        icona: 'occhio',
+        titolo: 'Anteprima per ogni PR',
+        testo: 'si discute su un ambiente vivo, non su uno screenshot',
+      },
+      {
+        icona: 'promozione',
+        titolo: 'Promozioni con Kargo',
+        testo: 'dev, staging e produzione avanzano con regole scritte, non a mano',
+      },
+      {
+        icona: 'ritorno',
+        titolo: 'Rollback = revert',
+        testo: 'nessuna manovra eroica alle sei di sera',
+      },
+      {
+        icona: 'ramo',
+        titolo: 'Un solo flusso',
+        testo: 'applicazioni e infrastruttura viaggiano nello stesso flusso Git',
+      },
+    ],
+    chiusura: 'Il venerdì pomeriggio si rilascia come il martedì mattina. È questo, il lusso.',
   },
-  {
-    icona: 'promozione',
-    titolo: 'Promozioni con Kargo',
-    testo: 'dev, staging e produzione avanzano con regole scritte, non a mano',
+  en: {
+    eyebrow: 'devops',
+    titolo: 'The most boring deploy of the week.',
+    intro:
+      'The platform isn’t just infrastructure: it’s how code reaches production. We have no dogmas about CI: we keep whatever you already use. It’s after the merge that everything changes: ArgoCD keeps environments aligned with what’s written in the repositories, Kargo governs promotions from dev to production, and applications and infrastructure travel the same road — the plan is read in the pull request, the apply starts at merge.',
+    ariaPipeline:
+      'Journey of a pull request: opened, build and test in CI, merge, dev environment sync with ArgoCD, promotion to staging and production with Kargo. Rollback available with git revert.',
+    fasi: [
+      'pr opened',
+      'ci: build + test',
+      'merge',
+      'argocd: sync dev',
+      'kargo: promote staging',
+      'kargo: promote prod',
+    ],
+    esitoPrima: 'in production — rollback available:',
+    pratiche: [
+      {
+        icona: 'occhio',
+        titolo: 'A preview for every PR',
+        testo: 'you discuss a live environment, not a screenshot',
+      },
+      {
+        icona: 'promozione',
+        titolo: 'Promotions with Kargo',
+        testo: 'dev, staging and production advance by written rules, not by hand',
+      },
+      {
+        icona: 'ritorno',
+        titolo: 'Rollback = revert',
+        testo: 'no heroic maneuvers at six in the evening',
+      },
+      {
+        icona: 'ramo',
+        titolo: 'One single flow',
+        testo: 'applications and infrastructure travel in the same Git flow',
+      },
+    ],
+    chiusura: 'Friday afternoon ships like Tuesday morning. That’s the luxury.',
   },
-  {
-    icona: 'ritorno',
-    titolo: 'Rollback = revert',
-    testo: 'nessuna manovra eroica alle sei di sera',
-  },
-  {
-    icona: 'ramo',
-    titolo: 'Un solo flusso',
-    testo: 'applicazioni e infrastruttura viaggiano nello stesso flusso Git',
-  },
-];
+}[l];
+
+const fasi = testi.fasi;
 ---
 
-<Section id="devops" eyebrow="devops" class="py-14 md:py-20">
+<Section id="devops" eyebrow={testi.eyebrow} class="py-14 md:py-20">
   <Titolo class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>
-    Il deploy più noioso della settimana.
+    {testi.titolo}
   </Titolo>
   <p class="mt-5 max-w-[64ch] text-body text-carta/75" data-rivela>
-    La piattaforma non è solo infrastruttura: è il modo in cui il codice arriva in produzione.
-    Sul CI non abbiamo dogmi: teniamo quello che usi già. È dopo il merge che cambia tutto:
-    ArgoCD tiene gli ambienti allineati a ciò che è scritto nei repository, Kargo governa le
-    promozioni da dev a produzione, e applicazioni e infrastruttura seguono la stessa strada —
-    il plan si legge nella pull request, l’apply parte al merge.
+    {testi.intro}
   </p>
 
   <figure
@@ -60,11 +112,7 @@ const pratiche = [
         >gitops · argocd + kargo</span
       >
     </figcaption>
-    <div
-      class="px-6 py-8 md:px-10 md:py-10"
-      role="img"
-      aria-label="Percorso di una pull request: aperta, build e test nel CI, merge, sync dell'ambiente dev con ArgoCD, promozione a staging e a produzione con Kargo. Rollback disponibile con git revert."
-    >
+    <div class="px-6 py-8 md:px-10 md:py-10" role="img" aria-label={testi.ariaPipeline}>
       <div class="relative">
         <div class="binario"><div class="progresso"></div></div>
         <ol class="fasi">
@@ -82,7 +130,7 @@ const pratiche = [
         </ol>
       </div>
       <p class="esito">
-        <span class="text-lichene">✓</span> in produzione — rollback disponibile:
+        <span class="text-lichene">✓</span> {testi.esitoPrima}
         <span class="font-bold">git revert</span>
       </p>
     </div>
@@ -90,7 +138,7 @@ const pratiche = [
 
   <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" data-rivela-serie>
     {
-      pratiche.map((p) => (
+      testi.pratiche.map((p) => (
         <div class="rounded-lg border border-carta/10 bg-quadro p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-carta/25">
           <Icona nome={p.icona} class="mb-3 h-[22px] w-[22px] text-lichene" />
           <Sottotitolo class="font-mono text-label font-bold text-carta">{p.titolo.toLowerCase()}</Sottotitolo>
@@ -100,7 +148,7 @@ const pratiche = [
     }
   </div>
   <p class="mt-8 max-w-[60ch] text-s text-carta/60" data-rivela>
-    Il venerdì pomeriggio si rilascia come il martedì mattina. È questo, il lusso.
+    {testi.chiusura}
   </p>
 </Section>
 

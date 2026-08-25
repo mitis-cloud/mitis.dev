@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Servizi from '../../components/Servizi.astro';
+import CtaFinale from '../../components/CtaFinale.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Base
+  titolo="Services: free assessment, then a fixed price | mitis"
+  descrizione="It starts with a free assessment; then a fixed price in writing before we begin, and cancellable subscription support. No price list to guess at."
+>
+  <Nav />
+  <main id="contenuto" class="pt-4 md:pt-8">
+    <Servizi h1 />
+    <section class="px-5 pb-14 sm:px-8 md:pb-20">
+      <div class="mx-auto w-full max-w-6xl" data-rivela>
+        <p class="text-body text-carta/75">
+          Got an objection loaded? It's probably already in the{' '}
+          <a href="/en/faq" class="text-lichene underline underline-offset-4 hover:no-underline"
+            >FAQ: the real objections</a
+          >, with the answer we'd give on a call.
+        </p>
+      </div>
+    </section>
+  </main>
+  <CtaFinale />
+  <Footer />
+</Base>

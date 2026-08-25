@@ -1,13 +1,31 @@
 ---
 import Section from './Section.astro';
-import { gruppi } from '../faq-dati';
+import { gruppiPerLingua } from '../faq-dati';
+import { linguaDi } from '../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+const gruppi = gruppiPerLingua[l];
+
+const testi = {
+  it: {
+    eyebrow: 'faq',
+    titolo: 'Le obiezioni vere.',
+    intro:
+      'Le domande che ci fanno davvero, con le risposte che daremmo in chiamata. Se la tua non c’è, la chiamata è gratuita.',
+  },
+  en: {
+    eyebrow: 'faq',
+    titolo: 'The real objections.',
+    intro:
+      'The questions we actually get, with the answers we’d give on a call. If yours isn’t here, the call is free.',
+  },
+}[l];
 ---
 
-<Section id="faq" eyebrow="faq" class="py-14 md:py-20">
-  <h1 class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>Le obiezioni vere.</h1>
+<Section id="faq" eyebrow={testi.eyebrow} class="py-14 md:py-20">
+  <h1 class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>{testi.titolo}</h1>
   <p class="mt-5 max-w-[62ch] text-body text-carta/75" data-rivela>
-    Le domande che ci fanno davvero, con le risposte che daremmo in chiamata. Se la tua non
-    c’è, la chiamata è gratuita.
+    {testi.intro}
   </p>
 
   {

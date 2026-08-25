@@ -1,15 +1,18 @@
 export const contatti = {
   email: 'info@mitis.dev',
   chiamata: 'mailto:info@mitis.dev?subject=' + encodeURIComponent('Prenota una chiamata tecnica'),
+  chiamataEn: 'mailto:info@mitis.dev?subject=' + encodeURIComponent('Book a technical call'),
   github: 'https://github.com/mitis-cloud',
   understudy: 'https://github.com/mitis-cloud/understudy',
 };
 
 export const azienda = {
-  settoreCliente: 'bancario',
-  ordineSpesa: '30k € / anno',
-  periodoIntervento: '3 settimane',
   pIva: '10611521211',
   urlPrivacy: '/privacy',
   urlCookie: '/cookie',
+};
+
+export const casoFinOps = {
+  it: { settore: 'bancario', spesa: '30k € / mese', periodo: '3 settimane' },
+  en: { settore: 'banking', spesa: '€30k / month', periodo: '3 weeks' },
 };

@@ -1,33 +1,67 @@
 ---
 import Section from './Section.astro';
+import { linguaDi } from '../i18n';
 
-const scene = [
-  {
-    prima: "Il Terraform l'ha scritto un consulente che non lavora più qui. Nessuno osa toccarlo.",
-    dopo: 'Moduli open source standard, usati e mantenuti da centinaia di team. Il tuo può leggerli, capirli, estenderli.',
+const l = linguaDi(Astro.url.pathname);
+
+const testi = {
+  it: {
+    eyebrow: 'il problema',
+    titolo: 'Com’è adesso, come diventa.',
+    scene: [
+      {
+        prima:
+          "Il Terraform l'ha scritto un consulente che non lavora più qui. Nessuno osa toccarlo.",
+        dopo: 'Moduli open source standard, usati e mantenuti da centinaia di team. Il tuo può leggerli, capirli, estenderli.',
+      },
+      {
+        prima: 'Ogni deploy è un piccolo evento: runbook orale, dita incrociate, rollback a mano.',
+        dopo: 'Il deploy è una pull request. Il rollback è un revert.',
+      },
+      {
+        prima: 'La bolletta cresce ogni trimestre e nessuno sa spiegare le voci.',
+        dopo: 'Ogni euro ha un’etichetta: team, ambiente, servizio. I budget avvisano prima, non dopo.',
+      },
+      {
+        prima: 'L’audit chiede evidenze e parte la caccia agli screenshot.',
+        dopo: 'L’infrastruttura è codice versionato: le evidenze sono la cronologia di Git.',
+      },
+    ],
   },
-  {
-    prima: 'Ogni deploy è un piccolo evento: runbook orale, dita incrociate, rollback a mano.',
-    dopo: 'Il deploy è una pull request. Il rollback è un revert.',
+  en: {
+    eyebrow: 'the problem',
+    titolo: 'How it is now, how it becomes.',
+    scene: [
+      {
+        prima:
+          'The Terraform was written by a consultant who no longer works here. Nobody dares touch it.',
+        dopo: 'Standard open source modules, used and maintained by hundreds of teams. Yours can read them, understand them, extend them.',
+      },
+      {
+        prima:
+          'Every deploy is a small event: an oral runbook, crossed fingers, rollbacks by hand.',
+        dopo: 'The deploy is a pull request. The rollback is a revert.',
+      },
+      {
+        prima: 'The bill grows every quarter and nobody can explain the line items.',
+        dopo: 'Every euro has a label: team, environment, service. Budgets warn you before, not after.',
+      },
+      {
+        prima: 'The audit asks for evidence and the screenshot hunt begins.',
+        dopo: 'The infrastructure is versioned code: the evidence is your Git history.',
+      },
+    ],
   },
-  {
-    prima: 'La bolletta cresce ogni trimestre e nessuno sa spiegare le voci.',
-    dopo: 'Ogni euro ha un’etichetta: team, ambiente, servizio. I budget avvisano prima, non dopo.',
-  },
-  {
-    prima: 'L’audit chiede evidenze e parte la caccia agli screenshot.',
-    dopo: 'L’infrastruttura è codice versionato: le evidenze sono la cronologia di Git.',
-  },
-];
+}[l];
 ---
 
-<Section eyebrow="il problema" class="py-14 md:py-20">
+<Section eyebrow={testi.eyebrow} class="py-14 md:py-20">
   <h2 class="max-w-[24ch] font-display text-h2 font-bold" data-rivela>
-    Com’è adesso, come diventa.
+    {testi.titolo}
   </h2>
   <div class="mt-10 grid gap-5 md:grid-cols-2" data-rivela-serie>
     {
-      scene.map((s) => (
+      testi.scene.map((s) => (
         <div class="scena flex flex-col overflow-hidden rounded-lg border border-carta/10 bg-quadro">
           <div class="flex gap-3 bg-ruggine/15 px-5 py-4">
             <span class="mt-0.5 shrink-0 font-mono text-s font-bold text-salmone" aria-hidden="true">

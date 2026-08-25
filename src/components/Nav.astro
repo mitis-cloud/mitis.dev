@@ -1,51 +1,95 @@
 ---
 import Wordmark from './Wordmark.astro';
 import { contatti } from '../dati';
-
-const links = [
-  { href: '/finops', label: 'FinOps' },
-  { href: '/kubernetes', label: 'Kubernetes' },
-  { href: '/devops', label: 'DevOps' },
-  { href: '/metodo', label: 'Metodo' },
-  { href: '/servizi', label: 'Servizi' },
-  { href: '/faq', label: 'FAQ' },
-];
+import { alternati, linguaDi, via } from '../i18n';
 
 const percorso = Astro.url.pathname.replace(/\/$/, '') || '/';
+const l = linguaDi(percorso);
+const alt = alternati(percorso) ?? { it: '/', en: '/en/' };
+
+const testi = {
+  it: {
+    links: [
+      { href: '/finops', label: 'FinOps' },
+      { href: '/kubernetes', label: 'Kubernetes' },
+      { href: '/devops', label: 'DevOps' },
+      { href: '/metodo', label: 'Metodo' },
+      { href: '/servizi', label: 'Servizi' },
+      { href: '/faq', label: 'FAQ' },
+    ],
+    cta: 'Scrivici',
+    home: 'mitis — home',
+    ariaLingua: 'Lingua',
+  },
+  en: {
+    links: [
+      { href: '/finops', label: 'FinOps' },
+      { href: '/kubernetes', label: 'Kubernetes' },
+      { href: '/devops', label: 'DevOps' },
+      { href: '/metodo', label: 'Method' },
+      { href: '/servizi', label: 'Services' },
+      { href: '/faq', label: 'FAQ' },
+    ],
+    cta: 'Email us',
+    home: 'mitis — home',
+    ariaLingua: 'Language',
+  },
+}[l];
 ---
 
 <header class="sticky top-0 z-40 border-b border-carta/10 bg-sfondo/85 px-5 backdrop-blur-md sm:px-8">
   <nav
     class="mx-auto flex w-full max-w-6xl items-center justify-between gap-6 py-4"
-    aria-label="Principale"
+    aria-label={l === 'en' ? 'Main' : 'Principale'}
   >
-    <a href="/" class="text-[1.35rem] leading-none text-carta" aria-label="mitis — home">
+    <a href={via(l, '/')} class="text-[1.35rem] leading-none text-carta" aria-label={testi.home}>
       <Wordmark cursor="bg-lichene" />
     </a>
-    <div class="flex items-center gap-7">
+    <div class="flex items-center gap-5 sm:gap-7">
       <ul class="hidden items-center gap-7 md:flex">
         {
-          links.map((l) => (
+          testi.links.map((li) => (
             <li>
               <a
-                href={l.href}
-                aria-current={percorso === l.href ? 'page' : undefined}
+                href={via(l, li.href)}
+                aria-current={percorso === via(l, li.href) ? 'page' : undefined}
                 class:list={[
                   'font-mono text-label transition-colors hover:text-carta',
-                  percorso === l.href ? 'text-lichene' : 'text-carta/60',
+                  percorso === via(l, li.href) ? 'text-lichene' : 'text-carta/60',
                 ]}
               >
-                {l.label}
+                {li.label}
               </a>
             </li>
           ))
         }
       </ul>
+      <div class="whitespace-nowrap" aria-label={testi.ariaLingua}>
+        <a
+          href={alt.it}
+          aria-current={l === 'it' ? 'true' : undefined}
+          class:list={[
+            'font-mono text-label transition-colors hover:text-carta',
+            l === 'it' ? 'font-bold text-lichene' : 'text-carta/60',
+          ]}
+          lang="it"
+          hreflang="it">IT</a
+        ><span class="mx-1 font-mono text-label text-carta/30" aria-hidden="true">/</span><a
+          href={alt.en}
+          aria-current={l === 'en' ? 'true' : undefined}
+          class:list={[
+            'font-mono text-label transition-colors hover:text-carta',
+            l === 'en' ? 'font-bold text-lichene' : 'text-carta/60',
+          ]}
+          lang="en"
+          hreflang="en">EN</a
+        >
+      </div>
       <a
         href={`mailto:${contatti.email}`}
         class="rounded-md bg-lichene px-4 py-2 font-mono text-label font-medium text-sfondo transition-all hover:bg-lichene/90 hover:shadow-[0_0_20px_rgba(83,194,135,0.35)]"
       >
-        Scrivici
+        {testi.cta}
       </a>
     </div>
   </nav>

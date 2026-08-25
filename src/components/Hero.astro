@@ -1,6 +1,30 @@
 ---
 import TerminalDemo from './TerminalDemo.astro';
 import { contatti } from '../dati';
+import { linguaDi } from '../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+
+const testi = {
+  it: {
+    corpo:
+      'Noiosa nel senso buono: prevedibile, documentata, silenziosa. Il telefono non suona alle tre di notte e la bolletta non cresce da sola. Costruiamo la piattaforma nei tuoi account, su fondamenta open source, e la consegniamo al tuo team. In settimane, non mesi.',
+    scrivici: 'Scrivici',
+    chiama: 'Prenota una chiamata',
+    mailtoChiamata: contatti.chiamata,
+    riassunto:
+      'prezzo fisso · esito garantito o rimborso · niente licenze, niente giornate-uomo · il codice è tuo dal primo commit',
+  },
+  en: {
+    corpo:
+      "Boring in the good sense: predictable, documented, quiet. The phone doesn't ring at three in the morning and the bill doesn't grow on its own. We build the platform in your accounts, on open source foundations, and hand it over to your team. In weeks, not months.",
+    scrivici: 'Email us',
+    chiama: 'Book a call',
+    mailtoChiamata: contatti.chiamataEn,
+    riassunto:
+      'fixed price · outcome guaranteed or refunded · no licenses, no billable days · the code is yours from the first commit',
+  },
+}[l];
 ---
 
 <section class="relative overflow-hidden px-5 pt-12 pb-16 sm:px-8 md:pt-20 md:pb-20">
@@ -14,30 +38,33 @@ import { contatti } from '../dati';
   >
     <div class="min-w-0" data-rivela-serie>
       <h1 class="font-display text-hero font-extrabold text-balance">
-        Infrastruttura cloud noiosa. E&nbsp;che costa la&nbsp;metà.
+        {
+          l === 'en' ? (
+            <>Boring cloud infrastructure. At&nbsp;half the&nbsp;cost.</>
+          ) : (
+            <>Infrastruttura cloud noiosa. E&nbsp;che costa la&nbsp;metà.</>
+          )
+        }
       </h1>
       <p class="mt-6 max-w-[52ch] text-l text-carta/75">
-        Noiosa nel senso buono: prevedibile, documentata, silenziosa. Il telefono non suona alle
-        tre di notte e la bolletta non cresce da sola. Costruiamo la piattaforma nei tuoi account,
-        su fondamenta open source, e la consegniamo al tuo team. In settimane, non mesi.
+        {testi.corpo}
       </p>
       <div class="mt-8 flex flex-wrap items-center gap-4">
         <a
           href={`mailto:${contatti.email}`}
           class="rounded-md bg-lichene px-6 py-3 font-mono text-s font-medium text-sfondo transition-all hover:bg-lichene/90 hover:shadow-[0_0_28px_rgba(83,194,135,0.4)]"
         >
-          Scrivici
+          {testi.scrivici}
         </a>
         <a
-          href={contatti.chiamata}
+          href={testi.mailtoChiamata}
           class="rounded-md border border-carta/25 px-6 py-3 font-mono text-s text-carta transition-colors hover:border-carta/55"
         >
-          Prenota una chiamata
+          {testi.chiama}
         </a>
       </div>
       <p class="mt-7 font-mono text-label text-carta/60">
-        prezzo fisso · esito garantito o rimborso · niente licenze, niente giornate-uomo · il
-        codice è tuo dal primo commit
+        {testi.riassunto}
       </p>
     </div>
     <div class="min-w-0">

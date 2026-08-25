@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Faq from '../../components/Faq.astro';
+import CtaFinale from '../../components/CtaFinale.astro';
+import Footer from '../../components/Footer.astro';
+import { gruppiPerLingua } from '../../faq-dati';
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: gruppiPerLingua.en.flatMap((g) =>
+    g.voci.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  ),
+};
+---
+
+<Base
+  titolo="FAQ: the real objections | mitis"
+  descrizione="Fixed price, timelines, access, NDAs, Azure, what happens after the handover: the questions we actually get, with the answers we'd give on a call."
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(faqLd)} />
+  <Nav />
+  <main id="contenuto" class="pt-4 md:pt-8">
+    <Faq />
+  </main>
+  <CtaFinale />
+  <Footer />
+</Base>

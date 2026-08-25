@@ -1,15 +1,49 @@
 ---
 import Wordmark from './Wordmark.astro';
-import { contatti, azienda } from '../dati';
+import { contatti } from '../dati';
+import { azienda } from '../dati';
+import { linguaDi, via } from '../i18n';
 
-const pagine = [
-  { href: '/finops', label: 'FinOps' },
-  { href: '/kubernetes', label: 'Kubernetes' },
-  { href: '/devops', label: 'DevOps' },
-  { href: '/metodo', label: 'Metodo' },
-  { href: '/servizi', label: 'Servizi' },
-  { href: '/faq', label: 'FAQ' },
-];
+const l = linguaDi(Astro.url.pathname);
+
+const testi = {
+  it: {
+    pagine: [
+      { href: '/finops', label: 'FinOps' },
+      { href: '/kubernetes', label: 'Kubernetes' },
+      { href: '/devops', label: 'DevOps' },
+      { href: '/metodo', label: 'Metodo' },
+      { href: '/servizi', label: 'Servizi' },
+      { href: '/faq', label: 'FAQ' },
+    ],
+    claim: 'infrastruttura cloud noiosa, e che costa la metà',
+    ariaPagine: 'Pagine',
+    intestaPagine: 'pagine',
+    intestaAltrove: 'altrove',
+    intestaLegale: 'legale',
+    privacy: 'Privacy policy',
+    cookie: 'Cookie policy',
+    niente: 'questo sito non usa cookie né script di tracciamento',
+  },
+  en: {
+    pagine: [
+      { href: '/finops', label: 'FinOps' },
+      { href: '/kubernetes', label: 'Kubernetes' },
+      { href: '/devops', label: 'DevOps' },
+      { href: '/metodo', label: 'Method' },
+      { href: '/servizi', label: 'Services' },
+      { href: '/faq', label: 'FAQ' },
+    ],
+    claim: 'boring cloud infrastructure, at half the cost',
+    ariaPagine: 'Pages',
+    intestaPagine: 'pages',
+    intestaAltrove: 'elsewhere',
+    intestaLegale: 'legal',
+    privacy: 'Privacy policy',
+    cookie: 'Cookie policy',
+    niente: 'this site uses no cookies and no tracking scripts',
+  },
+}[l];
 ---
 
 <footer class="border-t border-carta/10 px-5 pt-10 pb-12 sm:px-8">
@@ -20,16 +54,16 @@ const pagine = [
           <Wordmark cursor="bg-lichene" />
         </p>
         <p class="mt-2 max-w-[34ch] font-mono text-label text-carta/55">
-          infrastruttura cloud noiosa, e che costa la metà
+          {testi.claim}
         </p>
       </div>
-      <nav aria-label="Pagine">
-        <p class="font-mono text-label text-carta/45">pagine</p>
+      <nav aria-label={testi.ariaPagine}>
+        <p class="font-mono text-label text-carta/45">{testi.intestaPagine}</p>
         <ul class="mt-3 space-y-2 font-mono text-label">
           {
-            pagine.map((p) => (
+            testi.pagine.map((p) => (
               <li>
-                <a href={p.href} class="text-carta/70 transition-colors hover:text-carta">
+                <a href={via(l, p.href)} class="text-carta/70 transition-colors hover:text-carta">
                   {p.label}
                 </a>
               </li>
@@ -38,7 +72,7 @@ const pagine = [
         </ul>
       </nav>
       <div>
-        <p class="font-mono text-label text-carta/45">altrove</p>
+        <p class="font-mono text-label text-carta/45">{testi.intestaAltrove}</p>
         <ul class="mt-3 space-y-2 font-mono text-label">
           <li>
             <a href={contatti.github} class="text-carta/70 transition-colors hover:text-carta"
@@ -60,18 +94,18 @@ const pagine = [
         </ul>
       </div>
       <div>
-        <p class="font-mono text-label text-carta/45">legale</p>
+        <p class="font-mono text-label text-carta/45">{testi.intestaLegale}</p>
         <ul class="mt-3 space-y-2 font-mono text-label">
           <li>
             <a
-              href={azienda.urlPrivacy}
-              class="text-carta/70 transition-colors hover:text-carta">Privacy policy</a
+              href={via(l, azienda.urlPrivacy)}
+              class="text-carta/70 transition-colors hover:text-carta">{testi.privacy}</a
             >
           </li>
           <li>
             <a
-              href={azienda.urlCookie}
-              class="text-carta/70 transition-colors hover:text-carta">Cookie policy</a
+              href={via(l, azienda.urlCookie)}
+              class="text-carta/70 transition-colors hover:text-carta">{testi.cookie}</a
             >
           </li>
         </ul>
@@ -79,7 +113,7 @@ const pagine = [
     </div>
     <div class="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-carta/10 pt-6 font-mono text-label text-carta/55">
       <p>© 2026 mitis · P.IVA {azienda.pIva} · {contatti.email}</p>
-      <p>questo sito non usa cookie né script di tracciamento</p>
+      <p>{testi.niente}</p>
     </div>
   </div>
 </footer>

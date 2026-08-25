@@ -1,5 +1,29 @@
 ---
 import { contatti } from '../dati';
+import { linguaDi } from '../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+
+const testi = {
+  it: {
+    titolo: 'Una chiamata tecnica, non una demo.',
+    corpo:
+      'Mezz’ora, e dall’altra parte c’è chi scrive il Terraform. Porta la tua bolletta o il tuo problema più fastidioso; se non possiamo aiutarti, te lo diciamo subito.',
+    scrivici: 'Scrivici',
+    chiama: 'Prenota una chiamata',
+    mailtoChiamata: contatti.chiamata,
+    riassunto: 'niente carta di credito · niente commerciali · nessun follow-up insistente',
+  },
+  en: {
+    titolo: 'A technical call, not a demo.',
+    corpo:
+      'Half an hour, and the person on the other end is the one who writes the Terraform. Bring your cloud bill or your most annoying problem; if we can’t help, we’ll tell you right away.',
+    scrivici: 'Email us',
+    chiama: 'Book a call',
+    mailtoChiamata: contatti.chiamataEn,
+    riassunto: 'no credit card · no sales reps · no pushy follow-ups',
+  },
+}[l];
 ---
 
 <section class="px-5 py-10 sm:px-8 md:py-14">
@@ -14,28 +38,27 @@ import { contatti } from '../dati';
     </div>
     <div class="relative">
       <h2 class="max-w-[22ch] font-display text-h2 font-bold text-carta">
-        Una chiamata tecnica, non una demo.
+        {testi.titolo}
       </h2>
       <p class="mt-5 max-w-[58ch] text-body text-carta/70">
-        Mezz’ora, e dall’altra parte c’è chi scrive il Terraform. Porta la tua bolletta o il tuo
-        problema più fastidioso; se non possiamo aiutarti, te lo diciamo subito.
+        {testi.corpo}
       </p>
       <div class="mt-8 flex flex-wrap items-center gap-4">
         <a
           href={`mailto:${contatti.email}`}
           class="rounded-md bg-lichene px-6 py-3 font-mono text-s font-medium text-sfondo transition-all hover:bg-lichene/90 hover:shadow-[0_0_28px_rgba(83,194,135,0.4)]"
         >
-          Scrivici
+          {testi.scrivici}
         </a>
         <a
-          href={contatti.chiamata}
+          href={testi.mailtoChiamata}
           class="rounded-md border border-carta/25 px-6 py-3 font-mono text-s text-carta transition-colors hover:border-carta/55"
         >
-          Prenota una chiamata
+          {testi.chiama}
         </a>
       </div>
       <p class="mt-7 font-mono text-label text-carta/55">
-        niente carta di credito · niente commerciali · nessun follow-up insistente
+        {testi.riassunto}
       </p>
     </div>
   </div>

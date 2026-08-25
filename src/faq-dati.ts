@@ -1,4 +1,4 @@
-export const gruppi = [
+const it = [
   {
     etichetta: 'prezzo e ingaggio',
     voci: [
@@ -91,3 +91,100 @@ export const gruppi = [
     ],
   },
 ];
+
+const en = [
+  {
+    etichetta: 'price and engagement',
+    voci: [
+      {
+        q: 'Why a fixed price and not a day rate?',
+        a: 'Because it aligns incentives. On a day rate, every surprise stretches the project and the invoice; at a fixed price, the surprise is our problem. The scope is defined in writing before we start, and if the agreed outcome doesn’t arrive there’s a refund clause.',
+      },
+      {
+        q: 'How much does it cost?',
+        a: 'It depends on the scope, and we don’t hide it behind a form: after the free assessment you receive a fixed price, in writing, before we begin. No day rates, no running meters.',
+      },
+      {
+        q: 'How long does it take?',
+        a: 'Weeks, not months. We don’t start from zero: the stack is already proven and gets adapted to your context, not reinvented. The exact timeline is fixed together with the scope, after the assessment, and written into the contract along with the price.',
+      },
+      {
+        q: 'Who should be on the first call?',
+        a: 'Whoever knows the bill and whoever knows the code: typically the CTO or VP Engineering, plus whoever touches the infrastructure every day. No slides to prepare: the questions you’ve been sitting on for months are enough.',
+      },
+      {
+        q: 'And if we end up not working together, what do we walk away with?',
+        a: 'An honest opinion, at minimum: from the first call you leave with a read of your context and the realistic margins. And if you’ve done the assessment, the report with the estimates is yours regardless: you can use it with your own team, or with another vendor.',
+      },
+      {
+        q: 'Does the 70% apply to me too?',
+        a: 'We don’t know, and that’s why we don’t promise it. That result came from a multi-tenant platform with years of accumulated layers: more headroom than that is rare. The assessment exists precisely for this: to tell you beforehand how much you can recover, with which interventions and in how much time.',
+      },
+      {
+        q: 'And if the savings don’t materialize?',
+        a: 'The assessment produces estimates with explicit assumptions, not brochure numbers. On fixed-scope engagements the outcome is written into the contract, with a refund clause. And if the analysis shows there isn’t enough to recover, we tell you and stop there.',
+      },
+      {
+        q: 'Why not hire a DevOps engineer instead?',
+        a: 'If you have steady workload for a full-time person, hire one: we’d tell you the same on the call. The accelerator is for something else: compressing the platform build into weeks, instead of consuming a new hire’s first year. Afterwards, with a tidy platform, that hire also becomes easier to make and to justify.',
+      },
+    ],
+  },
+  {
+    etichetta: 'platform and technology',
+    voci: [
+      {
+        q: 'Is this yet another platform to adopt?',
+        a: 'No: it’s yours. We use standard tools — Terraform, Kubernetes, ArgoCD — in your accounts and your repositories. We install no agents and no dashboards of our own: there’s nothing to adopt, and nothing to uninstall when it ends.',
+      },
+      {
+        q: 'We already have infrastructure running: does everything get thrown away?',
+        a: 'No. We start from what’s there: what’s healthy gets integrated, what nobody dares touch anymore gets replaced, one piece at a time and in order of risk, without stopping your releases.',
+      },
+      {
+        q: 'Do you replace our Terraform?',
+        a: 'Only where it pays off. Healthy code is kept and integrated; what nobody dares touch anymore is migrated to standard, documented modules, with a written plan and in order of risk. No big bang.',
+      },
+      {
+        q: 'My team has never run Kubernetes: who maintains it afterwards?',
+        a: 'Your team, and that’s the point. The platform uses standard, documented components, the handover includes training and runbooks, and for the first months there’s the support subscription. If your team can review a pull request, it can operate the platform.',
+      },
+      {
+        q: 'If the open source is free, what are we paying for?',
+        a: 'The architecture that holds the pieces together, its implementation in your accounts, and the guarantee on the outcome. The modules are public and stay public: you pay for the system that comes out of them, not for permission to use them.',
+      },
+      {
+        q: 'Do you work on Azure too?',
+        a: 'Yes. AWS and GCP are the clouds where we have the most mileage, but we work on Azure as well: same method, same tools — Terraform, AKS, GitOps with ArgoCD. What never changes is the rule: everything in your accounts and your repositories.',
+      },
+      {
+        q: 'What access do you need?',
+        a: 'For the assessment, read-only on billing and accounts. For the implementation, the minimum necessary: dedicated roles, tracked and revocable, never personal or shared credentials. And every change goes through a pull request in your repositories, so it stays on record.',
+      },
+    ],
+  },
+  {
+    etichetta: 'us, and afterwards',
+    voci: [
+      {
+        q: 'Are you one person or a team?',
+        a: 'A deliberately small, senior structure: the person who signs the quote is the person who writes the Terraform. When a project needs more hands, we say so beforehand — we don’t invoice it afterwards.',
+      },
+      {
+        q: 'Will you sign an NDA?',
+        a: 'Yes, no drama. It’s also why the −70% case we cite is anonymized: the numbers are real, the name stays out.',
+      },
+      {
+        q: 'We’re in a regulated sector: GDPR, NIS2, DORA, ACN…',
+        a: 'That’s the context where a well-built platform pays off most: least privilege by default, native audit trail, and infrastructure as code is itself the evidence the auditor asks for. We don’t certify you, but you arrive at the audit with your papers in order.',
+      },
+      {
+        q: 'What happens after the handover?',
+        a: 'The platform is yours and your team operates it: the engagement ends there, per project. If you want, the support subscription remains — evolutions, on-call, a second pair of eyes — cancellable any time, no penalties.',
+      },
+    ],
+  },
+];
+
+export const gruppiPerLingua = { it, en };
+export const gruppi = it;
