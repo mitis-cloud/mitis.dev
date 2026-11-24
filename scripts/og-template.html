@@ -4,19 +4,14 @@
     <meta charset="utf-8" />
     <style>
       @font-face {
-        font-family: 'Schibsted Grotesk';
-        font-weight: 800;
-        src: url('../public/fonts/schibsted-grotesk-v7-latin-800.woff2') format('woff2');
+        font-family: 'Newsreader';
+        font-weight: 200 800;
+        src: url('../public/fonts/newsreader-latin-opsz-normal.woff2') format('woff2-variations');
       }
       @font-face {
-        font-family: 'JetBrains Mono';
-        font-weight: 400;
-        src: url('../public/fonts/jetbrains-mono-v24-latin-regular.woff2') format('woff2');
-      }
-      @font-face {
-        font-family: 'JetBrains Mono';
-        font-weight: 700;
-        src: url('../public/fonts/jetbrains-mono-v24-latin-700.woff2') format('woff2');
+        font-family: 'Geist';
+        font-weight: 100 900;
+        src: url('../public/fonts/geist-latin-wght-normal.woff2') format('woff2-variations');
       }
       * {
         margin: 0;
@@ -25,80 +20,49 @@
       body {
         width: 1200px;
         height: 630px;
-        background: #0d120f;
-        color: #f2f1ec;
+        color: #f3f4f2;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        padding: 72px 80px 64px;
-        font-family: 'Schibsted Grotesk', sans-serif;
-      }
-      .top {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
+        padding: 60px 72px 56px;
+        font-family: 'Geist', sans-serif;
+        background:
+          linear-gradient(90deg, rgb(14 24 32 / 0.96) 20%, rgb(14 24 32 / 0.8) 55%, rgb(14 24 32 / 0.25) 100%),
+          url('../public/img/macchina-1200.webp') 60% 50% / cover;
       }
       .wordmark {
-        font-size: 58px;
-        font-weight: 800;
-        letter-spacing: -0.02em;
+        font-size: 44px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
       }
       .cursor {
         display: inline-block;
-        width: 0.14em;
-        height: 0.78em;
-        background: #53c287;
-        margin-left: 0.08em;
-      }
-      .tag {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 22px;
-        letter-spacing: 0.08em;
-        color: rgba(242, 241, 236, 0.6);
+        width: 0.13em;
+        height: 0.8em;
+        background: #ff7a1a;
+        margin-left: 0.1em;
+        vertical-align: -0.07em;
       }
       h1 {
-        font-size: 88px;
-        font-weight: 800;
-        letter-spacing: -0.025em;
-        line-height: 1.05;
-        max-width: 20ch;
+        font-family: 'Newsreader', serif;
+        font-size: 62px;
+        font-weight: 450;
+        letter-spacing: -0.022em;
+        line-height: 1.03;
       }
-      .bar {
-        background: #090d0b;
-        border: 1px solid rgba(242, 241, 236, 0.14);
-        border-radius: 14px;
-        box-shadow: 0 0 60px rgba(83, 194, 135, 0.12);
-        padding: 26px 36px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 26px;
+      h1 span {
+        display: block;
       }
-      .probe {
-        color: rgba(242, 241, 236, 0.72);
-      }
-      .probe strong {
-        color: #f2f1ec;
-        font-weight: 700;
-      }
-      .ok {
-        color: #53c287;
-      }
-      .site {
-        color: rgba(242, 241, 236, 0.55);
+      .sotto {
+        font-size: 24px;
+        font-weight: 500;
+        color: rgb(243 244 242 / 0.9);
       }
     </style>
   </head>
   <body>
-    <div class="top">
-      <div class="wordmark">mitis<span class="cursor"></span></div>
-      <div class="tag">consulenza cloud &amp; devops</div>
-    </div>
-    <h1>Infrastruttura cloud noiosa. E&nbsp;che costa la&nbsp;metà.</h1>
-    <div class="bar">
-      <div class="probe"><span class="ok">probe:</span> <strong>764 requests, 1 failed</strong></div>
-      <div class="site">mitis.dev</div>
-    </div>
+    <div class="wordmark">mitis<span class="cursor"></span></div>
+    <h1><span id="a"></span><span id="b"></span><span id="c"></span></h1>
+    <div class="sotto" id="s"></div>
   </body>
 </html>

@@ -1,0 +1,54 @@
+---
+import { linguaDi } from '../../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+const t = {
+  it: {
+    titolo: 'Il percorso di una modifica',
+    passi: [
+      ['Modifica', 'Uno sviluppatore propone un cambiamento'],
+      ['Revisione', 'Un collega lo legge e lo approva'],
+      ['Test', 'L’ambiente di prova si aggiorna da solo'],
+      ['Produzione', 'Il passaggio è un’approvazione'],
+    ],
+    indietro: 'Se qualcosa non va, si torna alla versione precedente con una sola operazione.',
+  },
+  en: {
+    titolo: 'The path of a change',
+    passi: [
+      ['Change', 'A developer proposes a change'],
+      ['Review', 'A colleague reads and approves it'],
+      ['Test', 'The test environment updates itself'],
+      ['Production', 'Going live is one approval'],
+    ],
+    indietro: 'If something goes wrong, you return to the previous version in a single operation.',
+  },
+}[l];
+---
+
+<figure class="rounded-2xl border border-filo bg-superficie p-7 sm:p-9">
+  <figcaption class="etichetta">{t.titolo}</figcaption>
+  <ol class="mt-8">
+    {
+      t.passi.map(([nome, cosa], i) => (
+        <li class="relative flex gap-5 pb-7 last:pb-0">
+          {i < t.passi.length - 1 && <span class="absolute top-9 bottom-0 left-[1.0625rem] w-px bg-accento/35" aria-hidden="true" />}
+          <span
+            class:list={[
+              'flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-s font-semibold',
+              i === t.passi.length - 1 ? 'bg-accento text-white' : 'border-[1.5px] border-accento text-accento',
+            ]}
+            aria-hidden="true"
+          >
+            {i + 1}
+          </span>
+          <div class="pt-1">
+            <p class="font-semibold">{nome}</p>
+            <p class="text-s text-tenue">{cosa}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+  <p class="mt-7 border-t border-filo pt-5 text-s text-tenue">{t.indietro}</p>
+</figure>

@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import Testata from './Testata.astro';
+import Sezione from './Sezione.astro';
+import Domande from './Domande.astro';
+import { linguaDi, via } from '../i18n';
+
+interface Props {
+  meta: { titolo: string; descrizione: string };
+  briciola: string;
+  occhiello: string;
+  titolo: string;
+  sommario: string;
+  quando: { titolo: string; voci: string[] };
+  cosa: { titolo: string; sommario?: string; passi: string[][] };
+  resta: { titolo: string; voci: string[] };
+  prezzo: { titolo: string; testo: string[] };
+  tecnica: { titolo: string; sommario: string };
+  faq: string[];
+}
+const p = Astro.props;
+const l = linguaDi(Astro.url.pathname);
+const t = {
+  it: { quando: 'Quando serve', cosa: 'Cosa facciamo', resta: 'Cosa ti resta', tecnica: 'Per chi vuole i dettagli', faq: 'Domande frequenti', faqTitolo: 'Prima della chiamata', cta: 'Prenota una chiamata' },
+  en: { quando: 'When you need it', cosa: 'What we do', resta: 'What you are left with', tecnica: 'For those who want the details', faq: 'Frequently asked', faqTitolo: 'Before the call', cta: 'Book a call' },
+}[l];
+
+const ld = [
+  {
+    '@type': 'Service',
+    name: p.occhiello,
+    serviceType: p.occhiello,
+    description: p.meta.descrizione,
+    provider: { '@id': `${Astro.site!.href}#organizzazione` },
+    areaServed: 'IT',
+  },
+];
+---
+
+<Base titolo={p.meta.titolo} descrizione={p.meta.descrizione} briciola={p.briciola} ld={ld}>
+  <Testata briciola={p.briciola} occhiello={p.occhiello} titolo={p.titolo} sommario={p.sommario} />
+
+  <Sezione occhiello={t.quando} titolo={p.quando.titolo}>
+    <ul class="grid gap-x-16 md:grid-cols-2">
+      {p.quando.voci.map((v) => <li class="border-t border-inchiostro/25 py-6 text-l">{v}</li>)}
+    </ul>
+  </Sezione>
+
+  <Sezione occhiello={t.cosa} titolo={p.cosa.titolo} sommario={p.cosa.sommario} tono="chiaro">
+    <div class="grid items-start gap-x-16 gap-y-12 lg:grid-cols-2">
+      <ol>
+        {
+          p.cosa.passi.map(([nome, testo], i) => (
+            <li class="grid grid-cols-[3.25rem_1fr] gap-x-2 border-t border-filo py-6 first:border-0 first:pt-0">
+              <span class="titolo text-[2.25rem] leading-none text-accento">{i + 1}</span>
+              <div>
+                <h3 class="text-l font-semibold">{nome}</h3>
+                <p class="mt-2 text-body text-tenue">{testo}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+      <div class="lg:sticky lg:top-28">
+        <slot name="figura" />
+      </div>
+    </div>
+  </Sezione>
+
+  <Sezione occhiello={t.resta} titolo={p.resta.titolo}>
+    <div class="grid items-start gap-x-16 gap-y-12 lg:grid-cols-[1.1fr_1fr]">
+      <ul class="elenco space-y-4 text-l">
+        {p.resta.voci.map((v) => <li>{v}</li>)}
+      </ul>
+      <div class="buio rounded-2xl p-8 sm:p-10">
+        <h3 class="text-h3">{p.prezzo.titolo}</h3>
+        <div class="mt-4 space-y-3 text-body text-tenue">
+          {p.prezzo.testo.map((x) => <p>{x}</p>)}
+        </div>
+        <p class="mt-7">
+          <a href={via(l, '/contatti')} class="btn btn-primario">{t.cta}</a>
+        </p>
+      </div>
+    </div>
+  </Sezione>
+
+  <Sezione occhiello={t.tecnica} titolo={p.tecnica.titolo} sommario={p.tecnica.sommario} tono="chiaro">
+    <slot />
+  </Sezione>
+
+  <Sezione occhiello={t.faq} titolo={t.faqTitolo}>
+    <div class="max-w-[52rem]">
+      <Domande scelte={p.faq} />
+    </div>
+  </Sezione>
+</Base>

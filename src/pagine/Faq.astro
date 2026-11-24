@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import Testata from '../components/Testata.astro';
+import Sezione from '../components/Sezione.astro';
+import { gruppiPerLingua } from '../faq-dati';
+import { linguaDi } from '../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+const gruppi = gruppiPerLingua[l];
+
+const t = {
+  it: {
+    meta: {
+      titolo: 'Domande frequenti: prezzo, tempi, accessi, consegna | mitis',
+      descrizione:
+        'Quanto costa, quanto dura, che accessi servono, cosa succede dopo la consegna: le domande che ci fanno più spesso, con le risposte che daremmo in chiamata.',
+    },
+    briciola: 'Domande frequenti',
+    occhiello: 'Domande frequenti',
+    titolo: 'Le domande che ci fanno più spesso.',
+    sommario: 'Con le risposte che daremmo in chiamata. Se la tua non c’è, la chiamata è gratuita.',
+  },
+  en: {
+    meta: {
+      titolo: 'FAQ: price, timelines, access, handover | mitis',
+      descrizione:
+        'How much it costs, how long it takes, what access is needed, what happens after the handover: the questions we get most often, answered plainly.',
+    },
+    briciola: 'FAQ',
+    occhiello: 'Frequently asked questions',
+    titolo: 'The questions we get most often.',
+    sommario: 'With the answers we would give on a call. If yours is not here, the call is free.',
+  },
+}[l];
+
+const ld = [
+  {
+    '@type': 'FAQPage',
+    mainEntity: gruppi.flatMap((g) =>
+      g.voci.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    ),
+  },
+];
+---
+
+<Base titolo={t.meta.titolo} descrizione={t.meta.descrizione} briciola={t.briciola} ld={ld}>
+  <Testata briciola={t.briciola} occhiello={t.occhiello} titolo={t.titolo} sommario={t.sommario} foto="cavi" azione={false} />
+  {
+    gruppi.map((g, i) => (
+      <Sezione titolo={g.etichetta} tono={i % 2 ? 'chiaro' : 'carta'}>
+        <div class="max-w-[52rem]">
+          {g.voci.map((f) => (
+            <details class="group border-t border-filo last:border-b">
+              <summary class="flex items-baseline justify-between gap-6 py-6 text-l font-semibold hover:text-accento">
+                <h3>{f.q}</h3>
+                <span class="shrink-0 text-[1.5rem] leading-none font-normal text-accento transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+              </summary>
+              <p class="max-w-[66ch] pb-7 text-body text-tenue">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </Sezione>
+    ))
+  }
+</Base>

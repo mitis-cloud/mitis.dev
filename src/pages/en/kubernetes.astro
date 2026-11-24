@@ -1,19 +1,5 @@
 ---
-import Base from '../../layouts/Base.astro';
-import Nav from '../../components/Nav.astro';
-import Kubernetes from '../../components/Kubernetes.astro';
-import CtaFinale from '../../components/CtaFinale.astro';
-import Footer from '../../components/Footer.astro';
+import Pagina from '../../pagine/Kubernetes.astro';
 ---
 
-<Base
-  titolo="Kubernetes, known from the inside | mitis"
-  descrizione="Custom-written operators, upgrades without drama, multi-tenancy with real boundaries. The proof is Understudy, open source: 1 request lost out of 764 in a real spot interruption."
->
-  <Nav />
-  <main id="contenuto" class="pt-4 md:pt-8">
-    <Kubernetes h1 />
-  </main>
-  <CtaFinale />
-  <Footer />
-</Base>
+<Pagina />

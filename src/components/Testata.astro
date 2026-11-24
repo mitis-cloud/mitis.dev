@@ -1,0 +1,48 @@
+---
+import { linguaDi, via } from '../i18n';
+
+interface Props {
+  briciola: string;
+  occhiello: string;
+  titolo: string;
+  sommario: string;
+  foto?: 'acciaio' | 'cavi' | 'ponte';
+  azione?: boolean;
+}
+const { briciola, occhiello, titolo, sommario, foto = 'acciaio', azione = true } = Astro.props;
+const l = linguaDi(Astro.url.pathname);
+const t = {
+  it: { cta: 'Prenota una chiamata', percorso: 'Percorso' },
+  en: { cta: 'Book a call', percorso: 'Breadcrumb' },
+}[l];
+---
+
+<header class="buio relative isolate overflow-hidden">
+  <img
+    src={`/img/${foto}.webp`}
+    srcset={`/img/${foto}-1200.webp 1200w, /img/${foto}.webp 2400w`}
+    sizes="100vw"
+    alt=""
+    width="2400"
+    height="1600"
+    fetchpriority="high"
+    class:list={['absolute inset-0 -z-10 h-full w-full object-cover', foto === 'cavi' ? 'object-[50%_40%]' : 'object-[70%_50%]']}
+  />
+  <div class="absolute inset-0 -z-10 bg-linear-to-r from-notte from-20% via-notte/80 via-50% to-notte/20 max-md:via-notte/85 max-md:to-notte/65"></div>
+  <div class="contenitore pt-32 pb-16 md:pt-40 md:pb-24">
+    <nav aria-label={t.percorso} class="text-nota text-white/70">
+      <a href={via(l, '/')} class="hover:text-white">mitis</a>
+      <span class="mx-2" aria-hidden="true">/</span>
+      <span aria-current="page" class="text-white">{briciola}</span>
+    </nav>
+    <h1 class="mt-8 max-w-[20ch] text-h1">{titolo}</h1>
+    <p class="mt-6 max-w-[52ch] text-l text-white/90">{sommario}</p>
+    {
+      azione && (
+        <p class="mt-8">
+          <a href={via(l, '/contatti')} class="btn btn-primario">{t.cta}</a>
+        </p>
+      )
+    }
+  </div>
+</header>

@@ -1,0 +1,152 @@
+---
+import Base from '../layouts/Base.astro';
+import Testata from '../components/Testata.astro';
+import Sezione from '../components/Sezione.astro';
+import Domande from '../components/Domande.astro';
+import { contatti } from '../dati';
+import { linguaDi } from '../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+const chiamata = contatti.prenotazione || (l === 'en' ? contatti.chiamataEn : contatti.chiamata);
+const assessment = l === 'en' ? contatti.assessmentEn : contatti.assessment;
+
+const t = {
+  it: {
+    meta: {
+      titolo: 'Contatti: prenota una chiamata con un ingegnere | mitis',
+      descrizione:
+        'Mezz’ora in videochiamata con un ingegnere, gratuita. Raccontaci la tua situazione: se non siamo le persone giuste, te lo diciamo durante la chiamata.',
+    },
+    briciola: 'Contatti',
+    occhiello: 'Contatti',
+    titolo: 'Raccontaci la tua situazione.',
+    sommario: 'Mezz’ora in videochiamata con un ingegnere, gratuita. Se non siamo le persone giuste per il tuo problema, te lo diciamo durante la chiamata.',
+    modi: {
+      occhiello: 'Due modi per cominciare',
+      voci: [
+        { nome: 'Prenota una chiamata', testo: 'Scrivici due righe sul contesto. Ti rispondiamo con due o tre orari possibili.', cta: 'Prenota una chiamata', href: chiamata, primario: true },
+        { nome: 'Chiedi l’analisi gratuita', testo: 'Se sai già che vuoi una stima di quanto puoi risparmiare, chiedila direttamente. Dura due settimane.', cta: 'Chiedi l’analisi', href: assessment, primario: false },
+      ],
+      oppure: 'Oppure scrivi a',
+    },
+    portare: {
+      occhiello: 'Per la chiamata',
+      titolo: 'Cosa è utile avere sotto mano',
+      voci: [
+        ['La fattura cloud', 'Gli ultimi mesi, anche a grandi linee: quanto, con quale fornitore, come sta crescendo.'],
+        ['Uno schema dell’infrastruttura', 'Anche disegnato a mano. Serve a capire com’è fatta, non a giudicarla.'],
+        ['Il problema che rimandi da mesi', 'Di solito è il punto giusto da cui cominciare.'],
+        ['Le persone giuste', 'Chi conosce la fattura e chi conosce l’infrastruttura.'],
+      ],
+    },
+    poi: {
+      occhiello: 'Dopo la chiamata',
+      titolo: 'Cosa succede',
+      passi: [
+        ['Subito', 'Sai se possiamo aiutarti e da dove converrebbe partire. Vale anche se non lavoreremo insieme.'],
+        ['Se vuoi proseguire', 'Comincia l’analisi gratuita, con accesso in sola lettura a fatturazione e account.'],
+        ['Entro due settimane', 'Ricevi il rapporto e un prezzo fisso, per iscritto.'],
+      ],
+    },
+    faq: { occhiello: 'Domande frequenti' },
+  },
+  en: {
+    meta: {
+      titolo: 'Contact: book a call with an engineer | mitis',
+      descrizione:
+        'Half an hour on a video call with an engineer, free. Tell us about your situation: if we are not the right people, we will tell you during the call.',
+    },
+    briciola: 'Contact',
+    occhiello: 'Contact',
+    titolo: 'Tell us about your situation.',
+    sommario: 'Half an hour on a video call with an engineer, free. If we are not the right people for your problem, we will tell you during the call.',
+    modi: {
+      occhiello: 'Two ways to start',
+      voci: [
+        { nome: 'Book a call', testo: 'Send us two lines of context. We reply with two or three possible times.', cta: 'Book a call', href: chiamata, primario: true },
+        { nome: 'Ask for the free analysis', testo: 'If you already know you want an estimate of how much you can save, ask for it directly. It takes two weeks.', cta: 'Ask for the analysis', href: assessment, primario: false },
+      ],
+      oppure: 'Or write to',
+    },
+    portare: {
+      occhiello: 'For the call',
+      titolo: 'What is useful to have at hand',
+      voci: [
+        ['The cloud invoice', 'The last few months, even roughly: how much, with which provider, how it is growing.'],
+        ['A sketch of the infrastructure', 'Hand-drawn is fine. It is to understand how it is built, not to judge it.'],
+        ['The problem you have been postponing', 'It is usually the right place to start.'],
+        ['The right people', 'Someone who knows the invoice and someone who knows the infrastructure.'],
+      ],
+    },
+    poi: {
+      occhiello: 'After the call',
+      titolo: 'What happens',
+      passi: [
+        ['Straight away', 'You know whether we can help and where it would make sense to start. That holds even if we never work together.'],
+        ['If you want to continue', 'The free analysis starts, with read-only access to billing and accounts.'],
+        ['Within two weeks', 'You get the report and a fixed price, in writing.'],
+      ],
+    },
+    faq: { occhiello: 'Frequently asked' },
+  },
+}[l];
+
+const ld = [{ '@type': 'ContactPage', url: new URL(Astro.url.pathname, Astro.site).href }];
+---
+
+<Base titolo={t.meta.titolo} descrizione={t.meta.descrizione} briciola={t.briciola} ld={ld} cta={false}>
+  <Testata briciola={t.briciola} occhiello={t.occhiello} titolo={t.titolo} sommario={t.sommario} foto="ponte" azione={false} />
+
+  <Sezione occhiello={t.modi.occhiello}>
+    <div class="grid gap-6 md:grid-cols-2">
+      {
+        t.modi.voci.map((m) => (
+          <div class:list={['flex flex-col rounded-2xl p-8 sm:p-10', m.primario ? 'buio' : 'border border-filo bg-superficie']}>
+            <h2 class="text-h3">{m.nome}</h2>
+            <p class="mt-3 text-body text-tenue">{m.testo}</p>
+            <p class="mt-auto pt-8">
+              <a href={m.href} class:list={['btn', m.primario ? 'btn-primario' : 'btn-secondario']}>{m.cta}</a>
+            </p>
+          </div>
+        ))
+      }
+    </div>
+    <p class="mt-8 text-l">
+      {t.modi.oppure}{' '}
+      <a href={`mailto:${contatti.email}`} class="link font-semibold">{contatti.email}</a>
+    </p>
+  </Sezione>
+
+  <Sezione occhiello={t.portare.occhiello} titolo={t.portare.titolo} tono="chiaro">
+    <dl class="grid gap-x-16 sm:grid-cols-2">
+      {
+        t.portare.voci.map(([nome, testo]) => (
+          <div class="border-t border-filo py-6">
+            <dt class="text-l font-semibold">{nome}</dt>
+            <dd class="mt-2 text-body text-tenue">{testo}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </Sezione>
+
+  <Sezione occhiello={t.poi.occhiello} titolo={t.poi.titolo}>
+    <ol class="grid gap-x-12 gap-y-10 md:grid-cols-3">
+      {
+        t.poi.passi.map(([quando, cosa], i) => (
+          <li>
+            <p class="titolo text-[3.5rem] leading-none text-accento">{i + 1}</p>
+            <h3 class="mt-4 text-l font-semibold">{quando}</h3>
+            <p class="mt-2 text-body text-tenue">{cosa}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Sezione>
+
+  <Sezione occhiello={t.faq.occhiello} tono="chiaro">
+    <div class="max-w-[52rem]">
+      <Domande scelte={['costo', 'accessi', 'nda', 'quanti']} />
+    </div>
+  </Sezione>
+</Base>

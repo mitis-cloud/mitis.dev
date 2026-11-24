@@ -1,6 +1,5 @@
 ---
 import Wordmark from './Wordmark.astro';
-import { contatti } from '../dati';
 import { alternati, linguaDi, via } from '../i18n';
 
 const percorso = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -10,89 +9,107 @@ const alt = alternati(percorso) ?? { it: '/', en: '/en/' };
 const testi = {
   it: {
     links: [
-      { href: '/finops', label: 'FinOps' },
-      { href: '/kubernetes', label: 'Kubernetes' },
-      { href: '/devops', label: 'DevOps' },
-      { href: '/open-source', label: 'Open source' },
-      { href: '/metodo', label: 'Metodo' },
-      { href: '/servizi', label: 'Servizi' },
-      { href: '/faq', label: 'FAQ' },
+      { href: '/servizi', label: 'Servizi', sotto: ['/finops', '/kubernetes', '/devops'] },
+      { href: '/risultati', label: 'Risultati', sotto: ['/open-source'] },
+      { href: '/metodo', label: 'Come lavoriamo', sotto: ['/faq'] },
+      { href: '/chi-siamo', label: 'Chi siamo', sotto: [] },
     ],
-    cta: 'Scrivici',
-    home: 'mitis — home',
-    ariaLingua: 'Lingua',
+    cta: 'Prenota una chiamata',
+    ctaBreve: 'Contatti',
+    home: 'mitis, pagina iniziale',
+    principale: 'Principale',
+    menu: 'Menu',
+    lingua: 'Lingua',
   },
   en: {
     links: [
-      { href: '/finops', label: 'FinOps' },
-      { href: '/kubernetes', label: 'Kubernetes' },
-      { href: '/devops', label: 'DevOps' },
-      { href: '/open-source', label: 'Open source' },
-      { href: '/metodo', label: 'Method' },
-      { href: '/servizi', label: 'Services' },
-      { href: '/faq', label: 'FAQ' },
+      { href: '/servizi', label: 'Services', sotto: ['/finops', '/kubernetes', '/devops'] },
+      { href: '/risultati', label: 'Results', sotto: ['/open-source'] },
+      { href: '/metodo', label: 'How we work', sotto: ['/faq'] },
+      { href: '/chi-siamo', label: 'About', sotto: [] },
     ],
-    cta: 'Email us',
-    home: 'mitis — home',
-    ariaLingua: 'Language',
+    cta: 'Book a call',
+    ctaBreve: 'Contact',
+    home: 'mitis, home page',
+    principale: 'Main',
+    menu: 'Menu',
+    lingua: 'Language',
   },
 }[l];
+
+const attivo = (li: { href: string; sotto: string[] }) =>
+  [li.href, ...li.sotto].some((h) => percorso === via(l, h));
 ---
 
-<header class="sticky top-0 z-40 border-b border-carta/10 bg-sfondo/85 px-5 backdrop-blur-md sm:px-8">
-  <nav
-    class="mx-auto flex w-full max-w-6xl items-center justify-between gap-6 py-4"
-    aria-label={l === 'en' ? 'Main' : 'Principale'}
-  >
-    <a href={via(l, '/')} class="text-[1.35rem] leading-none text-carta" aria-label={testi.home}>
-      <Wordmark cursor="bg-lichene" />
+<header class="buio absolute inset-x-0 top-0 z-40 !bg-transparent">
+  <nav class="contenitore flex h-[4.5rem] items-center justify-between gap-6" aria-label={testi.principale}>
+    <a href={via(l, '/')} class="text-[1.625rem] leading-none" aria-label={testi.home}>
+      <Wordmark />
     </a>
-    <div class="flex items-center gap-5 sm:gap-7">
-      <ul class="hidden items-center gap-5 lg:flex xl:gap-7">
-        {
-          testi.links.map((li) => (
-            <li>
-              <a
-                href={via(l, li.href)}
-                aria-current={percorso === via(l, li.href) ? 'page' : undefined}
-                class:list={[
-                  'font-mono text-label transition-colors hover:text-carta',
-                  percorso === via(l, li.href) ? 'text-lichene' : 'text-carta/60',
-                ]}
-              >
-                {li.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      <div class="whitespace-nowrap" aria-label={testi.ariaLingua}>
+
+    <ul class="hidden items-center gap-9 lg:flex">
+      {
+        testi.links.map((li) => (
+          <li>
+            <a
+              href={via(l, li.href)}
+              aria-current={percorso === via(l, li.href) ? 'page' : undefined}
+              class:list={[
+                'text-[0.9688rem] font-medium transition-colors hover:text-inchiostro',
+                attivo(li) ? 'text-inchiostro' : 'text-tenue',
+              ]}
+            >
+              {li.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="flex items-center gap-4 sm:gap-6">
+      <div class="hidden whitespace-nowrap text-nota font-semibold sm:block" aria-label={testi.lingua}>
         <a
           href={alt.it}
           aria-current={l === 'it' ? 'true' : undefined}
-          class:list={[
-            'font-mono text-label transition-colors hover:text-carta',
-            l === 'it' ? 'font-bold text-lichene' : 'text-carta/60',
-          ]}
+          class:list={['hover:text-inchiostro', l === 'it' ? 'text-inchiostro' : 'text-sottile']}
           lang="it"
           hreflang="it">IT</a
-        ><span class="mx-1 font-mono text-label text-carta/30" aria-hidden="true">/</span><a
+        ><span class="mx-1.5 text-sottile/60" aria-hidden="true">/</span><a
           href={alt.en}
           aria-current={l === 'en' ? 'true' : undefined}
-          class:list={[
-            'font-mono text-label transition-colors hover:text-carta',
-            l === 'en' ? 'font-bold text-lichene' : 'text-carta/60',
-          ]}
+          class:list={['hover:text-inchiostro', l === 'en' ? 'text-inchiostro' : 'text-sottile']}
           lang="en"
           hreflang="en">EN</a
         >
       </div>
-      <a
-        href={`mailto:${contatti.email}`}
-        class="rounded-md bg-lichene px-4 py-2 font-mono text-label font-medium text-sfondo transition-all hover:bg-lichene/90 hover:shadow-[0_0_20px_rgba(83,194,135,0.35)]"
-      >
-        {testi.cta}
+      <a href={via(l, '/contatti')} class="btn btn-primario !px-5 !py-3 !text-[0.9375rem]">
+        <span class="hidden sm:inline">{testi.cta}</span>
+        <span class="sm:hidden">{testi.ctaBreve}</span>
       </a>
+      <details class="lg:hidden">
+        <summary class="flex h-11 w-11 items-center justify-center rounded-lg border border-filo" aria-label={testi.menu}>
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <line x1="4" y1="8" x2="20" y2="8"></line>
+            <line x1="4" y1="16" x2="20" y2="16"></line>
+          </svg>
+        </summary>
+        <div class="absolute inset-x-0 top-[4.5rem] border-y border-filo bg-notte">
+          <ul class="contenitore py-2">
+            {
+              testi.links.map((li) => (
+                <li class="border-b border-filo last:border-0">
+                  <a href={via(l, li.href)} class="titolo block py-4 text-[1.5rem]">{li.label}</a>
+                </li>
+              ))
+            }
+          </ul>
+          <div class="contenitore border-t border-filo py-4 text-s font-semibold" aria-label={testi.lingua}>
+            <a href={alt.it} class:list={[l === 'it' ? 'text-inchiostro' : 'text-sottile']} lang="it" hreflang="it">Italiano</a>
+            <span class="mx-2 text-sottile/60" aria-hidden="true">/</span>
+            <a href={alt.en} class:list={[l === 'en' ? 'text-inchiostro' : 'text-sottile']} lang="en" hreflang="en">English</a>
+          </div>
+        </div>
+      </details>
     </div>
   </nav>
 </header>

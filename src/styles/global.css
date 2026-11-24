@@ -1,106 +1,119 @@
 @import "tailwindcss";
 
+:root {
+  color-scheme: light;
+  --fondo: #f4f4f1;
+  --superficie: #ffffff;
+  --inchiostro: #0f1820;
+  --tenue: #3d4853;
+  --sottile: #63707c;
+  --filo: #dcdfe0;
+  --accento: #14506e;
+  --accento-forte: #0d3c54;
+  --accento-tenue: #e2edf2;
+  --azione: #ff7a1a;
+  --azione-forte: #ff8f3d;
+  --su-azione: #0f1820;
+  --allarme: #c93f27;
+  --allarme-tenue: #fae5df;
+  --notte: #0e1820;
+  --schermo: #0e1820;
+  --schermo-rilievo: #18242e;
+  --schermo-testo: #f3f4f2;
+  --schermo-tenue: #9fb0bc;
+  --schermo-filo: #2a3944;
+  --schermo-accento: #9cc7dd;
+  --schermo-allarme: #ff9a80;
+  --logo-filtro: brightness(0);
+  --titoli: "Newsreader", "Iowan Old Style", Georgia, serif;
+}
+
+@theme inline {
+  --color-fondo: var(--fondo);
+  --color-superficie: var(--superficie);
+  --color-inchiostro: var(--inchiostro);
+  --color-tenue: var(--tenue);
+  --color-sottile: var(--sottile);
+  --color-filo: var(--filo);
+  --color-accento: var(--accento);
+  --color-accento-forte: var(--accento-forte);
+  --color-accento-tenue: var(--accento-tenue);
+  --color-azione: var(--azione);
+  --color-allarme: var(--allarme);
+  --color-allarme-tenue: var(--allarme-tenue);
+  --color-notte: var(--notte);
+  --color-schermo: var(--schermo);
+  --color-schermo-rilievo: var(--schermo-rilievo);
+  --color-schermo-testo: var(--schermo-testo);
+  --color-schermo-tenue: var(--schermo-tenue);
+  --color-schermo-filo: var(--schermo-filo);
+  --color-schermo-accento: var(--schermo-accento);
+  --color-schermo-allarme: var(--schermo-allarme);
+  --font-display: var(--titoli);
+}
+
 @theme {
-  --color-sfondo: #0d120f;
-  --color-quadro: #141b16;
-  --color-schermo: #090d0b;
-  --color-carta: #f2f1ec;
-  --color-inchiostro: #1b1a17;
-  --color-felce: #166b4a;
-  --color-lichene: #53c287;
-  --color-ruggine: #a63b2a;
-  --color-salmone: #d29284;
+  --font-sans: "Geist", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  --font-display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
-  --font-sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
-
-  --text-label: 0.8125rem;
-  --text-label--line-height: 1.4;
-  --text-label--letter-spacing: 0.08em;
+  --text-nota: 0.8125rem;
+  --text-nota--line-height: 1.5;
   --text-s: 0.9375rem;
   --text-s--line-height: 1.6;
   --text-body: 1.0625rem;
   --text-body--line-height: 1.65;
   --text-l: 1.25rem;
   --text-l--line-height: 1.5;
-  --text-xl: 1.5rem;
-  --text-xl--line-height: 1.3;
-  --text-h2: clamp(1.75rem, 1.3rem + 2vw, 2.25rem);
-  --text-h2--line-height: 1.15;
-  --text-h2--letter-spacing: -0.02em;
-  --text-hero: clamp(2.375rem, 1.7rem + 4.5vw, 4.375rem);
-  --text-hero--line-height: 1.06;
-  --text-hero--letter-spacing: -0.025em;
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.2;
+  --text-h2: clamp(2rem, 1.4rem + 2.5vw, 3.25rem);
+  --text-h2--line-height: 1.06;
+  --text-h1: clamp(2.375rem, 1.5rem + 3.6vw, 4.25rem);
+  --text-h1--line-height: 1.03;
+  --text-hero: clamp(2.375rem, 1.4rem + 4vw, 4.5rem);
+  --text-hero--line-height: 1.01;
+  --text-cifra: clamp(3.5rem, 2.4rem + 4.4vw, 6.5rem);
+  --text-cifra--line-height: 0.92;
 }
 
 @font-face {
-  font-family: "Schibsted Grotesk";
+  font-family: "Newsreader";
   font-style: normal;
-  font-weight: 700;
+  font-weight: 200 800;
   font-display: swap;
-  src: url("/fonts/schibsted-grotesk-v7-latin-700.woff2") format("woff2");
+  src: url("/fonts/newsreader-latin-opsz-normal.woff2") format("woff2-variations");
 }
 @font-face {
-  font-family: "Schibsted Grotesk";
-  font-style: normal;
-  font-weight: 800;
-  font-display: swap;
-  src: url("/fonts/schibsted-grotesk-v7-latin-800.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Instrument Sans";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/instrument-sans-v4-latin-regular.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Instrument Sans";
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("/fonts/instrument-sans-v4-latin-500.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Instrument Sans";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("/fonts/instrument-sans-v4-latin-600.woff2") format("woff2");
-}
-@font-face {
-  font-family: "JetBrains Mono";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/jetbrains-mono-v24-latin-regular.woff2") format("woff2");
-}
-@font-face {
-  font-family: "JetBrains Mono";
+  font-family: "Newsreader";
   font-style: italic;
-  font-weight: 400;
+  font-weight: 200 800;
   font-display: swap;
-  src: url("/fonts/jetbrains-mono-v24-latin-italic.woff2") format("woff2");
+  src: url("/fonts/newsreader-latin-opsz-italic.woff2") format("woff2-variations");
 }
 @font-face {
-  font-family: "JetBrains Mono";
+  font-family: "Geist";
   font-style: normal;
-  font-weight: 700;
+  font-weight: 100 900;
   font-display: swap;
-  src: url("/fonts/jetbrains-mono-v24-latin-700.woff2") format("woff2");
+  src: url("/fonts/geist-latin-wght-normal.woff2") format("woff2-variations");
+}
+@font-face {
+  font-family: "Geist Mono";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/geist-mono-latin-wght-normal.woff2") format("woff2-variations");
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
   }
 
   body {
-    background-color: var(--color-sfondo);
-    background-image: radial-gradient(rgba(242, 241, 236, 0.045) 1px, transparent 1px);
-    background-size: 26px 26px;
-    color: var(--color-carta);
+    background-color: var(--fondo);
+    color: var(--inchiostro);
     font-family: var(--font-sans);
     font-size: var(--text-body);
     line-height: var(--text-body--line-height);
@@ -108,21 +121,35 @@
     text-rendering: optimizeLegibility;
   }
 
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
+  }
+
   ::selection {
-    background-color: var(--color-lichene);
-    color: var(--color-sfondo);
+    background-color: var(--azione);
+    color: var(--su-azione);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-lichene);
-    outline-offset: 2px;
-    border-radius: 2px;
+    outline: 2px solid var(--azione);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 
-  @supports (interpolate-size: allow-keywords) {
-    :root {
-      interpolate-size: allow-keywords;
-    }
+  summary {
+    cursor: pointer;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -139,79 +166,177 @@
   }
 }
 
-@utility eyebrow {
-  font-family: var(--font-mono);
-  font-size: var(--text-label);
-  letter-spacing: var(--text-label--letter-spacing);
-  color: color-mix(in srgb, var(--color-carta) 62%, transparent);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.625rem;
+@layer components {
+  .contenitore {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 78rem;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 40rem) {
+    .contenitore {
+      padding-inline: 2.5rem;
+    }
+  }
 
-  &::before {
+  .etichetta {
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    font-kerning: none;
+    text-transform: uppercase;
+    color: var(--sottile);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    padding: 0.9375rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.2;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease;
+  }
+  .btn-primario {
+    background-color: var(--azione);
+    color: var(--su-azione);
+  }
+  .btn-primario:hover {
+    background-color: var(--azione-forte);
+  }
+  .btn-secondario {
+    border: 1.5px solid color-mix(in srgb, var(--inchiostro) 35%, transparent);
+    color: var(--inchiostro);
+  }
+  .btn-secondario:hover {
+    border-color: var(--inchiostro);
+  }
+
+  .link {
+    color: var(--accento);
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+    text-decoration-color: color-mix(in srgb, var(--accento) 40%, transparent);
+    transition: text-decoration-color 150ms ease;
+  }
+  .link:hover {
+    text-decoration-color: var(--accento);
+  }
+
+  .freccia {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4375rem;
+    font-weight: 600;
+    color: var(--accento);
+  }
+  .freccia::after {
+    content: "→";
+    transition: transform 150ms ease;
+  }
+  .freccia:hover::after,
+  a:hover .freccia::after {
+    transform: translateX(4px);
+  }
+
+  .elenco > li {
+    position: relative;
+    padding-left: 1.75rem;
+  }
+  .elenco > li::before {
     content: "";
-    width: 0.5rem;
-    height: 0.5rem;
-    background-color: var(--color-lichene);
-    flex-shrink: 0;
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 0.75rem;
+    height: 0.4375rem;
+    border-left: 2px solid var(--accento);
+    border-bottom: 2px solid var(--accento);
+    transform: rotate(-45deg);
+  }
+
+  .prosa {
+    max-width: 44rem;
+    color: var(--tenue);
+  }
+  .prosa > * + * {
+    margin-top: 1.125rem;
+  }
+  .prosa h2 {
+    margin-top: 2.5rem;
+    font-size: 1.3125rem;
+    line-height: 1.25;
+    font-weight: 620;
+    color: var(--inchiostro);
+  }
+  .prosa a {
+    color: var(--accento);
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+  }
+  .prosa ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+  }
+  .prosa li + li {
+    margin-top: 0.375rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-cresce] .barra {
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1) 150ms;
+    }
+    [data-cresce].in .barra {
+      transform: scaleX(1);
+    }
+    [data-cresce].in .barra-2 {
+      transition-delay: 350ms;
+    }
   }
 }
 
-@layer components {
-  @media (prefers-reduced-motion: no-preference) {
-    [data-rivela] {
-      opacity: 0;
-      transform: translateY(18px);
-      transition:
-        opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    [data-rivela].in {
-      opacity: 1;
-      transform: none;
-    }
-    [data-rivela-serie] > * {
-      opacity: 0;
-      transform: translateY(16px);
-      transition:
-        opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    [data-rivela-serie].in > * {
-      opacity: 1;
-      transform: none;
-    }
-    [data-rivela-serie].in > :nth-child(2) {
-      transition-delay: 90ms;
-    }
-    [data-rivela-serie].in > :nth-child(3) {
-      transition-delay: 180ms;
-    }
-    [data-rivela-serie].in > :nth-child(4) {
-      transition-delay: 270ms;
-    }
-    [data-rivela-serie].in > :nth-child(5) {
-      transition-delay: 360ms;
-    }
-    [data-rivela-serie].in > :nth-child(6) {
-      transition-delay: 450ms;
-    }
-    [data-rivela-serie].in > :nth-child(7) {
-      transition-delay: 540ms;
-    }
-    [data-rivela-serie].in > :nth-child(8) {
-      transition-delay: 630ms;
-    }
-    [data-rivela-serie].in > :nth-child(9) {
-      transition-delay: 720ms;
-    }
-  }
+/* Titoli: fuori dai layer, così valgono qualunque utility li accompagni. */
+.text-hero,
+.text-h1,
+.text-h2,
+.text-h3,
+.text-cifra,
+.titolo {
+  font-family: var(--titoli);
+  font-weight: 450;
+  letter-spacing: -0.022em;
+  font-variant-numeric: lining-nums;
+}
+.text-h3 {
+  letter-spacing: -0.014em;
+}
 
-  @media print {
-    [data-rivela],
-    [data-rivela-serie] > * {
-      opacity: 1 !important;
-      transform: none !important;
-    }
-  }
+/* Banda scura: ridefinisce i token, il contenuto si adatta da solo. */
+.buio {
+  --fondo: var(--notte);
+  --superficie: #18242e;
+  --inchiostro: #f3f4f2;
+  --tenue: #c9d3da;
+  --sottile: #9fb0bc;
+  --filo: #2a3944;
+  --accento: #9cc7dd;
+  --accento-forte: #ffffff;
+  --accento-tenue: #18242e;
+  --logo-filtro: brightness(0) invert(1);
+  background-color: var(--notte);
+  color: var(--inchiostro);
+}
+.chiaro {
+  background-color: var(--superficie);
 }

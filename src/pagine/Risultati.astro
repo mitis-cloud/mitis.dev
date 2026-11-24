@@ -1,0 +1,149 @@
+---
+import Base from '../layouts/Base.astro';
+import Testata from '../components/Testata.astro';
+import Sezione from '../components/Sezione.astro';
+import Clienti from '../components/Clienti.astro';
+import Risparmio from '../components/figure/Risparmio.astro';
+import Risultati from '../components/figure/Risultati.astro';
+import { contatti } from '../dati';
+import { linguaDi, via } from '../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+
+const t = {
+  it: {
+    meta: {
+      titolo: 'Risultati: fino al 70% di spesa cloud in meno | mitis',
+      descrizione:
+        'Un caso reale: una piattaforma bancaria da 30.000 € al mese, fino al 70% di spesa in meno in tre settimane. Più i clienti e il software open source che pubblichiamo.',
+    },
+    briciola: 'Risultati',
+    occhiello: 'Risultati',
+    titolo: 'Quello che abbiamo ottenuto, con i numeri e le condizioni.',
+    sommario: 'Un caso raccontato per intero, i clienti con cui abbiamo lavorato e il software che pubblichiamo.',
+    caso: {
+      occhiello: 'Il caso',
+      titolo: 'Una piattaforma bancaria: fino al 70% di spesa cloud in meno',
+      blocchi: [
+        ['La situazione', 'Una piattaforma del settore bancario che serve più clienti, cresciuta per anni un pezzo sopra l’altro. La spesa cloud era arrivata a 30.000 € al mese e nessuno ne aveva mai rivisto la composizione.'],
+        ['Cosa abbiamo fatto', 'Abbiamo ridimensionato macchine e database sul consumo reale, spostato i carichi adatti su capacità scontata, ridotto il numero di macchine tenendole più piene, sistemato lo spazio di archiviazione e il traffico di rete, spento le risorse dimenticate. Alla fine ogni costo è stato attribuito a un cliente della piattaforma.'],
+        ['Il risultato', 'Fino al 70% di spesa in meno, a parità di carico servito. Tre settimane di lavoro.'],
+      ],
+      dati: [
+        ['Settore', 'Bancario'],
+        ['Spesa iniziale', '30.000 € al mese'],
+        ['Durata', 'Tre settimane'],
+        ['Carico servito', 'Invariato'],
+      ],
+      nota: 'Il nome del cliente è coperto da un accordo di riservatezza. Il 70% è il risultato di questo caso, che aveva molto margine: il tuo lo stimiamo nell’analisi gratuita.',
+      link: 'Come riduciamo la spesa cloud',
+    },
+    clienti: { occhiello: 'Clienti', titolo: 'Con chi abbiamo lavorato' },
+    oss: {
+      occhiello: 'Open source',
+      titolo: 'Un risultato che chiunque può verificare',
+      testo: [
+        'Understudy è un software che abbiamo scritto e pubblicato. Permette di usare le macchine cloud più economiche, quelle che il fornitore può riprendersi con poco preavviso, senza che i servizi si interrompano.',
+        'Lo abbiamo misurato in condizioni reali, e i numeri sono pubblici insieme al codice. Quando AWS si è ripresa una macchina, su 764 richieste degli utenti ne è andata persa una.',
+      ],
+      link: 'Tutto il nostro open source',
+      repo: 'Understudy su GitHub',
+    },
+  },
+  en: {
+    meta: {
+      titolo: 'Results: up to 70% off the cloud bill | mitis',
+      descrizione:
+        'A real case: a banking platform spending €30,000 a month, up to 70% less in three weeks. Plus the clients and the open source software we publish.',
+    },
+    briciola: 'Results',
+    occhiello: 'Results',
+    titolo: 'What we achieved, with the numbers and the conditions.',
+    sommario: 'One case told in full, the clients we have worked with, and the software we publish.',
+    caso: {
+      occhiello: 'The case',
+      titolo: 'A banking platform: up to 70% off the cloud bill',
+      blocchi: [
+        ['The situation', 'A platform in the banking sector serving several customers, grown for years one layer on top of another. Cloud spend had reached €30,000 a month and nobody had ever reviewed what it was made of.'],
+        ['What we did', 'We resized machines and databases to real consumption, moved the suitable workloads to discounted capacity, reduced the number of machines by keeping them fuller, tidied up storage and network traffic, and switched off forgotten resources. At the end every cost was attributed to a customer of the platform.'],
+        ['The result', 'Up to 70% less spend, for the same load served. Three weeks of work.'],
+      ],
+      dati: [
+        ['Sector', 'Banking'],
+        ['Initial spend', '€30,000 a month'],
+        ['Duration', 'Three weeks'],
+        ['Load served', 'Unchanged'],
+      ],
+      nota: 'The client’s name is covered by a confidentiality agreement. The 70% is the result of this case, which had a lot of margin: we estimate yours in the free analysis.',
+      link: 'How we reduce cloud spend',
+    },
+    clienti: { occhiello: 'Clients', titolo: 'Who we have worked with' },
+    oss: {
+      occhiello: 'Open source',
+      titolo: 'A result anyone can verify',
+      testo: [
+        'Understudy is software we wrote and published. It lets you use the cheapest cloud machines, the ones the provider can take back at short notice, without services being interrupted.',
+        'We measured it in real conditions, and the numbers are public together with the code. When AWS took a machine back, out of 764 user requests one was lost.',
+      ],
+      link: 'All our open source',
+      repo: 'Understudy on GitHub',
+    },
+  },
+}[l];
+---
+
+<Base titolo={t.meta.titolo} descrizione={t.meta.descrizione} briciola={t.briciola}>
+  <Testata briciola={t.briciola} occhiello={t.occhiello} titolo={t.titolo} sommario={t.sommario} azione={false} />
+
+  <Sezione occhiello={t.caso.occhiello} titolo={t.caso.titolo}>
+    <div class="grid items-start gap-x-16 gap-y-12 lg:grid-cols-[1.15fr_1fr]">
+      <div>
+        {
+          t.caso.blocchi.map(([nome, testo]) => (
+            <div class="border-t border-inchiostro/25 py-7 first:border-0 first:pt-0">
+              <h3 class="text-l font-semibold">{nome}</h3>
+              <p class="mt-3 text-body text-tenue">{testo}</p>
+            </div>
+          ))
+        }
+        <p class="mt-2 text-s text-sottile">{t.caso.nota}</p>
+        <p class="mt-8">
+          <a href={via(l, '/finops')} class="freccia">{t.caso.link}</a>
+        </p>
+      </div>
+      <div class="space-y-6 lg:sticky lg:top-10">
+        <Risparmio />
+        <dl class="grid grid-cols-2 gap-x-8">
+          {
+            t.caso.dati.map(([k, v]) => (
+              <div class="border-t border-filo py-4">
+                <dt class="text-s text-sottile">{k}</dt>
+                <dd class="mt-0.5 text-l font-semibold">{v}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </Sezione>
+
+  <Sezione occhiello={t.clienti.occhiello} titolo={t.clienti.titolo} tono="chiaro">
+    <Clienti senzaEtichetta />
+  </Sezione>
+
+  <Sezione occhiello={t.oss.occhiello} titolo={t.oss.titolo}>
+    <div class="grid items-start gap-x-16 gap-y-12 lg:grid-cols-[1fr_1.15fr]">
+      <div>
+        <img src="/img/understudy.png" alt="" width="440" height="374" loading="lazy" class="w-44" />
+        <div class="mt-6 space-y-4 text-body text-tenue">
+          {t.oss.testo.map((p) => <p>{p}</p>)}
+        </div>
+        <p class="mt-7 flex flex-wrap gap-x-8 gap-y-3">
+          <a href={via(l, '/open-source')} class="freccia">{t.oss.link}</a>
+          <a href={contatti.understudy} class="freccia">{t.oss.repo}</a>
+        </p>
+      </div>
+      <Risultati />
+    </div>
+  </Sezione>
+</Base>

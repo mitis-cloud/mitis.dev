@@ -1,0 +1,67 @@
+---
+import { contatti, risultatiUnderstudy } from '../../dati';
+import { linguaDi } from '../../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+const t = {
+  it: {
+    evento: 'Cosa è successo',
+    fallite: 'Richieste perse',
+    su: 'su',
+    didascalia:
+      'Richieste degli utenti andate perse sul totale di quelle inviate, con una sola copia del servizio in funzione su AWS. La barra è proporzionale alla quota di richieste perse.',
+    fonte: 'Fonte: documentazione di Understudy',
+  },
+  en: {
+    evento: 'What happened',
+    fallite: 'Requests lost',
+    su: 'of',
+    didascalia:
+      'User requests lost out of those sent, with a single copy of the service running on AWS. Bar length is proportional to the share of requests lost.',
+    fonte: 'Source: Understudy documentation',
+  },
+}[l];
+
+const massimo = Math.max(...risultatiUnderstudy.map((r) => r.falliti / r.totale));
+---
+
+<figure data-cresce>
+  <div class="overflow-hidden rounded-2xl bg-schermo text-schermo-testo">
+    <div class="grid grid-cols-[1fr_auto] gap-x-6 border-b border-schermo-filo px-5 py-3.5 sm:grid-cols-[1.4fr_1fr_auto] sm:px-7">
+      <p class="etichetta !text-schermo-tenue">{t.evento}</p>
+      <p class="etichetta !text-schermo-tenue sm:col-start-3">{t.fallite}</p>
+    </div>
+    <ul>
+      {
+        risultatiUnderstudy.map((r) => (
+          <li
+            class:list={[
+              'grid grid-cols-[1fr_auto] items-center gap-x-6 gap-y-2 border-b border-schermo-filo px-5 py-4 last:border-0 sm:grid-cols-[1.4fr_1fr_auto] sm:px-7',
+              r.evidenza && 'bg-schermo-rilievo',
+            ]}
+          >
+            <p class:list={['text-s', r.evidenza ? 'font-semibold' : 'text-schermo-testo/85']}>{r[l]}</p>
+            <div class="h-2 rounded-sm bg-schermo-rilievo max-sm:order-3 max-sm:col-span-2" aria-hidden="true">
+              <div
+                class:list={[
+                  'barra h-full rounded-sm',
+                  r.falliti > 0 && 'min-w-[3px]',
+                  r.controllo ? 'bg-schermo-allarme' : 'bg-schermo-accento',
+                ]}
+                style={`width:${(r.falliti / r.totale / massimo) * 100}%`}
+              />
+            </div>
+            <p class="font-mono text-s whitespace-nowrap sm:min-w-[6.5rem] sm:text-right">
+              <span class:list={[r.evidenza && 'font-bold text-schermo-accento']}>{r.falliti}</span>
+              {' '}{t.su}{' '}{r.totale}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <figcaption class="mt-4 max-w-[78ch] text-nota text-sottile">
+    {t.didascalia}{' '}
+    <a href={`${contatti.understudy}#results`} class="link">{t.fonte}</a>
+  </figcaption>
+</figure>

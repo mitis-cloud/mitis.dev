@@ -1,0 +1,134 @@
+---
+import Servizio from '../components/Servizio.astro';
+import Percorso from '../components/figure/Percorso.astro';
+import UnFile from '../components/figure/UnFile.astro';
+import { linguaDi } from '../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+
+const t = {
+  it: {
+    meta: {
+      titolo: 'Automazione dei rilasci: CI/CD, GitOps, Argo CD | mitis',
+      descrizione:
+        'Costruiamo il percorso che porta il codice in produzione: revisione, ambienti che si aggiornano da soli, ritorno indietro in una sola operazione.',
+    },
+    briciola: 'Rilasci e automazione',
+    occhiello: 'Rilasci e automazione',
+    titolo: 'Rilasciare software diventa un’operazione ordinaria.',
+    sommario:
+      'Costruiamo il percorso che ogni modifica segue dal computer di uno sviluppatore fino agli utenti, in modo che si possa ripetere ogni giorno e annullare quando serve.',
+    quando: {
+      titolo: 'Di solito ci chiamano quando',
+      voci: [
+        'Si rilascia una volta ogni tanto, e ogni volta è un evento.',
+        'I rilasci dipendono da una persona: se è in ferie, si aspetta.',
+        '«In prova funzionava»: gli ambienti sono diversi tra loro.',
+        'Quando un rilascio va male, tornare indietro è un lavoro manuale.',
+      ],
+    },
+    cosa: {
+      titolo: 'Come funziona un rilascio, dopo',
+      passi: [
+        ['Una fonte sola', 'Lo stato di ogni ambiente è scritto in un repository. Quello che c’è scritto è quello che gira: niente modifiche fatte a mano e poi dimenticate.'],
+        ['Revisione prima di tutto', 'Ogni modifica, al codice o all’infrastruttura, passa da una richiesta che un collega legge e approva.'],
+        ['Ambienti che si aggiornano da soli', 'Dopo l’approvazione, l’ambiente di prova si allinea senza che nessuno lanci comandi.'],
+        ['Promozione con regole scritte', 'Il passaggio da prova a produzione segue regole decise prima: chi approva, in quali orari, dopo quali controlli.'],
+        ['Ritorno indietro', 'Se qualcosa non va, si torna alla versione precedente con una sola operazione, e resta scritto chi l’ha fatto e perché.'],
+      ],
+    },
+    resta: {
+      titolo: 'A lavoro finito',
+      voci: [
+        'Rilasci che non dipendono da una persona sola',
+        'Lo storico completo di ogni modifica: chi, cosa, quando',
+        'Ambienti di prova e produzione allineati',
+        'Lo strumento di build che usi già, rimasto al suo posto',
+      ],
+    },
+    prezzo: {
+      titolo: 'Tempi e prezzo',
+      testo: [
+        'Dopo un’analisi gratuita ricevi ambito, tempi e prezzo fisso, per iscritto.',
+        'Spesso questo lavoro si fa insieme alla piattaforma Kubernetes; si può fare anche da solo, su un’infrastruttura che esiste già.',
+      ],
+    },
+    tecnica: {
+      titolo: 'Gli strumenti che usiamo',
+      sommario:
+        'Argo CD tiene gli ambienti allineati ai repository, Kargo governa le promozioni. Per descrivere i servizi usiamo modelli che abbiamo scritto noi e pubblicato come open source.',
+      servizio: {
+        titolo: 'Un servizio descritto in un file',
+        testo:
+          'Uno sviluppatore scrive poche righe: che programma far girare, quante copie, a quale indirizzo. Il resto lo ricava la piattaforma, sempre nello stesso modo.',
+      },
+    },
+    faq: ['esistente', 'prodotto', 'team'],
+  },
+  en: {
+    meta: {
+      titolo: 'Release automation: CI/CD, GitOps, Argo CD | mitis',
+      descrizione:
+        'We build the path that takes code to production: review, environments that update themselves, return to the previous version in a single operation. Fixed price.',
+    },
+    briciola: 'Releases and automation',
+    occhiello: 'Releases and automation',
+    titolo: 'Releasing software becomes an ordinary operation.',
+    sommario:
+      'We build the path every change follows from a developer’s computer to your users, so that it can be repeated every day and undone when needed.',
+    quando: {
+      titolo: 'People usually call us when',
+      voci: [
+        'You release once in a while, and every time it is an event.',
+        'Releases depend on one person: if they are on holiday, you wait.',
+        '“It worked in test”: the environments differ from each other.',
+        'When a release goes wrong, going back is manual work.',
+      ],
+    },
+    cosa: {
+      titolo: 'How a release works, afterwards',
+      passi: [
+        ['One source', 'The state of every environment is written in a repository. What is written there is what runs: no changes made by hand and then forgotten.'],
+        ['Review first', 'Every change, to code or to infrastructure, goes through a request that a colleague reads and approves.'],
+        ['Environments that update themselves', 'After approval, the test environment aligns without anyone running commands.'],
+        ['Promotion by written rules', 'Moving from test to production follows rules decided beforehand: who approves, at what times, after which checks.'],
+        ['Going back', 'If something goes wrong, you return to the previous version in a single operation, with a record of who did it and why.'],
+      ],
+    },
+    resta: {
+      titolo: 'When the work is done',
+      voci: [
+        'Releases that do not depend on one person',
+        'The complete history of every change: who, what, when',
+        'Test and production environments in line',
+        'The build tool you already use, still in place',
+      ],
+    },
+    prezzo: {
+      titolo: 'Timeline and price',
+      testo: [
+        'After a free analysis you get scope, timeline and a fixed price, in writing.',
+        'This work is often done together with the Kubernetes platform; it can also be done on its own, on infrastructure that already exists.',
+      ],
+    },
+    tecnica: {
+      titolo: 'The tools we use',
+      sommario:
+        'Argo CD keeps environments aligned with the repositories, Kargo governs promotions. To describe services we use templates we wrote ourselves and published as open source.',
+      servizio: {
+        titolo: 'A service described in one file',
+        testo:
+          'A developer writes a few lines: which program to run, how many copies, at which address. The platform derives the rest, always in the same way.',
+      },
+    },
+    faq: ['esistente', 'prodotto', 'team'],
+  },
+}[l];
+---
+
+<Servizio {...t} tecnica={{ titolo: t.tecnica.titolo, sommario: t.tecnica.sommario }}>
+  <Percorso slot="figura" />
+  <h3 class="text-h3">{t.tecnica.servizio.titolo}</h3>
+  <p class="mt-3 mb-8 max-w-[60ch] text-body text-tenue">{t.tecnica.servizio.testo}</p>
+  <UnFile />
+</Servizio>

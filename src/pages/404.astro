@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base titolo="Pagina non trovata | mitis" descrizione="Questa pagina non esiste." cta={false} nudo>
+  <section class="contenitore py-24 md:py-36">
+    <p class="font-mono text-s text-accento">404</p>
+    <h1 class="mt-4 max-w-[16ch] text-h1 font-extrabold">Questa pagina non esiste. Il resto è in piedi.</h1>
+    <p class="mt-6 max-w-[52ch] text-l text-tenue">
+      This page does not exist. Everything else is up.
+    </p>
+    <p class="mt-9 flex flex-wrap gap-3">
+      <a href="/" class="btn btn-primario">Home</a>
+      <a href="/en/" class="btn btn-secondario">English home</a>
+    </p>
+  </section>
+</Base>

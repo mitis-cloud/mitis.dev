@@ -1,0 +1,56 @@
+---
+import { linguaDi } from '../../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+const t = {
+  it: {
+    titolo: 'Cosa costruiamo, dal basso verso l’alto',
+    sopra: 'Le tue applicazioni',
+    strati: [
+      ['Rilasci', 'Come il codice arriva in produzione'],
+      ['Kubernetes', 'Dove girano le applicazioni'],
+      ['Monitoraggio e costi', 'Cosa succede e quanto costa'],
+      ['Account, rete, accessi', 'Chi può fare cosa, e dove'],
+    ],
+    sotto: 'AWS · Google Cloud · Azure',
+  },
+  en: {
+    titolo: 'What we build, from the bottom up',
+    sopra: 'Your applications',
+    strati: [
+      ['Releases', 'How code reaches production'],
+      ['Kubernetes', 'Where the applications run'],
+      ['Monitoring and costs', 'What is happening and what it costs'],
+      ['Accounts, network, access', 'Who can do what, and where'],
+    ],
+    sotto: 'AWS · Google Cloud · Azure',
+  },
+}[l];
+---
+
+<figure class="rounded-2xl border border-filo bg-superficie p-7 sm:p-9">
+  <figcaption class="etichetta">{t.titolo}</figcaption>
+  <div class="mt-8">
+    <p class="rounded-t-lg border border-b-0 border-dashed border-inchiostro/30 py-3 text-center text-s text-tenue">{t.sopra}</p>
+    <ol>
+      {
+        t.strati.map(([nome, cosa], i) => (
+          <li class="strato flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 px-5 py-4 text-white" style={`--i:${i}`}>
+            <span class="font-semibold">{nome}</span>
+            <span class="text-s text-white/80">{cosa}</span>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="rounded-b-lg border border-t-0 border-dashed border-inchiostro/30 py-3 text-center text-s text-tenue">{t.sotto}</p>
+  </div>
+</figure>
+
+<style>
+  .strato {
+    background-color: color-mix(in srgb, var(--accento) calc(100% - var(--i) * 16%), var(--notte));
+  }
+  .strato + .strato {
+    border-top: 1px solid rgb(255 255 255 / 0.18);
+  }
+</style>

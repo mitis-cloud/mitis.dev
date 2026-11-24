@@ -1,31 +1,22 @@
 ---
 import Base from '../layouts/Base.astro';
-import Nav from '../components/Nav.astro';
-import Footer from '../components/Footer.astro';
 ---
 
-<Base
-  titolo="Cookie policy | mitis"
-  descrizione="mitis.dev non usa cookie: né propri, né di terze parti. Fine della policy."
->
-  <Nav />
-  <main id="contenuto" class="px-5 py-14 sm:px-8 md:py-20">
-    <div class="mx-auto w-full max-w-3xl">
-      <p class="eyebrow mb-5">cookie</p>
-      <h1 class="font-display text-h2 font-bold">Cookie policy.</h1>
-      <div class="mt-6 space-y-5 text-body text-carta/80">
+<Base titolo="Cookie policy | mitis" descrizione="mitis.dev non usa cookie: né propri, né di terze parti. Fine della policy." briciola="Cookie" cta={false} nudo>
+  <article class="contenitore pt-10 pb-16 md:pt-16 md:pb-24">
+    <p class="etichetta !text-accento">cookie</p>
+    <h1 class="mt-4 text-h1 font-extrabold">Cookie policy.</h1>
+    <div class="prosa mt-8">
         <p>Questo sito non usa cookie. Nessuno: né tecnici, né di profilazione, né di terze parti.</p>
         <p>
           Non c’è un banner perché non c’è niente da accettare. Non usiamo localStorage, non
           carichiamo script o risorse esterne, e non integriamo servizi che possano impostare
           cookie per conto loro.
         </p>
-        <p class="font-mono text-s text-carta/60">
-          // se un giorno dovesse servirne uno, questa pagina smetterà di essere così noiosa. Ma
+        <p class="text-s text-sottile italic">
+          Se un giorno dovesse servire un cookie, questa pagina smetterà di essere così noiosa. Ma
           ne dubitiamo.
         </p>
       </div>
-    </div>
-  </main>
-  <Footer />
+  </article>
 </Base>

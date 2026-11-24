@@ -1,0 +1,180 @@
+---
+import Base from '../layouts/Base.astro';
+import Testata from '../components/Testata.astro';
+import Sezione from '../components/Sezione.astro';
+import Domande from '../components/Domande.astro';
+import { linguaDi, via } from '../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+
+const t = {
+  it: {
+    meta: {
+      titolo: 'Come lavoriamo: analisi gratuita e prezzo fisso | mitis',
+      descrizione:
+        'Dalla prima chiamata alla consegna: cosa facciamo noi, cosa serve da te, cosa ricevi a ogni passo. Analisi gratuita in due settimane, progetto a prezzo fisso.',
+    },
+    briciola: 'Come lavoriamo',
+    occhiello: 'Come lavoriamo',
+    titolo: 'Dalla prima chiamata alla consegna, passo per passo.',
+    sommario: 'Cosa facciamo noi, cosa serve da te e cosa ricevi in ogni fase.',
+    passi: {
+      occhiello: 'Le fasi',
+      titolo: 'Quattro fasi',
+      colonne: ['Cosa facciamo noi', 'Cosa serve da te', 'Cosa ricevi'],
+      voci: [
+        {
+          nome: 'La chiamata',
+          durata: 'Mezz’ora · gratuita',
+          noi: 'Ascoltiamo la situazione e facciamo le domande che servono per capire se possiamo aiutarti.',
+          tu: 'Chi conosce la fattura e chi conosce l’infrastruttura. Nessuna presentazione da preparare.',
+          ricevi: 'Un parere schietto: se ha senso proseguire, e da dove partire.',
+        },
+        {
+          nome: 'L’analisi',
+          durata: 'Due settimane · gratuita',
+          noi: 'Guardiamo costi e infrastruttura, voce per voce.',
+          tu: 'Accesso in sola lettura a fatturazione e account, e mezza giornata del tuo team per le domande.',
+          ricevi: 'Un rapporto con gli interventi in ordine di importanza, il risparmio stimato e il prezzo fisso per farli.',
+        },
+        {
+          nome: 'Il progetto',
+          durata: 'Settimane · prezzo fisso',
+          noi: 'Facciamo il lavoro nei tuoi account, proponendo ogni modifica nei tuoi repository.',
+          tu: 'Una persona di riferimento e le decisioni che spettano a te.',
+          ricevi: 'Il risultato scritto nel contratto. Se non arriva, è previsto il rimborso.',
+        },
+        {
+          nome: 'La consegna',
+          durata: 'Compresa nel progetto',
+          noi: 'Formiamo il tuo team e facciamo insieme le prime operazioni.',
+          tu: 'Le persone che gestiranno la piattaforma.',
+          ricevi: 'Documentazione, procedure e un team in grado di andare avanti da solo.',
+        },
+      ],
+    },
+    regole: {
+      occhiello: 'Le nostre regole',
+      titolo: 'Cose che valgono su ogni progetto',
+      voci: [
+        ['Lavoriamo in casa tua', 'Account, repository e accessi sono i tuoi. Non c’è un nostro pannello a cui devi collegarti, né un software nostro da tenere installato.'],
+        ['Ogni modifica è una proposta scritta', 'Niente interventi a mano. Ogni cambiamento passa da una richiesta che il tuo team può leggere, discutere e approvare.'],
+        ['Accessi minimi e revocabili', 'Usiamo ruoli dedicati con i soli permessi necessari, mai credenziali personali o condivise. Puoi toglierceli in qualsiasi momento.'],
+        ['Componenti standard', 'Scegliamo strumenti diffusi e open source, per i quali è facile trovare documentazione e persone. Nulla che solo noi sappiamo far funzionare.'],
+        ['Niente da rifare da capo', 'Quello che funziona resta. Il resto si sostituisce un pezzo alla volta, partendo dai rischi maggiori.'],
+        ['L’intelligenza artificiale, con una firma umana', 'La usiamo per il lavoro ripetitivo di adattare componenti già collaudati al tuo contesto. Ogni riga è letta e approvata da un ingegnere prima di arrivare da te.'],
+      ],
+    },
+    faq: { occhiello: 'Domande frequenti', titolo: 'Sul lavoro insieme' },
+  },
+  en: {
+    meta: {
+      titolo: 'How we work: free analysis, fixed price, handover | mitis',
+      descrizione:
+        'From the first call to the handover: what we do, what we need from you, what you get at each step. Free analysis in two weeks, fixed-price project.',
+    },
+    briciola: 'How we work',
+    occhiello: 'How we work',
+    titolo: 'From the first call to the handover, step by step.',
+    sommario: 'What we do, what we need from you, and what you get in each phase.',
+    passi: {
+      occhiello: 'The phases',
+      titolo: 'Four phases',
+      colonne: ['What we do', 'What we need from you', 'What you get'],
+      voci: [
+        {
+          nome: 'The call',
+          durata: 'Half an hour · free',
+          noi: 'We listen to the situation and ask the questions needed to understand whether we can help.',
+          tu: 'Someone who knows the invoice and someone who knows the infrastructure. No presentation to prepare.',
+          ricevi: 'A frank opinion: whether it makes sense to continue, and where to start.',
+        },
+        {
+          nome: 'The analysis',
+          durata: 'Two weeks · free',
+          noi: 'We look at costs and infrastructure, line by line.',
+          tu: 'Read-only access to billing and accounts, and half a day of your team’s time for questions.',
+          ricevi: 'A report with the interventions in order of importance, the estimated saving, and the fixed price to do them.',
+        },
+        {
+          nome: 'The project',
+          durata: 'Weeks · fixed price',
+          noi: 'We do the work in your accounts, proposing every change in your repositories.',
+          tu: 'One point of contact and the decisions that are yours to make.',
+          ricevi: 'The result written in the contract. If it does not arrive, a refund is provided for.',
+        },
+        {
+          nome: 'The handover',
+          durata: 'Included in the project',
+          noi: 'We train your team and do the first operations together.',
+          tu: 'The people who will run the platform.',
+          ricevi: 'Documentation, procedures and a team able to carry on alone.',
+        },
+      ],
+    },
+    regole: {
+      occhiello: 'Our rules',
+      titolo: 'Things that hold on every project',
+      voci: [
+        ['We work in your house', 'Accounts, repositories and access are yours. There is no dashboard of ours you have to connect to, and no software of ours to keep installed.'],
+        ['Every change is a written proposal', 'No changes by hand. Every modification goes through a request your team can read, discuss and approve.'],
+        ['Minimal, revocable access', 'We use dedicated roles with only the permissions needed, never personal or shared credentials. You can remove them at any time.'],
+        ['Standard components', 'We choose widespread, open source tools, for which documentation and people are easy to find. Nothing only we know how to run.'],
+        ['Nothing redone from scratch', 'What works stays. The rest is replaced one piece at a time, starting from the biggest risks.'],
+        ['Artificial intelligence, with a human signature', 'We use it for the repetitive work of adapting proven components to your context. Every line is read and approved by an engineer before it reaches you.'],
+      ],
+    },
+    faq: { occhiello: 'Frequently asked', titolo: 'About working together' },
+  },
+}[l];
+---
+
+<Base titolo={t.meta.titolo} descrizione={t.meta.descrizione} briciola={t.briciola}>
+  <Testata briciola={t.briciola} occhiello={t.occhiello} titolo={t.titolo} sommario={t.sommario} foto="cavi" />
+
+  <Sezione occhiello={t.passi.occhiello} titolo={t.passi.titolo}>
+    <ol>
+      {
+        t.passi.voci.map((p, i) => (
+          <li class="grid gap-x-12 gap-y-6 border-t border-inchiostro/25 py-10 lg:grid-cols-[16rem_1fr]">
+            <div>
+              <p class="titolo text-[3.5rem] leading-none text-accento">{i + 1}</p>
+              <h3 class="mt-4 text-h3">{p.nome}</h3>
+              <p class="mt-1 text-s font-semibold text-accento">{p.durata}</p>
+            </div>
+            <dl class="grid gap-x-10 gap-y-6 md:grid-cols-3">
+              {[p.noi, p.tu, p.ricevi].map((testo, k) => (
+                <div>
+                  <dt class="etichetta">{t.passi.colonne[k]}</dt>
+                  <dd class:list={['mt-2 text-body', k === 2 ? 'font-medium' : 'text-tenue']}>{testo}</dd>
+                </div>
+              ))}
+            </dl>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="mt-4">
+      <a href={via(l, '/servizi')} class="freccia">{l === 'en' ? 'Services and prices' : 'Servizi e prezzi'}</a>
+    </p>
+  </Sezione>
+
+  <Sezione occhiello={t.regole.occhiello} titolo={t.regole.titolo} tono="chiaro">
+    <dl class="grid gap-x-16 md:grid-cols-2">
+      {
+        t.regole.voci.map(([nome, testo]) => (
+          <div class="border-t border-filo py-7">
+            <dt class="text-l font-semibold">{nome}</dt>
+            <dd class="mt-2 max-w-[52ch] text-body text-tenue">{testo}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </Sezione>
+
+  <Sezione occhiello={t.faq.occhiello} titolo={t.faq.titolo}>
+    <div class="max-w-[52rem]">
+      <Domande scelte={['tempi', 'accessi', 'esistente', 'dopo']} />
+    </div>
+  </Sezione>
+</Base>

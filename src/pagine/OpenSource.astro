@@ -1,0 +1,183 @@
+---
+import Base from '../layouts/Base.astro';
+import Testata from '../components/Testata.astro';
+import Sezione from '../components/Sezione.astro';
+import Codice from '../components/Codice.astro';
+import Risultati from '../components/figure/Risultati.astro';
+import UnFile from '../components/figure/UnFile.astro';
+import { contatti } from '../dati';
+import { chart, moduli, registro, sorgente } from '../open-source-dati';
+import { linguaDi } from '../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+
+const installa = `helm install understudy oci://ghcr.io/kylan11/charts/understudy \\
+  --namespace understudy-system --create-namespace`;
+
+const t = {
+  it: {
+    meta: {
+      titolo: 'Open source: Understudy, Helm, Terraform | mitis',
+      descrizione:
+        'Il software che mitis scrive e pubblica con licenza Apache 2.0: Understudy per Kubernetes, i modelli Helm per servizi e rilasci, i moduli Terraform per Scaleway.',
+    },
+    briciola: 'Open source',
+    occhiello: 'Open source',
+    titolo: 'Il software che scriviamo e pubblichiamo.',
+    sommario:
+      'Una parte degli strumenti che usiamo sui progetti l’abbiamo scritta noi. È pubblica, con licenza Apache 2.0: puoi leggerla, usarla e giudicare come lavoriamo.',
+    understudy: {
+      occhiello: 'Understudy',
+      titolo: 'Servizi che restano in piedi sulle macchine più economiche',
+      testo: [
+        'Le macchine cloud scontate possono essere riprese dal fornitore con poco preavviso. Understudy fa partire una copia sostitutiva del servizio prima che l’originale venga spento, così basta una copia sola invece di due sempre accese.',
+        'Per chi lavora con Kubernetes: è un operator con un webhook di ammissione, protegge Deployment e Argo Rollouts con una sola replica durante drain, aggiornamenti, consolidamenti e interruzioni spot.',
+      ],
+      repo: 'Understudy su GitHub',
+    },
+    modelli: {
+      occhiello: 'mitis charts',
+      titolo: 'Un servizio descritto in un file',
+      testo: [
+        'Modelli per mettere in produzione un servizio su Kubernetes scrivendo poche righe. I campi sono controllati, quindi un errore di battitura viene segnalato subito.',
+        'Per chi lavora con Kubernetes: sono chart Helm con valori tipizzati, pubblicati su GHCR, più un pacchetto Crossplane per le risorse cloud di ogni ambiente.',
+      ],
+      colonne: ['Chart', 'Cosa fa'],
+      repo: 'mitis charts su GitHub',
+    },
+    moduli: {
+      occhiello: 'Terraform',
+      titolo: 'Moduli per Scaleway',
+      testo:
+        'Sei moduli Terraform per rete, VPN e Kubernetes su Scaleway, un fornitore cloud europeo. Li abbiamo scritti perché non ne esistevano di mantenuti su cui basare un ambiente di produzione.',
+      registro: 'Registry',
+      sorgente: 'Codice',
+    },
+    attrezzi: {
+      occhiello: 'Strumenti',
+      titolo: 'dbeaver-aws-sso',
+      testo:
+        'Un’estensione per DBeaver, un programma molto usato per consultare i database. Permette di collegarsi ai database su AWS con il proprio accesso aziendale, senza password da distribuire.',
+      repo: 'dbeaver-aws-sso su GitHub',
+    },
+  },
+  en: {
+    meta: {
+      titolo: 'Open source: Understudy, Helm, Terraform | mitis',
+      descrizione:
+        'The software mitis writes and publishes under Apache 2.0: Understudy for Kubernetes, Helm charts for services and releases, Terraform modules for Scaleway.',
+    },
+    briciola: 'Open source',
+    occhiello: 'Open source',
+    titolo: 'The software we write and publish.',
+    sommario:
+      'Part of the tooling we use on projects we wrote ourselves. It is public, under the Apache 2.0 licence: you can read it, use it and judge how we work.',
+    understudy: {
+      occhiello: 'Understudy',
+      titolo: 'Services that stay up on the cheapest machines',
+      testo: [
+        'Discounted cloud machines can be taken back by the provider at short notice. Understudy starts a replacement copy of the service before the original is shut down, so one copy is enough instead of two always running.',
+        'For people who work with Kubernetes: it is an operator with an admission webhook that protects single-replica Deployments and Argo Rollouts through drains, upgrades, consolidation and spot interruptions.',
+      ],
+      repo: 'Understudy on GitHub',
+    },
+    modelli: {
+      occhiello: 'mitis charts',
+      titolo: 'A service described in one file',
+      testo: [
+        'Templates for putting a service into production on Kubernetes by writing a few lines. Fields are checked, so a typo is reported immediately.',
+        'For people who work with Kubernetes: they are Helm charts with typed values, published on GHCR, plus a Crossplane package for each environment’s cloud resources.',
+      ],
+      colonne: ['Chart', 'What it does'],
+      repo: 'mitis charts on GitHub',
+    },
+    moduli: {
+      occhiello: 'Terraform',
+      titolo: 'Modules for Scaleway',
+      testo:
+        'Six Terraform modules for networking, VPN and Kubernetes on Scaleway, a European cloud provider. We wrote them because there were no maintained ones to base a production environment on.',
+      registro: 'Registry',
+      sorgente: 'Source',
+    },
+    attrezzi: {
+      occhiello: 'Tools',
+      titolo: 'dbeaver-aws-sso',
+      testo:
+        'An extension for DBeaver, a widely used program for querying databases. It lets you connect to databases on AWS with your company sign-in, with no passwords to hand out.',
+      repo: 'dbeaver-aws-sso on GitHub',
+    },
+  },
+}[l];
+---
+
+<Base titolo={t.meta.titolo} descrizione={t.meta.descrizione} briciola={t.briciola}>
+  <Testata briciola={t.briciola} occhiello={t.occhiello} titolo={t.titolo} sommario={t.sommario} azione={false} />
+
+  <Sezione id="understudy" occhiello={t.understudy.occhiello} titolo={t.understudy.titolo}>
+    <div class="grid items-start gap-x-16 gap-y-12 lg:grid-cols-[1fr_1.15fr]">
+      <div class="min-w-0">
+        <img src="/img/understudy.png" alt="" width="440" height="374" loading="lazy" class="w-44" />
+        <div class="mt-6 space-y-4 text-body text-tenue">
+          {t.understudy.testo.map((p) => <p>{p}</p>)}
+        </div>
+        <div class="mt-7">
+          <Codice codice={installa} lang="bash" />
+        </div>
+        <p class="mt-7">
+          <a href={contatti.understudy} class="freccia">{t.understudy.repo}</a>
+        </p>
+      </div>
+      <Risultati />
+    </div>
+  </Sezione>
+
+  <Sezione id="charts" occhiello={t.modelli.occhiello} titolo={t.modelli.titolo} tono="chiaro">
+    <div class="max-w-[44rem] space-y-4 text-body text-tenue">
+      {t.modelli.testo.map((p) => <p>{p}</p>)}
+    </div>
+    <div class="mt-10">
+      <UnFile />
+    </div>
+    <table class="mt-12 w-full text-left">
+      <thead>
+        <tr>{t.modelli.colonne.map((c) => <th class="etichetta pb-4 pr-8 font-semibold">{c}</th>)}</tr>
+      </thead>
+      <tbody>
+        {
+          chart.map((c) => (
+            <tr class="border-t border-filo align-baseline">
+              <th scope="row" class="py-4 pr-8 font-mono text-s font-semibold whitespace-nowrap">{c.nome}</th>
+              <td class="py-4 text-body text-tenue">{c[l]}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+    <p class="mt-8">
+      <a href={contatti.charts} class="freccia">{t.modelli.repo}</a>
+    </p>
+  </Sezione>
+
+  <Sezione id="terraform" occhiello={t.moduli.occhiello} titolo={t.moduli.titolo} sommario={t.moduli.testo}>
+    <ul>
+      {
+        moduli.map((m) => (
+          <li class="grid gap-x-10 gap-y-1 border-t border-filo py-5 last:border-b md:grid-cols-[12rem_1fr_auto] md:items-baseline">
+            <p class="font-mono text-s font-semibold">{m.nome}</p>
+            <p class="text-body text-tenue">{m[l]}</p>
+            <p class="flex gap-6 text-s font-semibold">
+              {!m.soloSorgente && <a href={registro(m.nome)} class="link">{t.moduli.registro}</a>}
+              <a href={sorgente(m.repo)} class="link">{t.moduli.sorgente}</a>
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </Sezione>
+
+  <Sezione id="dbeaver" occhiello={t.attrezzi.occhiello} titolo={t.attrezzi.titolo} sommario={t.attrezzi.testo} tono="chiaro">
+    <p>
+      <a href={sorgente('dbeaver-aws-sso')} class="freccia">{t.attrezzi.repo}</a>
+    </p>
+  </Sezione>
+</Base>

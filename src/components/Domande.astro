@@ -1,0 +1,34 @@
+---
+import { gruppiPerLingua } from '../faq-dati';
+import { linguaDi, via } from '../i18n';
+
+interface Props {
+  scelte: string[];
+  tutte?: boolean;
+}
+const { scelte, tutte = true } = Astro.props;
+const l = linguaDi(Astro.url.pathname);
+const elenco = gruppiPerLingua[l].flatMap((g) => g.voci);
+const voci = scelte.map((id) => elenco.find((v) => v.id === id)!);
+---
+
+<div>
+  {
+    voci.map((f) => (
+      <details class="group border-t border-filo last:border-b">
+        <summary class="flex items-baseline justify-between gap-6 py-6 text-l font-semibold hover:text-accento">
+          {f.q}
+          <span class="shrink-0 text-[1.5rem] leading-none font-normal text-accento transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+        </summary>
+        <p class="max-w-[66ch] pb-7 text-body text-tenue">{f.a}</p>
+      </details>
+    ))
+  }
+</div>
+{
+  tutte && (
+    <p class="mt-8">
+      <a href={via(l, '/faq')} class="freccia">{l === 'en' ? 'All questions' : 'Tutte le domande'}</a>
+    </p>
+  )
+}

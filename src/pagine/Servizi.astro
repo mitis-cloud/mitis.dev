@@ -1,0 +1,257 @@
+---
+import Base from '../layouts/Base.astro';
+import Testata from '../components/Testata.astro';
+import Sezione from '../components/Sezione.astro';
+import Domande from '../components/Domande.astro';
+import { linguaDi, via } from '../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+
+const t = {
+  it: {
+    meta: {
+      titolo: 'Servizi: costi cloud, Kubernetes, rilasci | mitis',
+      descrizione:
+        'Riduzione della spesa cloud, piattaforma Kubernetes, automazione dei rilasci. Analisi gratuita, progetto a prezzo fisso, supporto in abbonamento.',
+    },
+    briciola: 'Servizi',
+    occhiello: 'Servizi',
+    titolo: 'Tre servizi, un solo modo di comprarli.',
+    sommario: 'Puoi affidarci un lavoro solo o tutti e tre. In ogni caso si parte da un’analisi gratuita e si prosegue a prezzo fisso.',
+    servizi: {
+      occhiello: 'Cosa facciamo',
+      titolo: 'I servizi',
+      per: 'Per chi',
+      voci: [
+        {
+          nome: 'Riduzione della spesa cloud',
+          href: '/finops',
+          testo: 'Troviamo dove finisce la spesa e facciamo noi le modifiche per abbassarla, senza togliere nulla al servizio.',
+          per: 'Aziende con una fattura cloud che cresce e che nessuno riesce a spiegare.',
+        },
+        {
+          nome: 'Piattaforma Kubernetes',
+          href: '/kubernetes',
+          testo: 'Progettiamo e costruiamo la base su cui girano le tue applicazioni, o rimettiamo in sesto quella che hai.',
+          per: 'Aziende che adottano Kubernetes, o che ne hanno uno difficile da gestire.',
+        },
+        {
+          nome: 'Rilasci e automazione',
+          href: '/devops',
+          testo: 'Costruiamo il percorso che porta il codice in produzione, in modo che si possa ripetere ogni giorno.',
+          per: 'Team che rilasciano di rado perché ogni rilascio è un rischio.',
+        },
+      ],
+      link: 'Vedi il servizio',
+    },
+    acquisto: {
+      occhiello: 'Come si compra',
+      titolo: 'Tre fasi, ciascuna con il suo prezzo',
+      voci: [
+        {
+          nome: 'Analisi',
+          prezzo: 'Gratuita',
+          durata: 'Due settimane',
+          testo: 'Con accesso in sola lettura guardiamo costi e infrastruttura.',
+          ricevi: ['Un rapporto con gli interventi in ordine di importanza', 'Il risparmio stimato, con le ipotesi scritte', 'Ambito, tempi e prezzo del progetto'],
+          nota: 'Il rapporto resta tuo, anche se non prosegui con noi.',
+        },
+        {
+          nome: 'Progetto',
+          prezzo: 'Prezzo fisso',
+          durata: 'Settimane, scritte nel contratto',
+          testo: 'Facciamo il lavoro nei tuoi account e nei tuoi repository.',
+          ricevi: ['Il risultato concordato, con clausola di rimborso', 'Tutto il codice, di tua proprietà dal primo giorno', 'Documentazione e formazione per il tuo team'],
+          nota: 'Gli imprevisti sono a carico nostro.',
+        },
+        {
+          nome: 'Supporto',
+          prezzo: 'Abbonamento mensile',
+          durata: 'Facoltativo, senza vincoli di durata',
+          testo: 'Dopo la consegna, se vuoi, restiamo a disposizione.',
+          ricevi: ['Aggiornamenti ed evoluzioni della piattaforma', 'Reperibilità, nei termini concordati', 'Un parere sulle decisioni tecniche importanti'],
+          nota: 'Esiste solo dopo la consegna.',
+        },
+      ],
+      ricevi: 'Cosa ricevi',
+    },
+    chi: {
+      occhiello: 'Per chi lavoriamo',
+      titolo: 'Con chi lavoriamo bene, e con chi no',
+      si: 'Lavoriamo bene con',
+      no: 'Non siamo le persone giuste se',
+      listaSi: [
+        'Aziende software tra 15 e 200 persone, su AWS, Google Cloud o Azure',
+        'Team che vogliono gestire da soli la propria piattaforma',
+        'Chi ha una spesa cloud diventata una voce seria di bilancio',
+      ],
+      listaNo: [
+        'Cerchi persone a giornata da inserire in un progetto più grande',
+        'Vuoi affidare l’infrastruttura all’esterno per sempre',
+        'Ti serve una migrazione da mainframe o un gestionale',
+      ],
+    },
+    faq: { occhiello: 'Domande frequenti', titolo: 'Su prezzo e contratto' },
+  },
+  en: {
+    meta: {
+      titolo: 'Services: cloud costs, Kubernetes, releases | mitis',
+      descrizione:
+        'The three mitis services: cloud cost reduction, Kubernetes platform, release automation. Free analysis, fixed-price project, subscription support.',
+    },
+    briciola: 'Services',
+    occhiello: 'Services',
+    titolo: 'Three services, one way to buy them.',
+    sommario: 'You can give us one job or all three. Either way it starts with a free analysis and continues at a fixed price.',
+    servizi: {
+      occhiello: 'What we do',
+      titolo: 'The services',
+      per: 'Who it is for',
+      voci: [
+        {
+          nome: 'Cloud cost reduction',
+          href: '/finops',
+          testo: 'We find where the spend goes and make the changes to bring it down ourselves, without taking anything away from the service.',
+          per: 'Companies whose cloud invoice keeps growing and nobody can explain why.',
+        },
+        {
+          nome: 'Kubernetes platform',
+          href: '/kubernetes',
+          testo: 'We design and build the base your applications run on, or put the one you have back in shape.',
+          per: 'Companies adopting Kubernetes, or struggling to run the one they have.',
+        },
+        {
+          nome: 'Releases and automation',
+          href: '/devops',
+          testo: 'We build the path that takes code to production, so that it can be repeated every day.',
+          per: 'Teams that release rarely because every release is a risk.',
+        },
+      ],
+      link: 'See the service',
+    },
+    acquisto: {
+      occhiello: 'How you buy',
+      titolo: 'Three phases, each with its own price',
+      voci: [
+        {
+          nome: 'Analysis',
+          prezzo: 'Free',
+          durata: 'Two weeks',
+          testo: 'With read-only access we look at costs and infrastructure.',
+          ricevi: ['A report with the interventions in order of importance', 'The estimated saving, with the assumptions written down', 'Scope, timeline and price of the project'],
+          nota: 'The report stays yours, even if you do not continue with us.',
+        },
+        {
+          nome: 'Project',
+          prezzo: 'Fixed price',
+          durata: 'Weeks, written in the contract',
+          testo: 'We do the work in your accounts and your repositories.',
+          ricevi: ['The agreed result, with a refund clause', 'All the code, yours from day one', 'Documentation and training for your team'],
+          nota: 'Surprises are on us.',
+        },
+        {
+          nome: 'Support',
+          prezzo: 'Monthly subscription',
+          durata: 'Optional, no minimum term',
+          testo: 'After the handover, if you want, we stay available.',
+          ricevi: ['Platform upgrades and evolutions', 'On-call availability, on agreed terms', 'An opinion on the important technical decisions'],
+          nota: 'It only exists after the handover.',
+        },
+      ],
+      ricevi: 'What you get',
+    },
+    chi: {
+      occhiello: 'Who we work for',
+      titolo: 'Who we work well with, and who we do not',
+      si: 'We work well with',
+      no: 'We are not the right people if',
+      listaSi: [
+        'Software companies of 15 to 200 people, on AWS, Google Cloud or Azure',
+        'Teams that want to run their own platform',
+        'Anyone whose cloud spend has become a serious line in the budget',
+      ],
+      listaNo: [
+        'You are looking for people by the day to place in a bigger project',
+        'You want to outsource infrastructure forever',
+        'You need a mainframe migration or an ERP',
+      ],
+    },
+    faq: { occhiello: 'Frequently asked', titolo: 'On price and contract' },
+  },
+}[l];
+
+const ld = t.servizi.voci.map((s) => ({
+  '@type': 'Service',
+  name: s.nome,
+  description: s.testo,
+  url: new URL(via(l, s.href), Astro.site).href,
+  provider: { '@id': `${Astro.site!.href}#organizzazione` },
+}));
+---
+
+<Base titolo={t.meta.titolo} descrizione={t.meta.descrizione} briciola={t.briciola} ld={ld}>
+  <Testata briciola={t.briciola} occhiello={t.occhiello} titolo={t.titolo} sommario={t.sommario} foto="cavi" />
+
+  <Sezione occhiello={t.servizi.occhiello} titolo={t.servizi.titolo}>
+    <ul>
+      {
+        t.servizi.voci.map((s) => (
+          <li class="border-t border-inchiostro/25 last:border-b">
+            <a href={via(l, s.href)} class="group grid gap-x-12 gap-y-3 py-9 lg:grid-cols-[1fr_1.1fr_auto] lg:items-baseline">
+              <h3 class="text-h3 group-hover:text-accento">{s.nome}</h3>
+              <div>
+                <p class="text-body">{s.testo}</p>
+                <p class="mt-2 text-s text-sottile">{t.servizi.per}: {s.per}</p>
+              </div>
+              <p class="freccia">{t.servizi.link}</p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </Sezione>
+
+  <Sezione occhiello={t.acquisto.occhiello} titolo={t.acquisto.titolo} tono="chiaro">
+    <ol class="grid gap-8 lg:grid-cols-3">
+      {
+        t.acquisto.voci.map((f, i) => (
+          <li class="flex flex-col rounded-2xl border border-filo bg-fondo p-8">
+            <p class="titolo text-[2.75rem] leading-none text-accento">{i + 1}</p>
+            <h3 class="mt-5 text-h3">{f.nome}</h3>
+            <p class="mt-2 text-l font-semibold text-accento">{f.prezzo}</p>
+            <p class="text-s text-sottile">{f.durata}</p>
+            <p class="mt-5 text-body text-tenue">{f.testo}</p>
+            <p class="etichetta mt-7">{t.acquisto.ricevi}</p>
+            <ul class="elenco mt-3 space-y-2.5 text-s">
+              {f.ricevi.map((r) => <li>{r}</li>)}
+            </ul>
+            <p class="mt-auto pt-7 text-s font-medium">{f.nota}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Sezione>
+
+  <Sezione occhiello={t.chi.occhiello} titolo={t.chi.titolo}>
+    <div class="grid gap-x-16 gap-y-12 md:grid-cols-2">
+      <div>
+        <h3 class="text-l font-semibold">{t.chi.si}</h3>
+        <ul class="mt-4 border-t border-inchiostro/25">
+          {t.chi.listaSi.map((v) => <li class="border-b border-filo py-4 text-body">{v}</li>)}
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-l font-semibold">{t.chi.no}</h3>
+        <ul class="mt-4 border-t border-inchiostro/25">
+          {t.chi.listaNo.map((v) => <li class="border-b border-filo py-4 text-body text-tenue">{v}</li>)}
+        </ul>
+      </div>
+    </div>
+  </Sezione>
+
+  <Sezione occhiello={t.faq.occhiello} titolo={t.faq.titolo} tono="chiaro">
+    <div class="max-w-[52rem]">
+      <Domande scelte={['costo', 'fisso', 'rimborso', 'dopo']} />
+    </div>
+  </Sezione>
+</Base>

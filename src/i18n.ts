@@ -2,12 +2,15 @@ export type Lingua = 'it' | 'en';
 
 export const rotte: Record<string, string> = {
   '/': '/en/',
-  '/finops': '/en/finops',
   '/kubernetes': '/en/kubernetes',
+  '/finops': '/en/finops',
   '/devops': '/en/devops',
-  '/metodo': '/en/method',
+  '/risultati': '/en/results',
   '/open-source': '/en/open-source',
+  '/metodo': '/en/method',
   '/servizi': '/en/services',
+  '/chi-siamo': '/en/about',
+  '/contatti': '/en/contact',
   '/faq': '/en/faq',
   '/privacy': '/en/privacy',
   '/cookie': '/en/cookie',

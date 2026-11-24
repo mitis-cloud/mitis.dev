@@ -1,0 +1,176 @@
+---
+import Servizio from '../components/Servizio.astro';
+import Strati from '../components/figure/Strati.astro';
+import Risultati from '../components/figure/Risultati.astro';
+import { contatti } from '../dati';
+import { linguaDi, via } from '../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+
+const t = {
+  it: {
+    meta: {
+      titolo: 'Consulenza Kubernetes su AWS, Google Cloud e Azure | mitis',
+      descrizione:
+        'Progettiamo, costruiamo e sistemiamo piattaforme Kubernetes su EKS, GKE e AKS. Tutto come codice nei tuoi repository, con formazione per il tuo team. Prezzo fisso.',
+    },
+    briciola: 'Piattaforma Kubernetes',
+    occhiello: 'Piattaforma Kubernetes',
+    titolo: 'Costruiamo e sistemiamo la piattaforma su cui gira il tuo software.',
+    sommario:
+      'Kubernetes è il sistema che molte aziende usano per far girare le proprie applicazioni nel cloud. Lo progettiamo, lo costruiamo e insegniamo al tuo team a gestirlo.',
+    quando: {
+      titolo: 'Di solito ci chiamano quando',
+      voci: [
+        'Stai per adottare Kubernetes e vuoi partire nel modo giusto.',
+        'Il cluster esiste, ma aggiornarlo fa paura e lo conosce una persona sola.',
+        'Ogni nuovo ambiente o nuovo cliente richiede settimane di lavoro manuale.',
+        'Un controllo di sicurezza ha trovato problemi di accessi e di configurazione.',
+      ],
+    },
+    cosa: {
+      titolo: 'Cosa costruiamo, in ordine',
+      passi: [
+        ['Guardiamo quello che c’è', 'Teniamo ciò che funziona. Quello che crea problemi lo sostituiamo un pezzo alla volta, partendo dai rischi maggiori, senza fermare il servizio.'],
+        ['Account, rete e accessi', 'Ambienti separati, permessi minimi per persone e applicazioni, accesso centralizzato che si può revocare in un punto solo.'],
+        ['Il cluster', 'Kubernetes gestito dal fornitore cloud, con macchine che si accendono quando servono e si spengono quando non servono più.'],
+        ['Monitoraggio e costi', 'Sapere cosa sta succedendo e quanto costa, con avvisi che scattano quando c’è davvero qualcosa da fare.'],
+        ['Consegna', 'Documentazione, procedure e formazione. Il tuo team fa con noi le prime operazioni, poi da solo.'],
+      ],
+    },
+    resta: {
+      titolo: 'A lavoro finito',
+      voci: [
+        'Una piattaforma in produzione, descritta per intero come codice nei tuoi repository',
+        'Ambienti di prova e di produzione separati e uguali tra loro',
+        'Una procedura di aggiornamento già provata in un ambiente di test',
+        'Un team che sa come funziona e come intervenire',
+      ],
+    },
+    prezzo: {
+      titolo: 'Tempi e prezzo',
+      testo: [
+        'Dopo un’analisi gratuita ricevi ambito, tempi e prezzo fisso, per iscritto. Il lavoro si misura in settimane.',
+        'Se il risultato concordato non arriva, il contratto prevede il rimborso.',
+      ],
+    },
+    tecnica: {
+      titolo: 'Gli strumenti che usiamo',
+      sommario: 'Componenti standard e open source, scelti perché un team piccolo riesca a gestirli.',
+      strumenti: [
+        ['Cluster', 'Amazon EKS, Google GKE, Azure AKS, Scaleway Kapsule'],
+        ['Infrastruttura come codice', 'Terraform e Atmos'],
+        ['Macchine e capacità', 'Karpenter, con macchine scontate dove il carico lo consente'],
+        ['Rilasci', 'Argo CD e Kargo'],
+        ['Segreti e configurazione', 'External Secrets'],
+      ],
+      understudy: {
+        titolo: 'Un esempio del nostro lavoro: Understudy',
+        testo: [
+          'Le macchine cloud più economiche hanno un difetto: il fornitore può riprendersele con poco preavviso. Per questo di solito si tengono due copie di ogni servizio, anche quando ne basterebbe una, e si paga il doppio.',
+          'Understudy è un software open source che abbiamo scritto per evitarlo. Quando una macchina sta per sparire, avvia una copia sostitutiva del servizio, aspetta che sia pronta e solo allora lascia spegnere l’originale.',
+          'L’abbiamo misurato durante un’interruzione reale su AWS: su 764 richieste degli utenti, una è andata persa. Un normale aggiornamento dell’applicazione, senza Understudy, ne perde di più.',
+        ],
+        link: 'Codice e documentazione di Understudy',
+      },
+    },
+    faq: ['team', 'esistente', 'cloud'],
+  },
+  en: {
+    meta: {
+      titolo: 'Kubernetes consulting on AWS, Google Cloud and Azure | mitis',
+      descrizione:
+        'We design, build and fix Kubernetes platforms on EKS, GKE and AKS. Everything as code in your repositories, with training for your team. Fixed price.',
+    },
+    briciola: 'Kubernetes platform',
+    occhiello: 'Kubernetes platform',
+    titolo: 'We build and fix the platform your software runs on.',
+    sommario:
+      'Kubernetes is the system many companies use to run their applications in the cloud. We design it, build it and teach your team to run it.',
+    quando: {
+      titolo: 'People usually call us when',
+      voci: [
+        'You are about to adopt Kubernetes and want to start the right way.',
+        'The cluster exists, but upgrading it is scary and only one person knows it.',
+        'Every new environment or new customer takes weeks of manual work.',
+        'A security review found problems with access and configuration.',
+      ],
+    },
+    cosa: {
+      titolo: 'What we build, in order',
+      passi: [
+        ['We look at what is there', 'We keep what works. What causes problems we replace one piece at a time, starting from the biggest risks, without stopping the service.'],
+        ['Accounts, network and access', 'Separate environments, minimum permissions for people and applications, centralised access that can be revoked in one place.'],
+        ['The cluster', 'Kubernetes managed by the cloud provider, with machines that start when needed and stop when they no longer are.'],
+        ['Monitoring and costs', 'Knowing what is happening and what it costs, with alerts that fire when there is actually something to do.'],
+        ['Handover', 'Documentation, procedures and training. Your team does the first operations with us, then alone.'],
+      ],
+    },
+    resta: {
+      titolo: 'When the work is done',
+      voci: [
+        'A platform in production, described in full as code in your repositories',
+        'Test and production environments, separate and identical',
+        'An upgrade procedure already tried in a test environment',
+        'A team that knows how it works and how to intervene',
+      ],
+    },
+    prezzo: {
+      titolo: 'Timeline and price',
+      testo: [
+        'After a free analysis you get scope, timeline and a fixed price, in writing. The work is measured in weeks.',
+        'If the agreed result does not arrive, the contract provides for a refund.',
+      ],
+    },
+    tecnica: {
+      titolo: 'The tools we use',
+      sommario: 'Standard, open source components, chosen so that a small team can run them.',
+      strumenti: [
+        ['Clusters', 'Amazon EKS, Google GKE, Azure AKS, Scaleway Kapsule'],
+        ['Infrastructure as code', 'Terraform and Atmos'],
+        ['Machines and capacity', 'Karpenter, with discounted machines where the load allows'],
+        ['Releases', 'Argo CD and Kargo'],
+        ['Secrets and configuration', 'External Secrets'],
+      ],
+      understudy: {
+        titolo: 'An example of our work: Understudy',
+        testo: [
+          'The cheapest cloud machines have a flaw: the provider can take them back at short notice. That is why people usually keep two copies of every service, even when one would do, and pay double.',
+          'Understudy is open source software we wrote to avoid that. When a machine is about to disappear, it starts a replacement copy of the service, waits until it is ready, and only then lets the original shut down.',
+          'We measured it during a real interruption on AWS: out of 764 user requests, one was lost. An ordinary application update, without Understudy, loses more.',
+        ],
+        link: 'Understudy code and documentation',
+      },
+    },
+    faq: ['team', 'esistente', 'cloud'],
+  },
+}[l];
+---
+
+<Servizio {...t} tecnica={{ titolo: t.tecnica.titolo, sommario: t.tecnica.sommario }}>
+  <Strati slot="figura" />
+  <dl class="grid gap-x-16 md:grid-cols-2">
+    {
+      t.tecnica.strumenti.map(([cosa, quali]) => (
+        <div class="border-t border-filo py-5">
+          <dt class="text-s text-sottile">{cosa}</dt>
+          <dd class="mt-1 text-l font-medium">{quali}</dd>
+        </div>
+      ))
+    }
+  </dl>
+
+  <div class="mt-20 grid items-start gap-x-16 gap-y-10 lg:grid-cols-[1fr_1.15fr]" id="understudy">
+    <div>
+      <img src="/img/understudy.png" alt="" width="440" height="374" loading="lazy" class="w-40" />
+      <h3 class="mt-6 text-h3">{t.tecnica.understudy.titolo}</h3>
+      <div class="mt-4 space-y-4 text-body text-tenue">
+        {t.tecnica.understudy.testo.map((p) => <p>{p}</p>)}
+      </div>
+      <p class="mt-6">
+        <a href={contatti.understudy} class="freccia">{t.tecnica.understudy.link}</a>
+      </p>
+    </div>
+    <Risultati />
+  </div>
+</Servizio>

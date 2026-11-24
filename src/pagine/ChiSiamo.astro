@@ -1,0 +1,175 @@
+---
+import Base from '../layouts/Base.astro';
+import Testata from '../components/Testata.astro';
+import Sezione from '../components/Sezione.astro';
+import Clienti from '../components/Clienti.astro';
+import { azienda, contatti, persone } from '../dati';
+import { linguaDi, via } from '../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+
+const t = {
+  it: {
+    meta: {
+      titolo: 'Chi siamo: uno studio di ingegneri cloud | mitis',
+      descrizione:
+        'mitis è uno studio di ingegneri cloud. Pochi, esperti, senza reparto commerciale: chi parla con te è chi fa il lavoro. Il nostro codice è pubblico.',
+    },
+    briciola: 'Chi siamo',
+    occhiello: 'Chi siamo',
+    titolo: 'Uno studio di ingegneri cloud.',
+    sommario: 'Pochi, esperti, senza reparto commerciale. Chi parla con te è chi poi fa il lavoro.',
+    studio: {
+      occhiello: 'Lo studio',
+      titolo: 'Come siamo fatti',
+      testo: [
+        'mitis riunisce ingegneri che da anni costruiscono e gestiscono infrastrutture cloud per aziende di prodotto, banche e gruppi editoriali. Lavoriamo insieme perché ci siamo scelti: prima di essere uno studio eravamo colleghi.',
+        'Su ogni progetto lavora un gruppo piccolo, lo stesso dalla prima chiamata alla consegna. Non abbiamo commerciali né figure intermedie: la persona con cui parli conosce il tuo problema perché è quella che lo risolverà.',
+        'Quando un lavoro richiede più persone, chiamiamo ingegneri con cui abbiamo già lavorato, e lo sai prima di firmare.',
+      ],
+      foto: 'Una scrivania con due schermi: su uno c’è del codice.',
+    },
+    nome: {
+      occhiello: 'Il nome',
+      titolo: 'Perché mitis',
+      testo:
+        'In latino mitis vuol dire mite, calmo. È come pensiamo debba essere un’infrastruttura: una cosa di cui nessuno parla, perché fa il suo lavoro. Niente allarmi nel cuore della notte, niente fatture a sorpresa, niente rilasci con il fiato sospeso.',
+    },
+    persone: { occhiello: 'Le persone', titolo: 'Chi lavora in mitis' },
+    clienti: { occhiello: 'Clienti', titolo: 'Con chi abbiamo lavorato' },
+    pubblico: {
+      occhiello: 'Open source',
+      titolo: 'Il nostro lavoro si può leggere',
+      testo:
+        'Una parte del software che usiamo sui progetti l’abbiamo scritta noi e pubblicata con licenza libera. Chiunque può leggerla, usarla e giudicare come lavoriamo prima di parlarci.',
+      link: 'Il nostro open source',
+    },
+    dati: [
+      ['Ragione sociale', 'mitis'],
+      ['Partita IVA', azienda.pIva],
+      ['Email', contatti.email],
+      ['Lingue di lavoro', 'Italiano, inglese'],
+    ],
+    datiTitolo: 'Dati societari',
+  },
+  en: {
+    meta: {
+      titolo: 'About: a studio of cloud engineers | mitis',
+      descrizione:
+        'mitis is a studio of cloud engineers. Few, experienced, no sales department: the person who talks to you is the one doing the work. Our code is public.',
+    },
+    briciola: 'About',
+    occhiello: 'About',
+    titolo: 'A studio of cloud engineers.',
+    sommario: 'Few, experienced, with no sales department. The person who talks to you is the one who then does the work.',
+    studio: {
+      occhiello: 'The studio',
+      titolo: 'How we are set up',
+      testo: [
+        'mitis brings together engineers who have spent years building and running cloud infrastructure for product companies, banks and publishing groups. We work together because we chose each other: before being a studio we were colleagues.',
+        'A small group works on each project, the same one from the first call to the handover. We have no salespeople and no intermediaries: the person you talk to knows your problem because they are the one who will solve it.',
+        'When a job needs more people, we bring in engineers we have already worked with, and you know before you sign.',
+      ],
+      foto: 'A desk with two screens, one of them showing code.',
+    },
+    nome: {
+      occhiello: 'The name',
+      titolo: 'Why mitis',
+      testo:
+        'In Latin, mitis means mild, calm. It is how we think infrastructure should be: something nobody talks about, because it does its job. No alarms in the middle of the night, no surprise invoices, no releases with bated breath.',
+    },
+    persone: { occhiello: 'The people', titolo: 'Who works at mitis' },
+    clienti: { occhiello: 'Clients', titolo: 'Who we have worked with' },
+    pubblico: {
+      occhiello: 'Open source',
+      titolo: 'You can read our work',
+      testo:
+        'Part of the software we use on projects we wrote ourselves and published under a free licence. Anyone can read it, use it and judge how we work before talking to us.',
+      link: 'Our open source',
+    },
+    dati: [
+      ['Company name', 'mitis'],
+      ['VAT number', azienda.pIva],
+      ['Email', contatti.email],
+      ['Working languages', 'Italian, English'],
+    ],
+    datiTitolo: 'Company details',
+  },
+}[l];
+
+const ld = [{ '@type': 'AboutPage', url: new URL(Astro.url.pathname, Astro.site).href }];
+---
+
+<Base titolo={t.meta.titolo} descrizione={t.meta.descrizione} briciola={t.briciola} ld={ld}>
+  <Testata briciola={t.briciola} occhiello={t.occhiello} titolo={t.titolo} sommario={t.sommario} foto="cavi" azione={false} />
+
+  <Sezione occhiello={t.studio.occhiello} titolo={t.studio.titolo}>
+    <div class="grid items-center gap-x-16 gap-y-12 lg:grid-cols-2">
+      <div class="space-y-5 text-l text-tenue">
+        {t.studio.testo.map((p) => <p>{p}</p>)}
+      </div>
+      <img
+        src="/img/postazione.webp"
+        srcset="/img/postazione-1200.webp 1200w, /img/postazione.webp 2400w"
+        sizes="(min-width: 64rem) 36rem, 100vw"
+        alt={t.studio.foto}
+        width="2400"
+        height="1594"
+        loading="lazy"
+        class="aspect-[4/3] w-full rounded-2xl object-cover"
+      />
+    </div>
+  </Sezione>
+
+  {
+    persone.length > 0 && (
+      <Sezione occhiello={t.persone.occhiello} titolo={t.persone.titolo} tono="chiaro">
+        <ul class="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          {persone.map((p) => (
+            <li>
+              {p.foto && <img src={p.foto} alt="" width="640" height="800" loading="lazy" class="aspect-[4/5] w-full rounded-2xl object-cover" />}
+              <p class="mt-5 text-h3">{p.nome}</p>
+              <p class="mt-1 text-body text-tenue">{p.ruolo[l]}</p>
+              {p.link && <p class="mt-2"><a href={p.link} class="link text-s">LinkedIn</a></p>}
+            </li>
+          ))}
+        </ul>
+      </Sezione>
+    )
+  }
+
+  <Sezione occhiello={t.clienti.occhiello} titolo={t.clienti.titolo} tono="chiaro">
+    <Clienti senzaEtichetta />
+  </Sezione>
+
+  <Sezione occhiello={t.nome.occhiello} titolo={t.nome.titolo}>
+    <p class="titolo max-w-[34ch] text-[clamp(1.5rem,1.1rem+1.6vw,2.25rem)] leading-snug">{t.nome.testo}</p>
+  </Sezione>
+
+  <Sezione tono="buio">
+    <div class="grid items-center gap-x-16 gap-y-10 lg:grid-cols-[14rem_1fr]">
+      <img src="/img/understudy.png" alt="" width="440" height="374" loading="lazy" class="w-48" />
+      <div>
+        <p class="etichetta !text-accento">{t.pubblico.occhiello}</p>
+        <h2 class="mt-4 text-h2">{t.pubblico.titolo}</h2>
+        <p class="mt-5 max-w-[56ch] text-l text-tenue">{t.pubblico.testo}</p>
+        <p class="mt-7">
+          <a href={via(l, '/open-source')} class="freccia">{t.pubblico.link}</a>
+        </p>
+      </div>
+    </div>
+  </Sezione>
+
+  <Sezione occhiello={t.datiTitolo}>
+    <dl class="grid gap-x-16 sm:grid-cols-2">
+      {
+        t.dati.map(([k, v]) => (
+          <div class="border-t border-filo py-4">
+            <dt class="text-s text-sottile">{k}</dt>
+            <dd class="mt-0.5 text-l font-medium">{v}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </Sezione>
+</Base>

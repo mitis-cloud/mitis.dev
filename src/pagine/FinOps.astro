@@ -1,0 +1,159 @@
+---
+import Servizio from '../components/Servizio.astro';
+import Risparmio from '../components/figure/Risparmio.astro';
+import { linguaDi } from '../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+
+const t = {
+  it: {
+    meta: {
+      titolo: 'Ridurre i costi cloud su AWS, Google Cloud e Azure | mitis',
+      descrizione:
+        'Troviamo dove finisce la spesa cloud e facciamo noi le modifiche. Un caso reale: fino al 70% in meno in tre settimane. L’analisi iniziale è gratuita.',
+    },
+    briciola: 'Riduzione della spesa cloud',
+    occhiello: 'Riduzione della spesa cloud',
+    titolo: 'Riduciamo la tua fattura AWS, Google Cloud o Azure.',
+    sommario:
+      'Troviamo dove finiscono i soldi e facciamo noi le modifiche. Prima di cominciare sai quanto puoi risparmiare e quanto costa farlo.',
+    quando: {
+      titolo: 'Di solito ci chiamano quando',
+      voci: [
+        'La fattura cresce più in fretta del numero di clienti.',
+        'Nessuno sa dire quanto costa un singolo prodotto, team o cliente.',
+        'Hai già tagliato qualcosa, ma dopo qualche mese la spesa è tornata su.',
+        'Il fornitore propone un impegno pluriennale e non sai se conviene.',
+      ],
+    },
+    cosa: {
+      titolo: 'Cosa facciamo, in ordine',
+      passi: [
+        ['Leggiamo la fattura', 'Ci dai un accesso con cui possiamo guardare ma non modificare, e ricostruiamo dove va ogni euro: quale servizio, quale ambiente, quale team.'],
+        ['Misuriamo l’uso reale', 'Confrontiamo quello che paghi con quello che viene davvero usato: macchine, database, spazio su disco, traffico.'],
+        ['Ti diciamo quanto si può recuperare', 'In due settimane ricevi un rapporto con gli interventi in ordine di importanza, il risparmio stimato per ciascuno e il prezzo per farli.'],
+        ['Facciamo le modifiche', 'Le applichiamo noi, una alla volta, misurando prima e dopo. Il servizio resta in funzione mentre lavoriamo.'],
+        ['Lasciamo i controlli', 'Ogni costo viene attribuito a un team o a un servizio, con soglie e avvisi, così la spesa non risale senza che qualcuno se ne accorga.'],
+      ],
+    },
+    resta: {
+      titolo: 'A lavoro finito',
+      voci: [
+        'Una fattura più bassa, con il confronto prima e dopo',
+        'I costi divisi per team, ambiente e servizio',
+        'Avvisi automatici quando una voce supera la soglia',
+        'Un documento che spiega ogni modifica e come mantenerla',
+      ],
+    },
+    prezzo: {
+      titolo: 'Tempi e prezzo',
+      testo: [
+        'L’analisi è gratuita e dura due settimane.',
+        'Per gli interventi ricevi un prezzo fisso, scritto prima di cominciare. Se dall’analisi emerge che non c’è abbastanza da recuperare, te lo diciamo e ci fermiamo lì.',
+      ],
+    },
+    tecnica: {
+      titolo: 'Dove si risparmia',
+      sommario: 'Gli interventi che facciamo più spesso, con il nome che usano gli addetti ai lavori.',
+      colonne: ['Intervento', 'In gergo', 'Cosa vuol dire'],
+      righe: [
+        ['Macchine e database della misura giusta', 'Right-sizing', 'Si paga per la capacità prenotata, non per quella usata. La riportiamo vicino al consumo reale.'],
+        ['Capacità scontata', 'Spot, preemptible', 'Macchine vendute a prezzo ridotto, che il fornitore può riprendersi con poco preavviso. Le usiamo dove un’interruzione annunciata non crea problemi.'],
+        ['Meno macchine, più piene', 'Consolidamento', 'Le macchine mezze vuote vengono svuotate e spente in automatico.'],
+        ['Dati nel posto giusto', 'Classi di storage', 'I dati letti di rado costano meno se tenuti nello spazio adatto. Quelli vecchi si spostano o si cancellano da soli.'],
+        ['Traffico di rete', 'Egress, traffico tra zone', 'Il traffico che esce dal cloud o passa da una zona all’altra si paga. Lo misuriamo e lo riduciamo dove non serve.'],
+        ['Risorse dimenticate', 'Risorse orfane', 'Dischi, indirizzi e ambienti di prova che nessuno usa più vengono spenti.'],
+        ['Impegni con il fornitore', 'Savings Plans, CUD', 'Gli sconti in cambio di un impegno convengono se calcolati sul consumo dopo l’ottimizzazione, non prima.'],
+        ['Costi attribuiti', 'Showback', 'Ogni voce di spesa ha un team o un servizio che ne risponde.'],
+      ],
+      nota: 'Nel caso bancario che raccontiamo abbiamo usato tutti e otto gli interventi.',
+    },
+    faq: ['settanta', 'rimborso', 'accessi'],
+  },
+  en: {
+    meta: {
+      titolo: 'Cut cloud costs on AWS, Google Cloud and Azure | mitis',
+      descrizione:
+        'We find where your cloud spend goes and make the changes ourselves. A real case: up to 70% less in three weeks. The initial analysis is free.',
+    },
+    briciola: 'Cloud cost reduction',
+    occhiello: 'Cloud cost reduction',
+    titolo: 'We reduce your AWS, Google Cloud or Azure bill.',
+    sommario:
+      'We find where the money goes and make the changes ourselves. Before we start, you know how much you can save and what it costs to do it.',
+    quando: {
+      titolo: 'People usually call us when',
+      voci: [
+        'The invoice grows faster than the number of customers.',
+        'Nobody can say what a single product, team or customer costs.',
+        'You already cut something, but a few months later spend was back up.',
+        'The provider proposes a multi-year commitment and you do not know if it pays off.',
+      ],
+    },
+    cosa: {
+      titolo: 'What we do, in order',
+      passi: [
+        ['We read the invoice', 'You give us access that lets us look but not change anything, and we reconstruct where every euro goes: which service, which environment, which team.'],
+        ['We measure real usage', 'We compare what you pay for with what is actually used: machines, databases, disk space, traffic.'],
+        ['We tell you how much can be recovered', 'Within two weeks you get a report with the interventions in order of importance, the estimated saving for each, and the price to do them.'],
+        ['We make the changes', 'We apply them ourselves, one at a time, measuring before and after. The service keeps running while we work.'],
+        ['We leave the controls in place', 'Every cost is attributed to a team or a service, with thresholds and alerts, so spend does not creep back unnoticed.'],
+      ],
+    },
+    resta: {
+      titolo: 'When the work is done',
+      voci: [
+        'A lower invoice, with the before and after comparison',
+        'Costs split by team, environment and service',
+        'Automatic alerts when a line item crosses its threshold',
+        'A document explaining every change and how to keep it',
+      ],
+    },
+    prezzo: {
+      titolo: 'Timeline and price',
+      testo: [
+        'The analysis is free and takes two weeks.',
+        'For the interventions you get a fixed price, in writing, before we start. If the analysis shows there is not enough to recover, we tell you and stop there.',
+      ],
+    },
+    tecnica: {
+      titolo: 'Where the savings are',
+      sommario: 'The interventions we make most often, with the names practitioners use.',
+      colonne: ['Intervention', 'In jargon', 'What it means'],
+      righe: [
+        ['Right-sized machines and databases', 'Right-sizing', 'You pay for the capacity reserved, not the capacity used. We bring it close to real consumption.'],
+        ['Discounted capacity', 'Spot, preemptible', 'Machines sold at a reduced price, which the provider can take back at short notice. We use them where an announced interruption causes no problem.'],
+        ['Fewer, fuller machines', 'Consolidation', 'Half-empty machines are drained and switched off automatically.'],
+        ['Data in the right place', 'Storage classes', 'Rarely read data costs less when kept in the right tier. Old data moves or deletes itself.'],
+        ['Network traffic', 'Egress, cross-zone traffic', 'Traffic leaving the cloud or crossing zones is billed. We measure it and reduce it where it is not needed.'],
+        ['Forgotten resources', 'Orphaned resources', 'Disks, addresses and test environments nobody uses any more are switched off.'],
+        ['Commitments to the provider', 'Savings Plans, CUDs', 'Discounts in exchange for a commitment pay off when sized on consumption after the optimisation, not before.'],
+        ['Attributed costs', 'Showback', 'Every line item has a team or a service accountable for it.'],
+      ],
+      nota: 'In the banking case we describe, we used all eight.',
+    },
+    faq: ['settanta', 'rimborso', 'accessi'],
+  },
+}[l];
+---
+
+<Servizio {...t} tecnica={{ titolo: t.tecnica.titolo, sommario: t.tecnica.sommario }}>
+  <Risparmio slot="figura" />
+  <table class="w-full text-left">
+    <thead class="max-md:sr-only">
+      <tr>{t.tecnica.colonne.map((c) => <th class="etichetta pb-4 pr-8 font-semibold">{c}</th>)}</tr>
+    </thead>
+    <tbody>
+      {
+        t.tecnica.righe.map(([nome, gergo, cosa]) => (
+          <tr class="border-t border-filo align-baseline max-md:block max-md:py-5">
+            <th scope="row" class="py-5 pr-8 text-body font-semibold max-md:block max-md:py-0 md:w-[30%]">{nome}</th>
+            <td class="py-5 pr-8 font-mono text-nota text-sottile max-md:block max-md:py-1 md:w-[20%]">{gergo}</td>
+            <td class="py-5 text-body text-tenue max-md:block max-md:py-0">{cosa}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+  <p class="mt-8 text-s text-sottile">{t.tecnica.nota}</p>
+</Servizio>

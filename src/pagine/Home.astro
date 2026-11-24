@@ -1,0 +1,376 @@
+---
+import Sezione from '../components/Sezione.astro';
+import Clienti from '../components/Clienti.astro';
+import Domande from '../components/Domande.astro';
+import Risparmio from '../components/figure/Risparmio.astro';
+import Interventi from '../components/figure/Interventi.astro';
+import Strati from '../components/figure/Strati.astro';
+import Percorso from '../components/figure/Percorso.astro';
+import { linguaDi, via } from '../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+
+const t = {
+  it: {
+    occhiello: 'mitis · Studio di consulenza cloud',
+    h1: ['Riduciamo la spesa cloud', 'e sistemiamo l’infrastruttura', 'su cui gira il tuo software.'],
+    sommario:
+      'Siamo uno studio di ingegneri cloud per aziende software da 15 a 200 persone. Lavoriamo nei tuoi account AWS, Google Cloud o Azure e, a lavoro finito, lasciamo tutto in mano al tuo team.',
+    cta: 'Prenota una chiamata',
+    cta2: 'Guarda i risultati',
+    foto: 'Il retro di un server: ventole, griglie e cavi.',
+    prova: {
+      cifra: '−70%',
+      testo: 'Fino al 70% di spesa cloud in meno per un cliente del settore bancario che spendeva 30.000 € al mese. Tre settimane di lavoro.',
+      link: 'Leggi il caso',
+    },
+    condizioni: [
+      ['Analisi iniziale gratuita', 'Prima di decidere sai quanto puoi recuperare e a che prezzo.'],
+      ['Prezzo fisso', 'Scritto prima di cominciare. Se il risultato concordato non arriva, rimborsiamo.'],
+    ],
+    servizi: {
+      occhiello: 'Servizi',
+      titolo: 'Cosa facciamo',
+      sommario: 'Tre lavori, spesso uno dopo l’altro nella stessa azienda. Si possono affidare anche separatamente.',
+      quando: 'Quando serve',
+      ottieni: 'Cosa ottieni',
+      voci: [
+        {
+          nome: 'Riduzione della spesa cloud',
+          href: '/finops',
+          quando: 'La fattura cresce ogni mese e nessuno sa dire con precisione perché.',
+          testo:
+            'Leggiamo la fattura e l’infrastruttura voce per voce, troviamo dove finiscono i soldi e facciamo noi le modifiche: macchine della misura giusta, macchine a prezzo scontato dove si possono usare senza rischi, risorse inutilizzate spente.',
+          punti: [
+            'Una stima del risparmio prima di spendere qualcosa',
+            'Le modifiche le facciamo noi, nei tuoi account',
+            'Ogni costo attribuito a un team o a un servizio',
+          ],
+          link: 'Come riduciamo la spesa',
+        },
+        {
+          nome: 'Piattaforma Kubernetes',
+          href: '/kubernetes',
+          quando: 'Stai adottando Kubernetes, oppure ne hai già uno che nessuno osa aggiornare.',
+          testo:
+            'Kubernetes è il sistema che fa girare le applicazioni nel cloud e le rimette in piedi quando una macchina si guasta. Costruiamo tutto quello che gli serve: account, reti, accessi, monitoraggio. Ogni cosa è descritta in file che restano a te, così ogni modifica è tracciata e il tuo team può leggerla.',
+          punti: [
+            'Una procedura di aggiornamento provata prima in un ambiente di test',
+            'Ambienti di prova e di produzione separati e uguali',
+            'Documentazione e formazione per chi la gestirà',
+          ],
+          link: 'Come costruiamo la piattaforma',
+        },
+        {
+          nome: 'Rilasci e automazione',
+          href: '/devops',
+          quando: 'Il tuo team rilascia di rado, perché ogni rilascio può rompere qualcosa.',
+          testo:
+            'Costruiamo il percorso che porta il codice in produzione. Ogni modifica passa da una revisione, gli ambienti si aggiornano da soli e il passaggio in produzione è un’approvazione. Gli strumenti che il tuo team usa già restano al loro posto.',
+          punti: [
+            'Rilasci che non dipendono da una sola persona',
+            'Lo storico di ogni modifica: chi, cosa, quando',
+            'Ambienti di prova e di produzione sempre allineati',
+          ],
+          link: 'Come automatizziamo i rilasci',
+        },
+      ],
+    },
+    caso: {
+      occhiello: 'Un risultato',
+      cifra: '−70%',
+      fino: 'fino al',
+      titolo: 'di spesa cloud per un cliente del settore bancario, in tre settimane.',
+      testo:
+        'Un sistema cresciuto per anni senza che nessuno ne rivedesse i costi: 30.000 € al mese. Abbiamo ridimensionato macchine e database, spostato quello che si poteva su macchine a prezzo scontato e spento ciò che non serviva. Per gli utenti non è cambiato nulla.',
+      nota: 'Il nome del cliente è coperto da un accordo di riservatezza.',
+      link: 'Leggi come abbiamo fatto',
+    },
+    come: {
+      occhiello: 'Come lavoriamo',
+      titolo: 'Dalla prima chiamata alla consegna',
+      passi: [
+        ['Una chiamata', 'Gratuita', 'Mezz’ora con un ingegnere. Ci racconti la situazione e ti diciamo se possiamo aiutarti.'],
+        ['L’analisi', 'Gratuita', 'Ci dai un accesso con cui possiamo guardare ma non modificare. In due settimane ricevi un rapporto: cosa fare, in che ordine, quanto si può recuperare. È anche il modo in cui prepariamo un preventivo preciso.'],
+        ['Il progetto', 'Prezzo fisso', 'Ambito, tempi e prezzo sono scritti prima di cominciare. Se il risultato concordato non arriva, il contratto prevede il rimborso.'],
+        ['La consegna', 'Inclusa', 'Formiamo il tuo team e lasciamo documentazione e procedure. Da quel momento la piattaforma la gestisci tu.'],
+      ],
+      link: 'Come lavoriamo, nel dettaglio',
+    },
+    studio: {
+      occhiello: 'Chi siamo',
+      titolo: 'Su ogni progetto, poche persone e sempre le stesse.',
+      testo: [
+        'Alla prima chiamata parli con un ingegnere, lo stesso che poi lavora al tuo progetto. Non abbiamo commerciali né figure intermedie.',
+        'Quando un lavoro richiede più persone, sono colleghi con cui abbiamo già lavorato, e lo sai prima di firmare.',
+      ],
+      oss: 'Una parte del software che usiamo l’abbiamo scritta noi ed è pubblica: puoi leggerla prima di parlarci.',
+      ossLink: 'Il nostro open source',
+      foto: 'Una scrivania con due schermi: su uno c’è del codice.',
+      link: 'Conosci lo studio',
+    },
+    faq: { occhiello: 'Domande frequenti', titolo: 'Prima della chiamata' },
+  },
+  en: {
+    occhiello: 'mitis · Cloud consulting studio',
+    h1: ['We cut cloud spend', 'and fix the infrastructure', 'your software runs on.'],
+    sommario:
+      'We are a studio of cloud engineers for software companies of 15 to 200 people. We work in your AWS, Google Cloud or Azure accounts and, when the work is done, leave everything in your team’s hands.',
+    cta: 'Book a call',
+    cta2: 'See the results',
+    foto: 'The back of a server: fans, grilles and cables.',
+    prova: {
+      cifra: '−70%',
+      testo: 'Up to 70% off the cloud bill of a client in the banking sector that was spending €30,000 a month. Three weeks of work.',
+      link: 'Read the case',
+    },
+    condizioni: [
+      ['Free initial analysis', 'Before you decide, you know how much you can recover and at what price.'],
+      ['Fixed price', 'In writing before we start. If the agreed result does not arrive, we refund.'],
+    ],
+    servizi: {
+      occhiello: 'Services',
+      titolo: 'What we do',
+      sommario: 'Three jobs, often one after another in the same company. You can also buy them separately.',
+      quando: 'When you need it',
+      ottieni: 'What you get',
+      voci: [
+        {
+          nome: 'Cloud cost reduction',
+          href: '/finops',
+          quando: 'The invoice grows every month and nobody can say exactly why.',
+          testo:
+            'We read the invoice and the infrastructure line by line, find where the money goes, and make the changes ourselves: right-sized machines, discounted machines where they can be used safely, unused resources switched off.',
+          punti: [
+            'A savings estimate before you spend anything',
+            'We make the changes ourselves, in your accounts',
+            'Every cost attributed to a team or a service',
+          ],
+          link: 'How we reduce spend',
+        },
+        {
+          nome: 'Kubernetes platform',
+          href: '/kubernetes',
+          quando: 'You are adopting Kubernetes, or you already have one that nobody dares upgrade.',
+          testo:
+            'Kubernetes is the system that runs applications in the cloud and brings them back up when a machine fails. We build everything it needs: accounts, networks, access, monitoring. Everything is described in files that stay with you, so every change is tracked and your team can read it.',
+          punti: [
+            'An upgrade procedure tried first in a test environment',
+            'Test and production environments, separate and identical',
+            'Documentation and training for the people who will run it',
+          ],
+          link: 'How we build the platform',
+        },
+        {
+          nome: 'Releases and automation',
+          href: '/devops',
+          quando: 'Your team releases rarely, because every release can break something.',
+          testo:
+            'We build the path that takes code to production. Every change goes through a review, environments update themselves, and going live is one approval. The tools your team already uses stay where they are.',
+          punti: [
+            'Releases that do not depend on one person',
+            'The history of every change: who, what, when',
+            'Test and production environments always in line',
+          ],
+          link: 'How we automate releases',
+        },
+      ],
+    },
+    caso: {
+      occhiello: 'A result',
+      cifra: '−70%',
+      fino: 'up to',
+      titolo: 'off the cloud bill of a client in the banking sector, in three weeks.',
+      testo:
+        'A system that had grown for years with nobody reviewing its costs: €30,000 a month. We resized machines and databases, moved what we could to discounted machines and switched off what was not needed. For users, nothing changed.',
+      nota: 'The client’s name is covered by a confidentiality agreement.',
+      link: 'Read how we did it',
+    },
+    come: {
+      occhiello: 'How we work',
+      titolo: 'From the first call to the handover',
+      passi: [
+        ['A call', 'Free', 'Half an hour with an engineer. You describe the situation and we tell you whether we can help.'],
+        ['The analysis', 'Free', 'You give us access that lets us look but not change anything. Within two weeks you get a report: what to do, in what order, how much can be recovered. It is also how we prepare an accurate quote.'],
+        ['The project', 'Fixed price', 'Scope, timeline and price are written down before we start. If the agreed result does not arrive, the contract provides for a refund.'],
+        ['The handover', 'Included', 'We train your team and leave documentation and procedures. From then on you run the platform.'],
+      ],
+      link: 'How we work, in detail',
+    },
+    studio: {
+      occhiello: 'About',
+      titolo: 'On every project, a few people and always the same ones.',
+      testo: [
+        'On the first call you talk to an engineer, the same one who then works on your project. We have no salespeople and no intermediaries.',
+        'When a job needs more people, they are colleagues we have already worked with, and you know before you sign.',
+      ],
+      oss: 'Part of the software we use we wrote ourselves, and it is public: you can read it before talking to us.',
+      ossLink: 'Our open source',
+      foto: 'A desk with two screens, one of them showing code.',
+      link: 'Meet the studio',
+    },
+    faq: { occhiello: 'Frequently asked', titolo: 'Before the call' },
+  },
+}[l];
+
+const figure = [Interventi, Strati, Percorso];
+---
+
+<section class="buio relative isolate overflow-hidden">
+  <img
+    src="/img/macchina.webp"
+    srcset="/img/macchina-1200.webp 1200w, /img/macchina.webp 2400w"
+    sizes="100vw"
+    alt={t.foto}
+    width="2400"
+    height="1350"
+    fetchpriority="high"
+    class="absolute inset-0 -z-10 h-full w-full object-cover object-[50%_55%] max-md:hidden"
+  />
+  <div class="absolute inset-0 -z-10 bg-linear-to-r from-notte from-30% via-notte/85 via-62% to-notte/10 max-md:hidden"></div>
+  <div class="absolute inset-x-0 top-0 -z-10 h-32 bg-linear-to-b from-notte/70 to-transparent max-md:hidden"></div>
+  <div class="contenitore pt-28 pb-12 md:pt-40 md:pb-24">
+    <h1 class="text-hero">
+      <span class="mb-6 block font-sans text-[0.9375rem] font-semibold tracking-[0.04em] text-white/85">{t.occhiello}</span>
+      {t.h1.map((riga) => <><span class="md:block">{riga}</span>{' '}</>)}
+    </h1>
+    <p class="mt-8 max-w-[46ch] text-l text-white/95">{t.sommario}</p>
+    <div class="mt-9 flex flex-wrap items-center gap-3">
+      <a href={via(l, '/contatti')} class="btn btn-primario">{t.cta}</a>
+      <a href={via(l, '/risultati')} class="btn border-[1.5px] border-white/75 text-white hover:bg-white/10">{t.cta2}</a>
+    </div>
+  </div>
+  <img
+    src="/img/macchina-1200.webp"
+    alt=""
+    width="1200"
+    height="675"
+    class="h-56 w-full object-cover md:hidden"
+  />
+</section>
+
+<section class="buio">
+  <div class="contenitore grid gap-x-16 gap-y-10 py-12 md:grid-cols-[1.05fr_1fr] md:items-center md:py-14">
+    <a href={via(l, '/risultati')} class="group flex flex-wrap items-center gap-x-8 gap-y-3">
+      <span class="titolo text-[clamp(4rem,3rem+4vw,6.5rem)] leading-none text-azione">{t.prova.cifra}</span>
+      <span class="max-w-[30ch] text-body text-tenue">
+        {t.prova.testo}{' '}
+        <span class="freccia mt-2 !flex text-s">{t.prova.link}</span>
+      </span>
+    </a>
+    <dl class="grid gap-y-6 md:border-l md:border-filo md:pl-16">
+      {
+        t.condizioni.map(([nome, testo]) => (
+          <div>
+            <dt class="text-l font-semibold">{nome}</dt>
+            <dd class="mt-1 text-s text-tenue">{testo}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<section class="chiaro border-b border-filo">
+  <div class="contenitore py-10">
+    <Clienti />
+  </div>
+</section>
+
+<Sezione id="servizi" occhiello={t.servizi.occhiello} titolo={t.servizi.titolo} sommario={t.servizi.sommario}>
+  <div>
+    {
+      t.servizi.voci.map((s, i) => {
+        const Figura = figure[i];
+        return (
+          <article class="grid items-start gap-x-16 gap-y-10 border-t border-inchiostro/25 py-14 lg:grid-cols-2 md:py-20">
+            <div>
+              <h3 class="titolo text-[clamp(1.75rem,1.4rem+1.4vw,2.375rem)] leading-[1.1]">{s.nome}</h3>
+              <p class="mt-5 text-l">{s.quando}</p>
+              <p class="mt-4 text-body text-tenue">{s.testo}</p>
+              <ul class="elenco mt-7 space-y-3 text-body">
+                {s.punti.map((p) => <li>{p}</li>)}
+              </ul>
+              <p class="mt-8">
+                <a href={via(l, s.href)} class="freccia">{s.link}</a>
+              </p>
+            </div>
+            <Figura />
+          </article>
+        );
+      })
+    }
+  </div>
+</Sezione>
+
+<Sezione occhiello={t.caso.occhiello} tono="chiaro">
+  <div class="grid items-center gap-x-16 gap-y-12 lg:grid-cols-2">
+    <div>
+      <h2>
+        <span class="titolo block text-[clamp(4.5rem,3rem+6vw,8rem)] leading-[0.9] text-accento">
+          <span class="mr-3 align-middle font-sans text-l font-medium tracking-normal text-tenue">{t.caso.fino}</span>{t.caso.cifra}
+        </span>
+        <span class="mt-5 block max-w-[20ch] text-h2">{t.caso.titolo}</span>
+      </h2>
+      <p class="mt-6 max-w-[52ch] text-body text-tenue">{t.caso.testo}</p>
+      <p class="mt-3 text-s text-sottile">{t.caso.nota}</p>
+      <p class="mt-8">
+        <a href={via(l, '/risultati')} class="freccia">{t.caso.link}</a>
+      </p>
+    </div>
+    <Risparmio />
+  </div>
+</Sezione>
+
+<Sezione occhiello={t.come.occhiello} titolo={t.come.titolo} tono="chiaro">
+  <ol class="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+    {
+      t.come.passi.map(([nome, costo, testo], i) => (
+        <li>
+          <p class="titolo text-[3.5rem] leading-none text-accento">{i + 1}</p>
+          <h3 class="mt-4 font-sans text-l font-semibold">{nome}</h3>
+          <p class="mt-1 text-s font-semibold text-accento">{costo}</p>
+          <p class="mt-3 text-body text-tenue">{testo}</p>
+        </li>
+      ))
+    }
+  </ol>
+  <p class="mt-12">
+    <a href={via(l, '/metodo')} class="freccia">{t.come.link}</a>
+  </p>
+</Sezione>
+
+<Sezione tono="buio">
+  <div class="grid items-center gap-x-16 gap-y-12 lg:grid-cols-2">
+    <div>
+      <p class="etichetta !text-accento">{t.studio.occhiello}</p>
+      <h2 class="mt-4 text-h2">{t.studio.titolo}</h2>
+      <div class="mt-6 space-y-4 text-l text-tenue">
+        {t.studio.testo.map((p) => <p>{p}</p>)}
+      </div>
+      <p class="mt-6 max-w-[48ch] text-body text-tenue">
+        {t.studio.oss}{' '}
+        <a href={via(l, '/open-source')} class="link">{t.studio.ossLink}</a>
+      </p>
+      <p class="mt-8">
+        <a href={via(l, '/chi-siamo')} class="freccia">{t.studio.link}</a>
+      </p>
+    </div>
+    <img
+      src="/img/postazione.webp"
+      srcset="/img/postazione-1200.webp 1200w, /img/postazione.webp 2400w"
+      sizes="(min-width: 64rem) 36rem, 100vw"
+      alt={t.studio.foto}
+      width="2400"
+      height="1594"
+      loading="lazy"
+      class="aspect-[4/3] w-full rounded-2xl object-cover"
+    />
+  </div>
+</Sezione>
+
+<Sezione occhiello={t.faq.occhiello} titolo={t.faq.titolo}>
+  <div class="max-w-[52rem]">
+    <Domande scelte={['costo', 'tempi', 'assumere', 'esistente']} />
+  </div>
+</Sezione>

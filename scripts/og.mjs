@@ -5,8 +5,20 @@ const here = dirname(fileURLToPath(import.meta.url));
 const template = join(here, 'og-template.html');
 
 const varianti = [
-  { file: 'og.png', h1: 'Infrastruttura cloud noiosa. E che costa la metà.', tag: 'consulenza cloud & devops' },
-  { file: 'og-en.png', h1: 'Boring cloud infrastructure. At half the cost.', tag: 'cloud & devops consultancy' },
+  {
+    file: 'og.png',
+    a: 'Riduciamo la spesa cloud',
+    b: 'e sistemiamo l’infrastruttura',
+    c: 'su cui gira il tuo software.',
+    s: 'Studio di consulenza cloud · mitis.dev',
+  },
+  {
+    file: 'og-en.png',
+    a: 'We cut cloud spend',
+    b: 'and fix the infrastructure',
+    c: 'your software runs on.',
+    s: 'Cloud consulting studio · mitis.dev',
+  },
 ];
 
 let chromium;
@@ -30,9 +42,8 @@ const page = await browser.newPage({
 for (const v of varianti) {
   const out = join(here, '..', 'public', v.file);
   await page.goto(`file://${template}`);
-  await page.evaluate(({ h1, tag }) => {
-    document.querySelector('h1').textContent = h1;
-    document.querySelector('.tag').textContent = tag;
+  await page.evaluate((v) => {
+    for (const id of ['a', 'b', 'c', 's']) document.getElementById(id).textContent = v[id];
   }, v);
   await page.evaluate(() => document.fonts.ready);
   await page.screenshot({ path: out });

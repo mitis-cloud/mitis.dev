@@ -1,13 +1,10 @@
 ---
 interface Props {
   class?: string;
-  cursor?: string;
 }
-const { class: className = '', cursor = 'bg-lichene' } = Astro.props;
+const { class: className = '' } = Astro.props;
 ---
 
-<span class:list={['font-display font-bold tracking-tight', className]}
-  >mitis<span
-    class:list={['ml-[0.09em] inline-block h-[0.82em] w-[0.14em] align-[-0.08em]', cursor]}
-    aria-hidden="true"></span></span
+<span class:list={['font-sans font-bold tracking-[-0.04em]', className]}
+  >mitis<span class="ml-[0.1em] inline-block h-[0.8em] w-[0.13em] bg-azione align-[-0.07em]" aria-hidden="true"></span></span
 >

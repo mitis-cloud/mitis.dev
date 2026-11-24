@@ -1,0 +1,50 @@
+---
+import { casoFinOps } from '../../dati';
+import { linguaDi } from '../../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+const caso = casoFinOps[l];
+const t = {
+  it: {
+    titolo: 'Spesa cloud mensile, prima e dopo',
+    prima: 'Prima',
+    dopo: 'Dopo tre settimane',
+    meno: 'fino al 70% in meno',
+    nota: 'Cliente del settore bancario. La barra mostra il risultato massimo ottenuto; il servizio agli utenti è rimasto lo stesso.',
+    alMese: '30.000 € al mese',
+  },
+  en: {
+    titolo: 'Monthly cloud spend, before and after',
+    prima: 'Before',
+    dopo: 'After three weeks',
+    meno: 'up to 70% less',
+    nota: 'A client in the banking sector. The bar shows the maximum result obtained; the service to users stayed the same.',
+    alMese: '€30,000 a month',
+  },
+}[l];
+---
+
+<figure class="rounded-2xl border border-filo bg-superficie p-7 sm:p-9" data-cresce>
+  <figcaption class="etichetta">{t.titolo}</figcaption>
+  <div class="mt-8 space-y-7">
+    <div>
+      <p class="flex items-baseline justify-between gap-4 text-s">
+        <span class="text-tenue">{t.prima}</span>
+        <span class="font-semibold">{t.alMese}</span>
+      </p>
+      <div class="mt-2 h-12 rounded-lg bg-inchiostro/8">
+        <div class="barra h-full w-full rounded-lg bg-inchiostro"></div>
+      </div>
+    </div>
+    <div>
+      <p class="flex items-baseline justify-between gap-4 text-s">
+        <span class="text-tenue">{t.dopo}</span>
+        <span class="font-semibold text-accento">{t.meno}</span>
+      </p>
+      <div class="mt-2 h-12 rounded-lg bg-inchiostro/8">
+        <div class="barra barra-2 h-full w-[30%] rounded-lg bg-accento"></div>
+      </div>
+    </div>
+  </div>
+  <p class="mt-7 text-nota text-sottile">{t.nota}</p>
+</figure>

@@ -1,27 +1,5 @@
 ---
-import Base from '../layouts/Base.astro';
-import Nav from '../components/Nav.astro';
-import Metodo from '../components/Metodo.astro';
-import Velocita from '../components/Velocita.astro';
-import Deliverable from '../components/Deliverable.astro';
-import Percorso from '../components/Percorso.astro';
-import PerChi from '../components/PerChi.astro';
-import CtaFinale from '../components/CtaFinale.astro';
-import Footer from '../components/Footer.astro';
+import Pagina from '../pagine/Metodo.astro';
 ---
 
-<Base
-  titolo="Come lavoriamo | mitis"
-  descrizione="Open source collaudato, AI per adattarlo al tuo contesto, prezzo fisso con esito garantito, handover al tuo team. In produzione in settimane, non mesi."
->
-  <Nav />
-  <main id="contenuto" class="pt-4 md:pt-8">
-    <Metodo h1 />
-    <Velocita />
-    <Deliverable />
-    <Percorso />
-    <PerChi />
-  </main>
-  <CtaFinale />
-  <Footer />
-</Base>
+<Pagina />

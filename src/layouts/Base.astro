@@ -1,10 +1,18 @@
 ---
 import '../styles/global.css';
-import { alternati, linguaDi } from '../i18n';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Cta from '../components/Cta.astro';
+import { alternati, linguaDi, via } from '../i18n';
+import { azienda, contatti } from '../dati';
 
 interface Props {
   titolo?: string;
   descrizione?: string;
+  briciola?: string;
+  ld?: Record<string, unknown>[];
+  cta?: boolean;
+  nudo?: boolean;
 }
 
 const percorso = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -12,56 +20,104 @@ const l = linguaDi(percorso);
 
 const predefiniti = {
   it: {
-    titolo: 'mitis | Infrastruttura cloud noiosa, che costa la metà',
+    titolo: 'mitis | Consulenza cloud: costi, Kubernetes, rilasci',
     descrizione:
-      'Consulenza Cloud e DevOps per scaleup e PMI. Kubernetes, Terraform e FinOps a prezzo fisso: infrastruttura prevedibile, spesa sotto controllo, codice tuo.',
-    ogImageAlt: 'mitis — infrastruttura cloud noiosa, e che costa la metà',
+      'Studio di ingegneri cloud. Riduciamo la spesa su AWS, Google Cloud e Azure, costruiamo piattaforme Kubernetes, automatizziamo i rilasci. A prezzo fisso.',
+    ogImageAlt: 'mitis: consulenza cloud e Kubernetes',
     vaiAlContenuto: 'Vai al contenuto',
-    serviceType: 'Consulenza Cloud e DevOps',
+    serviceType: 'Consulenza cloud e Kubernetes',
     ogLocale: 'it_IT',
     ogImage: '/og.png',
   },
   en: {
-    titolo: 'mitis | Boring cloud infrastructure, at half the cost',
+    titolo: 'mitis | Cloud consulting: costs, Kubernetes, releases',
     descrizione:
-      'Cloud & DevOps consultancy for scaleups and SMBs. Kubernetes, Terraform and FinOps at a fixed price: predictable infrastructure, spend under control, code that stays yours.',
-    ogImageAlt: 'mitis — boring cloud infrastructure, at half the cost',
+      'A studio of cloud engineers. We cut spend on AWS, Google Cloud and Azure, build and fix Kubernetes platforms, and make releases routine. At a fixed price.',
+    ogImageAlt: 'mitis: cloud and Kubernetes consulting',
     vaiAlContenuto: 'Skip to content',
-    serviceType: 'Cloud & DevOps consultancy',
+    serviceType: 'Cloud and Kubernetes consulting',
     ogLocale: 'en_US',
     ogImage: '/og-en.png',
   },
 }[l];
 
+const { briciola, ld = [], cta = true, nudo = false } = Astro.props;
 const title = Astro.props.titolo ?? predefiniti.titolo;
 const description = Astro.props.descrizione ?? predefiniti.descrizione;
+const sito = Astro.site!.href;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const inHome = percorso === '/' || percorso === '/en';
 const ogImage = new URL(predefiniti.ogImage, Astro.site).href;
 const alt = alternati(percorso);
+const home = new URL(via(l, '/'), Astro.site).href;
 
-const jsonLd = {
-  '@context': 'https://schema.org',
+const organizzazione = {
   '@type': 'ProfessionalService',
+  '@id': `${sito}#organizzazione`,
   name: 'mitis',
-  url: Astro.site?.href,
-  description,
+  url: sito,
+  logo: new URL('/marchio.svg', Astro.site).href,
+  image: ogImage,
+  email: contatti.email,
+  vatID: `IT${azienda.pIva}`,
+  description: predefiniti.descrizione,
   serviceType: predefiniti.serviceType,
-  areaServed: { '@type': 'Country', name: l === 'en' ? 'Italy' : 'Italia' },
+  areaServed: [
+    { '@type': 'Country', name: l === 'en' ? 'Italy' : 'Italia' },
+    { '@type': 'Place', name: l === 'en' ? 'European Union' : 'Unione Europea' },
+  ],
   availableLanguage: ['it', 'en'],
   knowsAbout: [
     'Kubernetes',
-    'Terraform',
+    'Amazon EKS',
+    'Google Kubernetes Engine',
+    'Azure Kubernetes Service',
+    'Karpenter',
     'FinOps',
-    'AWS',
-    'Google Cloud',
-    'Microsoft Azure',
+    'Terraform',
     'Atmos',
     'GitOps',
-    l === 'en' ? 'Internal platforms' : 'Piattaforme interne',
+    'Argo CD',
+    'Kargo',
+    'Helm',
+    'Platform engineering',
   ],
-  sameAs: ['https://github.com/mitis-cloud'],
+  sameAs: [contatti.github],
 };
+
+const grafo: Record<string, unknown>[] = [organizzazione];
+if (inHome) {
+  grafo.push({
+    '@type': 'WebSite',
+    '@id': `${sito}#sito`,
+    url: sito,
+    name: 'mitis',
+    inLanguage: l,
+    publisher: { '@id': `${sito}#organizzazione` },
+  });
+} else {
+  grafo.push({
+    '@type': 'WebPage',
+    '@id': `${canonical}#pagina`,
+    url: canonical,
+    name: title,
+    description,
+    inLanguage: l,
+    isPartOf: { '@id': `${sito}#sito` },
+    about: { '@id': `${sito}#organizzazione` },
+  });
+}
+if (briciola) {
+  grafo.push({
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'mitis', item: home },
+      { '@type': 'ListItem', position: 2, name: briciola, item: canonical },
+    ],
+  });
+}
+grafo.push(...ld);
+const jsonLd = { '@context': 'https://schema.org', '@graph': grafo };
 ---
 
 <!doctype html>
@@ -83,7 +139,7 @@ const jsonLd = {
     }
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#0d120f" />
+    <meta name="theme-color" content="#0e1820" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="mitis" />
@@ -97,50 +153,28 @@ const jsonLd = {
     <meta property="og:image:alt" content={predefiniti.ogImageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <link
-      rel="preload"
-      href="/fonts/schibsted-grotesk-v7-latin-800.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/instrument-sans-v4-latin-regular.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/jetbrains-mono-v24-latin-regular.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
+    <link rel="preload" href="/fonts/newsreader-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
 
-    {inHome && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <slot name="head" />
   </head>
   <body>
     <a
       href="#contenuto"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-quadro focus:px-4 focus:py-2 focus:font-mono focus:text-label focus:text-carta"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-md focus:bg-inchiostro focus:px-4 focus:py-2 focus:text-s focus:text-fondo"
     >
       {predefiniti.vaiAlContenuto}
     </a>
-    <slot />
-    <noscript>
-      <style>
-        [data-rivela],
-        [data-rivela-serie] > * {
-          opacity: 1 !important;
-          transform: none !important;
-        }
-      </style>
-    </noscript>
+    <Nav />
+    {nudo && <div class="h-[4.5rem] bg-notte" />}
+    <main id="contenuto">
+      <slot />
+    </main>
+    {cta && <Cta />}
+    <Footer />
     <script>
-      const osservati = document.querySelectorAll('[data-rivela], [data-rivela-serie]');
+      const osservati = document.querySelectorAll('[data-cresce]');
       if ('IntersectionObserver' in window) {
         const io = new IntersectionObserver(
           (voci) => {
@@ -151,12 +185,20 @@ const jsonLd = {
               }
             }
           },
-          { threshold: 0.05, rootMargin: '0px 0px -6% 0px' },
+          { threshold: 0.25 },
         );
         osservati.forEach((el) => io.observe(el));
       } else {
         osservati.forEach((el) => el.classList.add('in'));
       }
+
     </script>
+    <noscript>
+      <style>
+        [data-cresce] .barra {
+          transform: none !important;
+        }
+      </style>
+    </noscript>
   </body>
 </html>

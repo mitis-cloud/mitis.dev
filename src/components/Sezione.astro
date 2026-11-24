@@ -1,0 +1,27 @@
+---
+interface Props {
+  id?: string;
+  occhiello?: string;
+  titolo?: string;
+  sommario?: string;
+  tono?: 'carta' | 'chiaro' | 'buio';
+  class?: string;
+}
+const { id, occhiello, titolo, sommario, tono = 'carta', class: className } = Astro.props;
+const banda = { carta: '', chiaro: 'chiaro', buio: 'buio' }[tono];
+---
+
+<section id={id} class:list={['py-16 md:py-24', banda, className]}>
+  <div class="contenitore">
+    {
+      (occhiello || titolo) && (
+        <header class="mb-10 max-w-[46rem] md:mb-14">
+          {occhiello && <p class="etichetta mb-4 !text-accento">{occhiello}</p>}
+          {titolo && <h2 class="text-h2">{titolo}</h2>}
+          {sommario && <p class="mt-5 text-l text-tenue">{sommario}</p>}
+        </header>
+      )
+    }
+    <slot />
+  </div>
+</section>

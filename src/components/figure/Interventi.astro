@@ -1,0 +1,48 @@
+---
+import { linguaDi } from '../../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+const t = {
+  it: {
+    titolo: 'Dove di solito si trova il risparmio',
+    voci: [
+      ['Macchine e database più grandi del necessario', 'Calcolo'],
+      ['Macchine a prezzo scontato, dove si possono usare', 'Calcolo'],
+      ['Macchine mezze vuote, da accorpare', 'Calcolo'],
+      ['Dati conservati nello spazio sbagliato', 'Archiviazione'],
+      ['Traffico di rete che si paga senza saperlo', 'Rete'],
+      ['Risorse dimenticate e ambienti di prova mai spenti', 'Pulizia'],
+      ['Sconti del fornitore calcolati male', 'Contratti'],
+      ['Costi che nessuno ha in carico', 'Controllo'],
+    ],
+  },
+  en: {
+    titolo: 'Where the savings usually are',
+    voci: [
+      ['Machines and databases larger than needed', 'Compute'],
+      ['Discounted machines, where they can be used', 'Compute'],
+      ['Half-empty machines, to be merged', 'Compute'],
+      ['Data kept in the wrong kind of storage', 'Storage'],
+      ['Network traffic you pay for without knowing', 'Network'],
+      ['Forgotten resources and test environments never switched off', 'Clean-up'],
+      ['Provider discounts sized wrongly', 'Contracts'],
+      ['Costs nobody is accountable for', 'Control'],
+    ],
+  },
+}[l];
+---
+
+<figure class="rounded-2xl border border-filo bg-superficie p-7 sm:p-9">
+  <figcaption class="etichetta">{t.titolo}</figcaption>
+  <ol class="mt-6">
+    {
+      t.voci.map(([nome, ambito], i) => (
+        <li class="flex items-baseline gap-4 border-t border-filo py-3 first:border-0">
+          <span class="w-5 shrink-0 text-s font-semibold text-accento">{i + 1}</span>
+          <span class="grow text-body">{nome}</span>
+          <span class="shrink-0 text-nota text-sottile max-sm:hidden">{ambito}</span>
+        </li>
+      ))
+    }
+  </ol>
+</figure>

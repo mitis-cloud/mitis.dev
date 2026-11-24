@@ -1,0 +1,48 @@
+---
+import { Code } from 'astro:components';
+
+interface Props {
+  codice: string;
+  lang?: 'yaml' | 'bash' | 'hcl';
+  nome?: string;
+}
+const { codice, lang = 'yaml', nome } = Astro.props;
+
+const tema = {
+  name: 'mitis',
+  type: 'dark' as const,
+  colors: { 'editor.background': '#0f1512', 'editor.foreground': '#e3e6df' },
+  tokenColors: [
+    {
+      scope: ['entity.name.tag', 'support.type.property-name', 'keyword', 'entity.name.function'],
+      settings: { foreground: '#53c287' },
+    },
+    { scope: ['string', 'string.unquoted'], settings: { foreground: '#e3e6df' } },
+    { scope: ['constant.numeric', 'constant.language'], settings: { foreground: '#ffffff', fontStyle: 'bold' } },
+    { scope: ['punctuation'], settings: { foreground: '#8a958d' } },
+    { scope: ['comment'], settings: { foreground: '#8a958d', fontStyle: 'italic' } },
+  ],
+};
+---
+
+<div class="codice overflow-hidden rounded-2xl bg-schermo text-schermo-testo">
+  {
+    nome && (
+      <p class="border-b border-schermo-filo px-5 py-3 font-mono text-nota text-schermo-tenue">{nome}</p>
+    )
+  }
+  <Code code={codice} lang={lang} theme={tema} />
+</div>
+
+<style is:global>
+  .codice pre {
+    background-color: transparent !important;
+    padding: 1.125rem 1.25rem;
+    font-size: 0.8125rem;
+    line-height: 1.75;
+    overflow-x: auto;
+  }
+  .codice code {
+    font-family: var(--font-mono);
+  }
+</style>

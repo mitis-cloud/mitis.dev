@@ -1,19 +1,5 @@
 ---
-import Base from '../layouts/Base.astro';
-import Nav from '../components/Nav.astro';
-import OpenSource from '../components/OpenSource.astro';
-import CtaFinale from '../components/CtaFinale.astro';
-import Footer from '../components/Footer.astro';
+import Pagina from '../pagine/OpenSource.astro';
 ---
 
-<Base
-  titolo="Open source: quello che manteniamo | mitis"
-  descrizione="Understudy, l'operator Kubernetes per i workload a replica singola, e cinque moduli Terraform per Kubernetes su Scaleway. Apache 2.0, sul Terraform Registry."
->
-  <Nav />
-  <main id="contenuto" class="pt-4 md:pt-8">
-    <OpenSource h1 />
-  </main>
-  <CtaFinale />
-  <Footer />
-</Base>
+<Pagina />

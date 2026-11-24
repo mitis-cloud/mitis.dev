@@ -1,0 +1,87 @@
+---
+import Codice from '../Codice.astro';
+import { contatti } from '../../dati';
+import { linguaDi } from '../../i18n';
+
+const l = linguaDi(Astro.url.pathname);
+
+const yaml = `name: api
+image:
+  repository: traefik/whoami
+  tag: v1.12.0
+capacity:
+  instances: 2
+  cpu: 100m
+  memory: 64Mi
+availability:
+  zones: 2
+ports:
+  http: 80
+http:
+  exposure: public
+  subdomain: api
+domain: test.example.com
+health:
+  readiness: {http: /, port: http}
+environment:
+  LOG_LEVEL: info
+disruption:
+  surgeBeforeEviction: true`;
+
+const t = {
+  it: {
+    rende: 'Cosa ne ricava la piattaforma',
+    oggetti: [
+      ['Il servizio in funzione', 'image, capacity', 'Due copie, su due zone diverse del data center.'],
+      ['Un indirizzo interno', 'ports', 'Gli altri servizi lo raggiungono per nome.'],
+      ['Un indirizzo pubblico', 'http, domain', 'Sito raggiungibile in HTTPS, con certificato e DNS.'],
+      ['Protezione durante la manutenzione', 'availability', 'Mai più di una copia ferma alla volta.'],
+      ['Protezione dalle interruzioni', 'disruption', 'Una copia sostitutiva pronta prima che l’originale si spenga.'],
+    ],
+    didascalia:
+      'Un estratto dell’esempio pubblico dei nostri modelli. I campi sono controllati: un errore di battitura viene segnalato subito, invece di essere ignorato in silenzio.',
+    fonte: 'Codice e documentazione',
+  },
+  en: {
+    rende: 'What the platform derives from it',
+    oggetti: [
+      ['The running service', 'image, capacity', 'Two copies, in two different zones of the data centre.'],
+      ['An internal address', 'ports', 'Other services reach it by name.'],
+      ['A public address', 'http, domain', 'Reachable over HTTPS, with certificate and DNS.'],
+      ['Protection during maintenance', 'availability', 'Never more than one copy down at a time.'],
+      ['Protection from interruptions', 'disruption', 'A replacement copy ready before the original shuts down.'],
+    ],
+    didascalia:
+      'An excerpt of the public example for our templates. Fields are checked: a typo is reported immediately instead of being silently ignored.',
+    fonte: 'Code and documentation',
+  },
+}[l];
+---
+
+<figure>
+  <div class="grid gap-3 lg:grid-cols-[1fr_1.1fr]">
+    <div class="min-w-0">
+      <Codice codice={yaml} nome="api.yaml" />
+    </div>
+    <div class="rounded-2xl border border-filo bg-superficie">
+      <p class="etichetta border-b border-filo px-5 py-3.5">{t.rende}</p>
+      <ul class="divide-y divide-filo">
+        {
+          t.oggetti.map(([tipo, da, cosa]) => (
+            <li class="px-5 py-3.5">
+              <p class="flex flex-wrap items-baseline justify-between gap-x-4">
+                <span class="text-body font-semibold">{tipo}</span>
+                <span class="font-mono text-nota text-sottile">{da}</span>
+              </p>
+              <p class="mt-1 text-nota text-tenue">{cosa}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+  <figcaption class="mt-4 max-w-[74ch] text-nota text-sottile">
+    {t.didascalia}{' '}
+    <a href={contatti.charts} class="link">{t.fonte}</a>
+  </figcaption>
+</figure>

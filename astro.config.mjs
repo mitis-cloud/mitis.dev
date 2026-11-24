@@ -21,5 +21,7 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  integrations: [sitemap()]
+  devToolbar: { enabled: false },
+
+  integrations: [sitemap()],
 });
